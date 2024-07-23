@@ -4,7 +4,7 @@ const AditionalInfo = () => {
       <h2 className="font-title text-primary text-3xl mb-10">
         Спортивне харчування від Fuel Up
       </h2>
-      <div className="flex">
+      <div className="flex gap-4">
         <div className="w-1/2">
           <p className=" mb-6">
             <b>Що таке спортивне харчування?</b> Спортивне харчування –
@@ -26,7 +26,7 @@ const AditionalInfo = () => {
         </div>
         <div className="w-1/2 flex justify-center">
           <img
-            className="shadow-sm"
+            className="shadow-sm max-w-3/4 h-fit"
             src="/aditional-info.jpg"
             alt="aditional info"
           />

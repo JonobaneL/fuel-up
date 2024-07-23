@@ -6,7 +6,7 @@ const Purposes = () => {
       <h2 className="font-title text-primary text-3xl mb-10">
         Обери свою ціль
       </h2>
-      <div className="flex flex-wrap justify-between gap-y-7">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,_1fr))] justify-items-center gap-x-3 gap-y-7">
         {purposes.map((item, index) => (
           <div key={index} className="group cursor-pointer">
             <img

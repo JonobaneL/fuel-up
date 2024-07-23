@@ -23,7 +23,10 @@ const HomeCarousel = () => {
   }, [api]);
   return (
     <div>
-      <Carousel setApi={setApi} className="w-[70%] h-[38rem] mx-auto">
+      <Carousel
+        setApi={setApi}
+        className="w-[80%] max-w-[1000px] max-h-[38rem] mx-auto"
+      >
         <CarouselContent>
           {carouselData.map((item, index) => (
             <CarouselItem key={index} className="p-1 relative">
@@ -44,7 +47,7 @@ const HomeCarousel = () => {
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="w-full">
+      <div className="w-full mt-5">
         <ul className="mx-auto w-fit flex items-center gap-12 font-title">
           {carouselData.map((item, index) => (
             <li
