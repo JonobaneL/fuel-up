@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const ProductCart = () => {
   return (
-    <div className="max-w-52 flex flex-col gap-1 p-2 hover:shadow-product-cart rounded-sm transition-shadow">
+    <div className="max-w-52 flex flex-col gap-1 p-2 hover:shadow-product-cart rounded-sm transition-shadow cursor-pointer">
       <Image
         src="/product1.jpg"
         alt="product"
