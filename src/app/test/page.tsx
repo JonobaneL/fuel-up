@@ -1,32 +1,45 @@
-import Filters from "@/components/Filters";
-import ProductCart from "@/components/ProductCart";
-import SortSelect from "@/components/SortSelects";
+import ProductBreadcrumb from "@/components/ProductBreadcrumb";
+import ProductInfo from "@/components/ProductInfo";
+import Image from "next/image";
 
 const Test = () => {
   return (
-    <div className="my-14">
-      <h1 className="mb-10">Test page</h1>
-      <section className="flex gap-5">
-        <Filters />
-        <div className="w-full">
-          <div className="mb-10 flex items-center justify-between">
-            <h2 className="font-title text-2xl text-third">Протеїни</h2>
-            <SortSelect />
+    <main className="mb-14 mt-10">
+      <section>
+        <ProductBreadcrumb />
+      </section>
+      <section className="flex gap-12 mt-10">
+        <div className="flex gap-2 w-1/2">
+          <div className="flex flex-col gap-2">
+            <Image
+              src="/product-img1.jpg"
+              alt="product-img"
+              className="size-20 p-1 border border-primary rounded-sm"
+              width={80}
+              height={80}
+            />
+            <Image
+              src="/product-img2.jpg"
+              alt="product-img"
+              className="size-20 p-1 "
+              width={80}
+              height={80}
+            />
           </div>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,_1fr))] gap-3 justify-items-center">
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
+          <div>
+            <Image
+              src="/product-img1.jpg"
+              alt="product-img"
+              width={550}
+              height={550}
+            />
           </div>
         </div>
+        <div className="w-1/2">
+          <ProductInfo />
+        </div>
       </section>
-    </div>
+    </main>
   );
 };
 

@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("flex min-h-dvh flex-col bg-back", inter.className)}>
         <Header />
-        <div className="px-20  flex-1">
+        <div className="px-20 flex-1">
           <div className="max-w-[1440px] w-full mx-auto">{children}</div>
         </div>
         <Footer />
