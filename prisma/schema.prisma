@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Type {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  parent   Type?     @relation("SubTypes", fields: [parentId], references: [id])
+  parentId String?
+  subTypes Type[]    @relation("SubTypes")
+  Product  Product[]
+}
+
+model SpeedType {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  Product Product[]
+}
+
+model Brand {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  Product Product[]
+}
+
+model Flavour {
+  id             String           @id @default(cuid())
+  name           String           @unique
+  ProductFlavour ProductFlavour[]
+}
+
+model Country {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  Product Product[]
+}
+
+model ProductFlavour {
+  id        String   @id @default(cuid())
+  flavour   Flavour  @relation(fields: [flavourId], references: [id])
+  flavourId String
+  price     Float
+  amount    Int
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+}
+
+model ProudctImage {
+  id        String   @id @default(cuid())
+  url       String
+  main      Boolean?
+  Product   Product  @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model Review {
+  id            String   @id @default(cuid())
+  author        String
+  email         String
+  content       String
+  rate          Int
+  advantages    String?
+  disadvantages String?
+  createdAt     DateTime @default(now())
+  Product       Product? @relation(fields: [productId], references: [id])
+  productId     String?
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  name        String
+  brand       Brand            @relation(fields: [brandId], references: [id])
+  brandId     String
+  type        Type             @relation(fields: [typeId], references: [id])
+  typeId      String
+  speedType   SpeedType?       @relation(fields: [speedTypeId], references: [id])
+  speedTypeId String
+  country     Country          @relation(fields: [countryId], references: [id])
+  countryId   String
+  description String
+  flavours    ProductFlavour[]
+  images      ProudctImage[]
+  reviews     Review[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}

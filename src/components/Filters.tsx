@@ -10,8 +10,12 @@ import {
 } from "./ui/accordion";
 import CheckboxList from "./ui/CheckboxList";
 import { Input } from "./ui/input";
+import TypeFilters from "./TypeFilters";
 
-const Filters = () => {
+type FiltersProps = {
+  slug: string;
+};
+const Filters = ({ slug }: FiltersProps) => {
   const activeFilters = ["Allnutrition", "Білий шоколад", "США"];
   return (
     <div className="w-[260px] h-full flex-cover">
@@ -30,14 +34,7 @@ const Filters = () => {
         </div>
       </div>
       <Accordion type="multiple" defaultValue={["price"]}>
-        <AccordionItem value="type">
-          <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
-            Тип
-          </AccordionTrigger>
-          <AccordionContent className="px-2  max-h-[25rem] overflow-auto">
-            <CheckboxList data={type} maxLimit={100} />
-          </AccordionContent>
-        </AccordionItem>
+        <TypeFilters slug={slug} />
         <AccordionItem value="speedType">
           <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
             Тип по швидкодії
