@@ -6,9 +6,14 @@ import { Label } from "./label";
 type ListProps = {
   data: string[];
   maxLimit: number;
+  callback?: (value: any) => void;
 };
 
-const CheckboxList = ({ data, maxLimit }: ListProps) => {
+const CheckboxList = ({
+  data,
+  maxLimit,
+  callback = (value) => {},
+}: ListProps) => {
   const [limit, setLimit] = useState(maxLimit);
   const limitHandler = () => {
     limit == data.length ? setLimit(maxLimit) : setLimit(data.length);
@@ -19,7 +24,10 @@ const CheckboxList = ({ data, maxLimit }: ListProps) => {
         (item, index) =>
           index <= limit && (
             <Label key={index} className="flex items-center gap-2 w-fit">
-              <Checkbox className="size-5" />
+              <Checkbox
+                className="size-5"
+                onCheckedChange={() => callback(item)}
+              />
               {item}
             </Label>
           )

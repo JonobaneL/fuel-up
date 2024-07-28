@@ -21,7 +21,10 @@ const TypeFilters = async ({ slug }: FiltersProps) => {
       <AccordionContent className="px-2  max-h-[25rem] overflow-auto">
         <ul>
           {type?.subTypes.map((item) => (
-            <li key={item.id}>
+            <li
+              key={item.id}
+              className="text-sm font-medium py-1.5 hover:text-primary transition-all "
+            >
               <Link href={`/${item.slug}`}>{item.name}</Link>
             </li>
           ))}

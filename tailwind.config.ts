@@ -80,9 +80,13 @@ const config = {
       boxShadow: {
         "header-shadow": "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
         "product-cart": "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
+        "nav-shadow": " -3px 0px 3px rgba(0,0,0,0.2);",
       },
       flex: {
         cover: "1 0 auto",
+      },
+      maxWidth: {
+        "screen-width": "1440px",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
