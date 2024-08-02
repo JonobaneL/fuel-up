@@ -1,21 +1,19 @@
 "use client";
-import { flavours } from "@/data/filters";
+import { useQueryParams } from "@/hooks/useQueryParams";
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import { Input } from "./ui/input";
 import CheckboxList from "./ui/CheckboxList";
-import { useQueryParams } from "@/hooks/useQueryParams";
 import { ParamProps } from "@/models/paramsTypes";
 
 type FilterProps = {
   data: ParamProps[];
 };
 
-const FlavourFilter = ({ data }: FilterProps) => {
-  const [filter, setFilter] = useQueryParams("flavour");
+const SpeedTypesFilter = ({ data }: FilterProps) => {
+  const [filter, setFilter] = useQueryParams("speed_type");
   const handler = (value: string) => {
     setFilter((p) => {
       if (p.includes(value)) return p.filter((item) => item != value);
@@ -23,14 +21,14 @@ const FlavourFilter = ({ data }: FilterProps) => {
     });
   };
   return (
-    <AccordionItem value="flavor">
+    <AccordionItem value="speedType">
       <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
-        Смак
+        Тип по швидкодії
       </AccordionTrigger>
-      <AccordionContent className="px-2 space-y-3 max-h-[24rem] overflow-auto">
+      <AccordionContent className="px-2">
         <CheckboxList
           data={data}
-          maxLimit={15}
+          maxLimit={100}
           checked={filter}
           callback={handler}
         />
@@ -39,4 +37,4 @@ const FlavourFilter = ({ data }: FilterProps) => {
   );
 };
 
-export default FlavourFilter;
+export default SpeedTypesFilter;

@@ -35,7 +35,7 @@ const Nav = ({ categories, closeHandler }: NavProps) => {
           {subCategories?.map((item) => (
             <li
               key={item.id}
-              className="h-9 w-1/3 flex justify-between items-center cursor-pointer hover:bg-gray-100 px-6 py-1 rounded-sm"
+              className="h-9 w-1/2 flex justify-between items-center cursor-pointer hover:bg-gray-100 px-6 py-1 rounded-sm"
             >
               <Link href={`/${item.slug}`} onClick={closeHandler}>
                 {item.name}

@@ -2,16 +2,19 @@
 import { useState } from "react";
 import { Checkbox } from "./checkbox";
 import { Label } from "./label";
+import { ParamProps } from "@/models/paramsTypes";
 
 type ListProps = {
-  data: string[];
-  maxLimit: number;
+  data: ParamProps[];
+  maxLimit?: number;
+  checked?: string[];
   callback?: (value: any) => void;
 };
 
 const CheckboxList = ({
   data,
-  maxLimit,
+  maxLimit = 100,
+  checked = [],
   callback = (value) => {},
 }: ListProps) => {
   const [limit, setLimit] = useState(maxLimit);
@@ -23,12 +26,16 @@ const CheckboxList = ({
       {data.map(
         (item, index) =>
           index <= limit && (
-            <Label key={index} className="flex items-center gap-2 w-fit">
+            <Label
+              key={item?.id}
+              className="flex items-center gap-2 w-fit cursor-pointer leading-2"
+            >
               <Checkbox
                 className="size-5"
-                onCheckedChange={() => callback(item)}
+                checked={checked.includes(item.slug)}
+                onCheckedChange={() => callback(item.slug)}
               />
-              {item}
+              {item.name}
             </Label>
           )
       )}

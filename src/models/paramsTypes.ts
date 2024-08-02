@@ -11,3 +11,14 @@ export type CategoryWithSub = {
   parentId: string | null;
   subTypes: Category[];
 };
+export type ParamProps = {
+  id: string;
+  name: string;
+  slug: string;
+};
+export type SearchParams = {
+  speed_type: string;
+  brand: string;
+  flavour: string;
+  country: string;
+};

@@ -12,8 +12,6 @@ export const getMainTypes = () => {
   });
 };
 export const getType = (type_slug: string) => {
-  // if (type_slug == "products")
-  //   return new Promise((res, rej) => res({ name: "Товари", subTypes: [] }));
   return prisma.type.findUnique({
     where: {
       slug: type_slug,
@@ -22,4 +20,16 @@ export const getType = (type_slug: string) => {
       subTypes: true,
     },
   });
+};
+export const getAllSpeedTypes = () => {
+  return prisma.speedType.findMany();
+};
+export const getAllBrands = () => {
+  return prisma.brand.findMany();
+};
+export const getAllFlavours = () => {
+  return prisma.flavour.findMany();
+};
+export const getCountries = () => {
+  return prisma.country.findMany();
 };

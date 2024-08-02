@@ -1,11 +1,16 @@
 import Filters from "@/components/Filters";
 import ProductCart from "@/components/ProductCart";
 import SortSelect from "@/components/SortSelects";
+import { SearchParams } from "@/models/paramsTypes";
 import { getType } from "@/requests/params";
 import { getProducts } from "@/requests/products";
 
-type ProductsProps = { params: { product: string } };
-const Products = async ({ params }: ProductsProps) => {
+type ProductsProps = {
+  params: { product: string };
+  searchParams: SearchParams;
+};
+const Products = async ({ params, searchParams }: ProductsProps) => {
+  console.log(searchParams);
   const type = await getType(params.product);
   const products = await getProducts(params.product);
   return (
@@ -19,7 +24,7 @@ const Products = async ({ params }: ProductsProps) => {
           </div>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,_1fr))] gap-3 justify-items-center">
             {products.map((item) => (
-              <ProductCart product={item} />
+              <ProductCart key={item.id} product={item} />
             ))}
           </div>
         </div>

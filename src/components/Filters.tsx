@@ -12,11 +12,19 @@ import CheckboxList from "./ui/CheckboxList";
 import { Input } from "./ui/input";
 import TypeFilters from "./TypeFilters";
 import ActiveFilters from "./ActiveFilters";
+import {
+  getAllBrands,
+  getAllFlavours,
+  getAllSpeedTypes,
+  getCountries,
+} from "@/requests/params";
+import BrandsFilter from "./BrandsFilter";
+import SpeedTypesFilter from "./SpeedTypesFilter";
 
 type FiltersProps = {
   slug: string;
 };
-const Filters = ({ slug }: FiltersProps) => {
+const Filters = async ({ slug }: FiltersProps) => {
   // const filters = [
   //   {
   //     id: "speed_type",
@@ -24,30 +32,17 @@ const Filters = ({ slug }: FiltersProps) => {
   //     content: speedType,
   //   },
   // ];
-
+  const speed_types = await getAllSpeedTypes();
+  const flavours = await getAllFlavours();
+  const countries = await getCountries();
   return (
     <div className="w-[260px] h-full flex-cover">
       <ActiveFilters />
       <Accordion type="multiple" defaultValue={["price"]}>
         <TypeFilters slug={slug} />
-        <AccordionItem value="speedType">
-          <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
-            Тип по швидкодії
-          </AccordionTrigger>
-          <AccordionContent className="px-2">
-            <CheckboxList data={speedType} maxLimit={100} />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="brands">
-          <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
-            Бренди
-          </AccordionTrigger>
-          <AccordionContent className="px-2 max-h-[25rem] overflow-auto">
-            <Input className="mt-1 mb-4" placeholder="Пошук бренду" />
-            <CheckboxList data={brands} maxLimit={15} />
-          </AccordionContent>
-        </AccordionItem>
-        <FlavourFilter />
+        <SpeedTypesFilter data={speed_types} />
+        <BrandsFilter />
+        <FlavourFilter data={flavours} />
         <AccordionItem value="price">
           <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
             Ціна
@@ -56,7 +51,7 @@ const Filters = ({ slug }: FiltersProps) => {
             <PriceFilter />
           </AccordionContent>
         </AccordionItem>
-        <CountryFilter />
+        <CountryFilter data={countries} />
       </Accordion>
     </div>
   );

@@ -2,9 +2,9 @@ import { Prisma, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const speedTypesSeed: Prisma.SpeedTypeCreateInput[] = [
-  { name: "Комплексний протеїн" },
-  { name: "Повільний протеїн" },
-  { name: "Швидкий протеїн" },
+  { name: "Комплексний протеїн", slug: "kompleksnij-proteyin" },
+  { name: "Повільний протеїн", slug: "povilnij-proteyin" },
+  { name: "Швидкий протеїн", slug: "shvidkij-proteyin" },
 ];
 
 const typesSeed: Prisma.TypeCreateInput[] = [
@@ -188,81 +188,313 @@ const typesSeed: Prisma.TypeCreateInput[] = [
       },
     },
   },
+  {
+    name: "Вітамін A",
+    slug: "vitamin-a",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Вітаміни та добавки",
+          slug: "vitamini-ta-dobavki",
+        },
+        where: {
+          slug: "vitamini-ta-dobavki",
+        },
+      },
+    },
+  },
+  {
+    name: "Вітамін B ",
+    slug: "vitamin-b",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Вітаміни та добавки",
+          slug: "vitamini-ta-dobavki",
+        },
+        where: {
+          slug: "vitamini-ta-dobavki",
+        },
+      },
+    },
+  },
+  {
+    name: "Вітамін B-12",
+    slug: "vitamin-b-12",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Вітаміни та добавки",
+          slug: "vitamini-ta-dobavki",
+        },
+        where: {
+          slug: "vitamini-ta-dobavki",
+        },
+      },
+    },
+  },
+  {
+    name: "Вітамін C",
+    slug: "vitamin-c",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Вітаміни та добавки",
+          slug: "vitamini-ta-dobavki",
+        },
+        where: {
+          slug: "vitamini-ta-dobavki",
+        },
+      },
+    },
+  },
+  {
+    name: "Вітамін D",
+    slug: "vitamin-d",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Вітаміни та добавки",
+          slug: "vitamini-ta-dobavki",
+        },
+        where: {
+          slug: "vitamini-ta-dobavki",
+        },
+      },
+    },
+  },
+  {
+    name: "Вітамін E",
+    slug: "vitamin-e",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Вітаміни та добавки",
+          slug: "vitamini-ta-dobavki",
+        },
+        where: {
+          slug: "vitamini-ta-dobavki",
+        },
+      },
+    },
+  },
+  {
+    name: "Вітамін К",
+    slug: "vitamin-k",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Вітаміни та добавки",
+          slug: "vitamini-ta-dobavki",
+        },
+        where: {
+          slug: "vitamini-ta-dobavki",
+        },
+      },
+    },
+  },
+  {
+    name: "Високо білкові",
+    slug: "visoko-bilkovi-gejneri",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Гейнери",
+          slug: "gejneri",
+        },
+        where: {
+          slug: "gejneri",
+        },
+      },
+    },
+  },
+  {
+    name: "Високо вуглеводні",
+    slug: "visoko-vuglevodni-gejneri",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Гейнери",
+          slug: "gejneri",
+        },
+        where: {
+          slug: "gejneri",
+        },
+      },
+    },
+  },
+  {
+    name: "Амінокислотні комплекси",
+    slug: "aminokislotni-kompleksi",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Амінокислоти",
+          slug: "aminokisloti",
+        },
+        where: {
+          slug: "aminokisloti",
+        },
+      },
+    },
+  },
+  {
+    name: "Аргінін",
+    slug: "arginin",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Амінокислоти",
+          slug: "aminokisloti",
+        },
+        where: {
+          slug: "aminokisloti",
+        },
+      },
+    },
+  },
+  {
+    name: "Бета Аланін",
+    slug: "beta-alanin",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Амінокислоти",
+          slug: "aminokisloti",
+        },
+        where: {
+          slug: "aminokisloti",
+        },
+      },
+    },
+  },
+  {
+    name: "Глицин",
+    slug: "glicin",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Амінокислоти",
+          slug: "aminokisloti",
+        },
+        where: {
+          slug: "aminokisloti",
+        },
+      },
+    },
+  },
+  {
+    name: "Глютамін",
+    slug: "glyutamin",
+    parent: {
+      connectOrCreate: {
+        create: {
+          name: "Амінокислоти",
+          slug: "aminokisloti",
+        },
+        where: {
+          slug: "aminokisloti",
+        },
+      },
+    },
+  },
+  {
+    name: "Креатин",
+    slug: "kreatin",
+  },
+  {
+    name: "Жироспалювачі",
+    slug: "zhirospalyuvachi",
+  },
+  {
+    name: "Для звязок і суглобів",
+    slug: "dlya-zvyazok-i-suglobiv",
+  },
+  {
+    name: "Шейкери",
+    slug: "shejkeri",
+  },
 ];
 
 const brandsSeed: Prisma.BrandCreateInput[] = [
-  { name: "Activlab" },
-  { name: "Allnutrition" },
-  { name: "Biotech USA Nutrition" },
-  { name: "BSN" },
-  { name: "Dorian Yates Nutrition" },
-  { name: "Dymatize Nutrition" },
-  { name: "Fit Max" },
-  { name: "Mars Chocolate Drinks and Treats" },
-  { name: "Mex Nutrition" },
-  { name: "Mutant" },
-  { name: "MyProtein" },
-  { name: "NOW Foods" },
-  { name: "Nutrend" },
-  { name: "Olimp Labs" },
-  { name: "Optimum Nutrition" },
-  { name: "Ostrovit" },
-  { name: "Rule One Proteins" },
-  { name: "Scitec Nutrition" },
-  { name: "Syntrax" },
-  { name: "Ultimate Nutrition" },
-  { name: "VP Lab Nutrition" },
-  { name: "Weider" },
-  { name: "Xtend" },
-  { name: "Biogenix Nutrition" },
-  { name: "Blastex Nutrition" },
-  { name: "BPI Sports" },
-  { name: "Buchach" },
-  { name: "Bulk Powders" },
-  { name: "Cellucor" },
-  { name: "Extrifit" },
-  { name: "Fitness Authority" },
-  { name: "Full Force" },
-  { name: "Gaspari Nutrition" },
-  { name: "Inner Armour Sports Nutrition" },
-  { name: "INSANE LABZ" },
-  { name: "IronMaxx" },
-  { name: "Jay Cutler" },
-  { name: "Kevin Levrone" },
-  { name: "Labrada" },
-  { name: "Mammut Nutrition" },
-  { name: "Mass Fitness" },
-  { name: "Maxler" },
-  { name: "Multipower" },
-  { name: "Muscle Gauge Nutrition" },
-  { name: "Muscle Pharm" },
-  { name: "MuscleTech" },
-  { name: "Nex Pro Nutrition" },
-  { name: "NutraBolics" },
-  { name: "Nutrex Research" },
-  { name: "Nutricore" },
-  { name: "PharmaFreak" },
-  { name: "Prosupps" },
-  { name: "Protein Factory" },
-  { name: "Pure Gold Protein" },
-  { name: "Puritan's Pride" },
-  { name: "Fit Foods" },
-  { name: "UNS" },
-  { name: "USN" },
-  { name: "Warrior" },
+  { name: "Activlab", slug: "activlab" },
+  { name: "Allnutrition", slug: "allnutrition" },
+  { name: "Biotech USA Nutrition", slug: "biotech-usa-nutrition" },
+  { name: "BSN", slug: "bsn" },
+  { name: "Dorian Yates Nutrition", slug: "dorian-yates-nutrition" },
+  { name: "Dymatize Nutrition", slug: "dymatize-nutrition" },
+  { name: "Fit Max", slug: "fit-max" },
+  {
+    name: "Mars Chocolate Drinks and Treats",
+    slug: "mars-chocolate-drinks-and-treats",
+  },
+  { name: "Mex Nutrition", slug: "mex-nutrition" },
+  { name: "Mutant", slug: "mutant" },
+  { name: "MyProtein", slug: "myprotein" },
+  { name: "NOW Foods", slug: "now-foods" },
+  { name: "Nutrend", slug: "nutrend" },
+  { name: "Olimp Labs", slug: "olimp-labs" },
+  { name: "Optimum Nutrition", slug: "optimum-nutrition" },
+  { name: "Ostrovit", slug: "ostrovit" },
+  { name: "Rule One Proteins", slug: "rule-one-proteins" },
+  { name: "Scitec Nutrition", slug: "scitec-nutrition" },
+  { name: "Syntrax", slug: "syntrax" },
+  { name: "Ultimate Nutrition", slug: "ultimate-nutrition" },
+  { name: "VP Lab Nutrition", slug: "vp-lab-nutrition" },
+  { name: "Weider", slug: "weider" },
+  { name: "Xtend", slug: "xtend" },
+  { name: "Biogenix Nutrition", slug: "biogenix-nutrition" },
+  { name: "Blastex Nutrition", slug: "blastex-nutrition" },
+  { name: "BPI Sports", slug: "bpi-sports" },
+  { name: "Buchach", slug: "buchach" },
+  { name: "Bulk Powders", slug: "bulk-powders" },
+  { name: "Cellucor", slug: "cellucor" },
+  { name: "Extrifit", slug: "extrifit" },
+  { name: "Fitness Authority", slug: "sl" },
+  { name: "Full Force", slug: "full-force" },
+  { name: "Gaspari Nutrition", slug: "gaspari-nutrition" },
+  {
+    name: "Inner Armour Sports Nutrition",
+    slug: "inner-armour-sports-nutrition",
+  },
+  { name: "INSANE LABZ", slug: "insane-labz" },
+  { name: "IronMaxx", slug: "ironmaxx" },
+  { name: "Jay Cutler", slug: "jay-cutler" },
+  { name: "Kevin Levrone", slug: "kevin-levrone" },
+  { name: "Labrada", slug: "labrada" },
+  { name: "Mammut Nutrition", slug: "mammut-nutrition" },
+  { name: "Mass Fitness", slug: "mass-fitness" },
+  { name: "Maxler", slug: "maxler" },
+  { name: "Multipower", slug: "multipower" },
+  { name: "Muscle Gauge Nutrition", slug: "muscle-gauge-nutrition" },
+  { name: "Muscle Pharm", slug: "muscle-pharm" },
+  { name: "MuscleTech", slug: "muscletech" },
+  { name: "Nex Pro Nutrition", slug: "nex-pro-nutrition" },
+  { name: "NutraBolics", slug: "nutrabolics" },
+  { name: "Nutrex Research", slug: "nutrex-research" },
+  { name: "Nutricore", slug: "nutricore" },
+  { name: "PharmaFreak", slug: "pharmafreak" },
+  { name: "Prosupps", slug: "prosupps" },
+  { name: "Protein Factory", slug: "protein-factory" },
+  { name: "Pure Gold Protein", slug: "pure-gold-protein" },
+  { name: "Puritan's Pride", slug: "puritans-pride" },
+  { name: "Fit Foods", slug: "fit-foods" },
+  { name: "UNS", slug: "uns" },
+  { name: "USN", slug: "usn" },
+  { name: "Warrior", slug: "warrior" },
 ];
 
 const countriesSeed: Prisma.CountryCreateInput[] = [
-  { name: "Ірландія" },
-  { name: "Англія" },
-  { name: "Бельгія" },
-  { name: "Канада" },
-  { name: "Німеччина" },
-  { name: "Польща" },
-  { name: "США" },
-  { name: "Угорщина" },
-  { name: "Україна" },
-  { name: "Чехія" },
+  { name: "Ірландія", slug: "ireland" },
+  { name: "Англія", slug: "england" },
+  { name: "Бельгія", slug: "belgium" },
+  { name: "Канада", slug: "canada" },
+  { name: "Німеччина", slug: "germany" },
+  { name: "Польща", slug: "poland" },
+  { name: "США", slug: "usa" },
+  { name: "Угорщина", slug: "hungary" },
+  { name: "Україна", slug: "ukraine" },
+  { name: "Чехія", slug: "czech-republic" },
 ];
 
 const productsSeed: Prisma.ProductCreateInput[] = [
@@ -288,21 +520,17 @@ const productsSeed: Prisma.ProductCreateInput[] = [
       connect: { name: "США" },
     },
     flavours: {
-      connectOrCreate: {
-        where: {
-          id: "clz2j6i760001iw75pbyf1rrt",
-        },
-        create: {
-          amount: 10,
-          price: 2469,
-          flavour: {
-            connectOrCreate: {
-              create: {
-                name: "Ваніль",
-              },
-              where: {
-                name: "Ваніль",
-              },
+      create: {
+        amount: 10,
+        price: 2469,
+        flavour: {
+          connectOrCreate: {
+            create: {
+              name: "Ваніль",
+              slug: "vanilla",
+            },
+            where: {
+              name: "Ваніль",
             },
           },
         },
@@ -331,21 +559,17 @@ const productsSeed: Prisma.ProductCreateInput[] = [
       connect: { name: "Угорщина" },
     },
     flavours: {
-      connectOrCreate: {
-        where: {
-          id: "clz2j6i760001iw75pbyf1rrtclz2j6i870004iw75e8lepgee",
-        },
-        create: {
-          amount: 10,
-          price: 1999,
-          flavour: {
-            connectOrCreate: {
-              create: {
-                name: "Фісташка",
-              },
-              where: {
-                name: "Фісташка",
-              },
+      create: {
+        amount: 10,
+        price: 1999,
+        flavour: {
+          connectOrCreate: {
+            create: {
+              name: "Фісташка",
+              slug: "pistachio",
+            },
+            where: {
+              name: "Фісташка",
             },
           },
         },
@@ -353,42 +577,30 @@ const productsSeed: Prisma.ProductCreateInput[] = [
     },
   },
 ];
-const addTypes: Prisma.TypeCreateInput[] = [
-  { name: "Вітамін A", slug: "vitamin-a" },
-  { name: "Вітамін B ", slug: "vitamin-b" },
-  { name: "Вітамін B-12", slug: "vitamin-b-12" },
-  { name: "Вітамін C", slug: "vitamin-c" },
-  { name: "Вітамін D", slug: "vitamin-d" },
-  { name: "Вітамін E", slug: "vitamin-e" },
-  { name: "Вітамін К", slug: "vitamin-k" },
-];
+
 async function main() {
   console.log("Start seeding...");
-  //   for (let item of speedTypesSeed) {
-  //     await prisma.speedType.create({
-  //       data: item,
-  //     });
-  //   }
-  //   for (let item of typesSeed) {
-  //     await prisma.type.create({
-  //       data: item,
-  //     });
-  //   }
-  //   for (let item of brandsSeed) {
-  //     await prisma.brand.create({
-  //       data: item,
-  //     });
-  //   }
-  // for (let item of countriesSeed) {
-  //   await prisma.country.create({
+  // for (let item of speedTypesSeed) {
+  //   await prisma.speedType.create({
   //     data: item,
   //   });
   // }
-  for (let item of addTypes) {
-    await prisma.type.create({
+  // for (let item of typesSeed) {
+  //   await prisma.type.create({
+  //     data: item,
+  //   });
+  // }
+  // for (let item of brandsSeed) {
+  //   await prisma.brand.create({
+  //     data: item,
+  //   });
+  // }
+  for (let item of productsSeed) {
+    await prisma.product.create({
       data: item,
     });
   }
+
   console.log("Seeding finished");
 }
 main()

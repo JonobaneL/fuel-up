@@ -16,7 +16,6 @@ type ProductProps = {
   };
 };
 const ProductCart = ({ product }: ProductProps) => {
-  console.log(product.images);
   const product_img = product.images[0].url;
   return (
     <div className="max-w-52 w-full h-fit flex flex-col gap-1 p-2 hover:shadow-product-cart rounded-sm transition-shadow cursor-pointer">

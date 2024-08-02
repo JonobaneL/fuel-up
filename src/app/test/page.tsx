@@ -1,24 +1,22 @@
 "use client";
+import { Button } from "@/components/ui/button";
 // import ProductBreadcrumb from "@/components/ProductBreadcrumb";
 // import ProductInfo from "@/components/ProductInfo";
 import CheckboxList from "@/components/ui/CheckboxList";
+import { useLatest } from "@/hooks/useLatest";
+import { useQueryParams } from "@/hooks/useQueryParams";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 // import Image from "next/image";
 
 const Test = () => {
+  console.log("render");
+
   const test_arr = ["value 1", "value 2", "value 3"];
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState<string[]>([]);
+  const [test, setTest] = useQueryParams("arr");
+  // console.log("check search params = ", test);
   const handler = (value: unknown) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("name", value as string);
-    console.log(params.toString());
-
-    router.push(`${pathname}?${params.toString()}`);
     // const name = searchParams.get("name");
     // console.log("check", name);
     // setFilters((p) => {
@@ -27,7 +25,7 @@ const Test = () => {
     //   return [...p, value as string];
     // });
   };
-  console.log(filters);
+  // console.log(filters);
   return (
     <main className="mb-14 mt-10">
       <CheckboxList
@@ -35,6 +33,13 @@ const Test = () => {
         maxLimit={100}
         callback={(value) => handler(value)}
       />
+      <Button onClick={() => setTest(["check2", "some", "third"])}>
+        Check
+      </Button>
+      <Button onClick={() => setTest(["Nike", "Addidas", "Puma"])}>
+        Check
+      </Button>
+      <Button onClick={() => setTest([])}>delete</Button>
     </main>
     // <main className="mb-14 mt-10">
     //   <section>
