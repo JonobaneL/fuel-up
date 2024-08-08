@@ -1,4 +1,21 @@
+"use client";
+import { useSearchParamsContext } from "@/context/SearchParamsContext";
+import { useAsync } from "@/hooks/useAsync";
+import { ParamProps } from "@/models/paramsTypes";
+import { getAllFlavours } from "@/requests/params";
+import { convertParams } from "@/utils/convertParams";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
 const ActiveFilters = () => {
+  const { getSearchParams } = useSearchParamsContext();
+  const params = getSearchParams();
+
+  const [isLoading, _, flavours] = useAsync<ParamProps[]>(
+    () => fetch(`/api/filters`),
+    []
+  );
+  console.log(flavours);
   const activeFilters = ["Allnutrition", "Білий шоколад", "США"];
   return (
     <div className="flex flex-wrap gap-2">

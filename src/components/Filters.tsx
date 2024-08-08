@@ -8,12 +8,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import CheckboxList from "./ui/CheckboxList";
-import { Input } from "./ui/input";
+
 import TypeFilters from "./TypeFilters";
 import ActiveFilters from "./ActiveFilters";
 import {
-  getAllBrands,
   getAllFlavours,
   getAllSpeedTypes,
   getCountries,

@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SearchParamsProvider } from "@/context/SearchParamsContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("flex min-h-dvh flex-col bg-back", inter.className)}>
         <Header />
-        <div className="px-20 flex-1">
-          <div className="max-w-[1440px] w-full mx-auto">{children}</div>
-        </div>
+        <SearchParamsProvider>
+          <div className="px-20 flex-1">
+            <div className="max-w-[1440px] w-full mx-auto">{children}</div>
+          </div>
+        </SearchParamsProvider>
         <Footer />
       </body>
     </html>

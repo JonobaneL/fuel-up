@@ -13,7 +13,7 @@ type FilterProps = {
 };
 
 const SpeedTypesFilter = ({ data }: FilterProps) => {
-  const [filter, setFilter] = useQueryParams("speed_type");
+  const [filter, setFilter] = useQueryParams("speedType");
   const handler = (value: string) => {
     setFilter((p) => {
       if (p.includes(value)) return p.filter((item) => item != value);

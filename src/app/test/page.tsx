@@ -9,37 +9,54 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 // import Image from "next/image";
 
+type Param = {
+  key: string;
+  value: string[];
+};
 const Test = () => {
   console.log("render");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const [first, setFirst] = useState<Param>({
+    key: "first",
+    value: [],
+  });
+  const [second, setSecond] = useState<Param>({
+    key: "second",
+    value: [],
+  });
 
   const test_arr = ["value 1", "value 2", "value 3"];
-
-  const [test, setTest] = useQueryParams("arr");
+  const [test, setTest] = useState<string[]>();
+  // const [test, setTest] = useQueryParams("arr");
   // console.log("check search params = ", test);
-  const handler = (value: unknown) => {
-    // const name = searchParams.get("name");
-    // console.log("check", name);
-    // setFilters((p) => {
-    //   if (p.includes(value as string))
-    //     return p.filter((item) => item !== value);
-    //   return [...p, value as string];
-    // });
+  const handler = (key: string) => {
+    const params = new URLSearchParams(searchParams);
+    const checkParam = searchParams.has(key);
+    let firstParams: string[] = [];
+    if (checkParam) {
+      firstParams = params.get(key)?.split(",") || [];
+      params.delete(key);
+    }
+    const randomNumber = Math.floor(Math.random() * 11);
+    firstParams.push(`${key}-${randomNumber}`);
+    console.log(firstParams);
+    console.log(params);
+    params.set(key, firstParams.join(","));
+    console.log(params.toString().replace(/%2C/g, ","));
+    router.replace(`${pathname}?${params.toString().replace(/%2C/g, ",")}`, {
+      scroll: false,
+    });
   };
-  // console.log(filters);
+
   return (
     <main className="mb-14 mt-10">
-      <CheckboxList
-        data={test_arr}
-        maxLimit={100}
-        callback={(value) => handler(value)}
-      />
-      <Button onClick={() => setTest(["check2", "some", "third"])}>
-        Check
-      </Button>
-      <Button onClick={() => setTest(["Nike", "Addidas", "Puma"])}>
-        Check
-      </Button>
-      <Button onClick={() => setTest([])}>delete</Button>
+      <div className="flex gap-4">
+        <Button onClick={() => handler("first")}>first</Button>
+        <Button onClick={() => handler("second")}>second</Button>
+      </div>
     </main>
     // <main className="mb-14 mt-10">
     //   <section>
