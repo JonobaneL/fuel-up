@@ -1,5 +1,5 @@
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import { useLatest } from "./useLatest";
 import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import { deserialize, serialize } from "@/utils/searchParamsUtils";
@@ -38,8 +38,11 @@ export const useQueryParams = (paramName: string): [string[], SetterParams] => {
         }
       );
     },
-    [pathname, searchParams]
+    [pathname, searchParams.keys()]
   );
+  // useEffect(() => {
+  //   console.log("check useEffect update ", paramName);
+  // }, [pathname, searchParams.keys()]);
 
   return [value, updateValue];
 };

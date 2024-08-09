@@ -7,21 +7,16 @@ import {
 } from "./ui/accordion";
 import { Input } from "./ui/input";
 import CheckboxList from "./ui/CheckboxList";
-import { useQueryParams } from "@/hooks/useQueryParams";
 import { useState } from "react";
 import { useAsync } from "@/hooks/useAsync";
 import { useQuery } from "@/hooks/useQuery";
+import { useTestContext } from "@/context/testContext";
 
 const BrandsFilter = () => {
-  const [filter, setFilter] = useQueryParams("brands");
   const [search, setSearch] = useState<string>("");
   const query = useQuery(search);
-  const handler = (value: string) => {
-    setFilter((p) => {
-      if (p.includes(value)) return p.filter((item) => item != value);
-      return [...p, value];
-    });
-  };
+  const { params, updateParam } = useTestContext();
+
   const [isLoading, _, brands] = useAsync<ParamProps[]>(
     () => fetch(`/brands?name=${query}`),
     [query]
@@ -41,8 +36,8 @@ const BrandsFilter = () => {
         <CheckboxList
           data={brands || []}
           maxLimit={15}
-          checked={filter}
-          callback={handler}
+          checked={params.brand || []}
+          callback={(value) => updateParam("brand", value)}
         />
       </AccordionContent>
     </AccordionItem>

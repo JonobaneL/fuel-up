@@ -1,34 +1,35 @@
 "use client";
-import { useSearchParamsContext } from "@/context/SearchParamsContext";
-import { useAsync } from "@/hooks/useAsync";
-import { ParamProps } from "@/models/paramsTypes";
-import { getAllFlavours } from "@/requests/params";
-import { convertParams } from "@/utils/convertParams";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { getFiltersInfo } from "@/actions/filters";
+import { useTestContext } from "@/context/testContext";
+import { useQueries, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
 const ActiveFilters = () => {
-  const { getSearchParams } = useSearchParamsContext();
-  const params = getSearchParams();
+  const { params, clearSearchParams, removeParam } = useTestContext();
+  const allParams = useMemo(() => {
+    const converted = Object.keys(params).map((key) => {
+      return params[key].map((param) => ({ param: key, value: param }));
+    });
+    return converted.flat();
+  }, [params]);
 
-  const [isLoading, _, flavours] = useAsync<ParamProps[]>(
-    () => fetch(`/api/filters`),
-    []
-  );
-  console.log(flavours);
-  const activeFilters = ["Allnutrition", "Білий шоколад", "США"];
+  if (allParams.length == 0) return null;
   return (
     <div className="flex flex-wrap gap-2">
-      {activeFilters.map((item, index) => (
+      {allParams.map((item, index) => (
         <div
           key={index}
-          className="bg-secondary w-fit px-2 py-1 h-7 flex items-center gap-2 rounded-sm cursor-pointer"
+          className="border w-fit px-2 py-1 h-8 flex items-center gap-2 rounded-full cursor-pointer"
+          onClick={() => removeParam(item.param, item.value)}
         >
-          <p className="text-primary text-sm">{item}</p>
+          <p className="text-primary text-sm">{item.value}</p>
           <img className="size-3" src="/close-icon.svg" alt="close" />
         </div>
       ))}
-      <div className="bg-secondary text-primary w-fit text-sm px-2 py-1 flex items-center rounded-sm cursor-pointer">
+      <div
+        className="border border-primary text-primary w-fit text-sm px-2 py-1 flex items-center rounded-full cursor-pointer"
+        onClick={() => clearSearchParams()}
+      >
         Очистити все
       </div>
     </div>

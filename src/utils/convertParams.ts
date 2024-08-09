@@ -1,10 +1,48 @@
-import prisma from "@/lib/db";
-import { PrismaClient } from "@prisma/client";
-import {
-  DefaultArgs,
-  PrismaClientOptions,
-} from "@prisma/client/runtime/library";
+import { SearchParams } from "@/models/paramsTypes";
+import { deserialize } from "./searchParamsUtils";
 
-export const convertParams = async (key: string, value: string[]) => {
-  return prisma.flavour.findMany();
+export const generateFiltersConfig = (params: SearchParams) => {
+  const keys = Object.keys(params || {});
+  if (keys.length == 0) return {};
+  const filtersConfig = keys.reduce((prev, key) => {
+    if (key == "flavours")
+      return {
+        ...prev,
+        flavours: {
+          some: {
+            flavour: {
+              slug: {
+                in: deserialize(key, params[key as keyof SearchParams]),
+              },
+            },
+          },
+        },
+      };
+    if (key == "price") {
+      const price = params[key as keyof SearchParams]
+        .split("-")
+        .map((item) => parseInt(item));
+      console.log(price);
+      return {
+        ...prev,
+        flavours: {
+          some: {
+            price: {
+              lt: price[1],
+              gt: price[0],
+            },
+          },
+        },
+      };
+    }
+    return {
+      ...prev,
+      [key]: {
+        slug: {
+          in: deserialize(key, params[key as keyof SearchParams]),
+        },
+      },
+    };
+  }, {});
+  return filtersConfig;
 };

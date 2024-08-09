@@ -2,11 +2,13 @@
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Slider } from "./ui/slider";
+import { useTestContext } from "@/context/testContext";
 
 const PriceFilter = () => {
   const minPrice = 50;
   const maxPrice = 4650;
   const pattern = /^\d+$/;
+  const { params, updateParam } = useTestContext();
 
   const [price, setPrice] = useState([minPrice, maxPrice]);
   const minOnChange = (value: string) => {
@@ -58,7 +60,16 @@ const PriceFilter = () => {
         max={4650}
         step={1}
         min={50}
-        onValueChange={(data) => setPrice(data)}
+        onValueChange={(data) => {
+          setPrice(data);
+        }}
+        onValueCommit={(data) => {
+          console.log(data);
+          updateParam(
+            "price",
+            data.map((item) => item.toString())
+          );
+        }}
       />
     </>
   );

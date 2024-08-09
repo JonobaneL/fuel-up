@@ -22,3 +22,6 @@ export type SearchParams = {
   flavour: string;
   country: string;
 };
+export type DynamicParams = {
+  [key: string]: string[];
+};

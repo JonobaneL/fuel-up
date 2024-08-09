@@ -1,4 +1,6 @@
 import prisma from "@/lib/db";
+import { SearchParams } from "@/models/paramsTypes";
+import { generateFiltersConfig } from "@/utils/convertParams";
 
 const requestConfig = {
   select: {
@@ -34,25 +36,34 @@ const requestConfig = {
     },
   },
 };
-
-export const getProducts = (type_slug: string) => {
-  if (type_slug == "products") return prisma.product.findMany(requestConfig);
-  return prisma.product.findMany({
-    where: {
-      OR: [
-        {
-          type: {
+const getDefaultConfig = (type_slug: string) => {
+  return {
+    OR: [
+      {
+        type: {
+          slug: type_slug,
+        },
+      },
+      {
+        type: {
+          parent: {
             slug: type_slug,
           },
         },
-        {
-          type: {
-            parent: {
-              slug: type_slug,
-            },
-          },
-        },
-      ],
+      },
+    ],
+  };
+};
+
+export const getProducts = (type_slug: string, filters: SearchParams) => {
+  if (type_slug == "products") return prisma.product.findMany(requestConfig);
+  const defaultProductsConfig = getDefaultConfig(type_slug);
+  const aditionalFilters = generateFiltersConfig(filters);
+  // console.log(aditionalFilters);
+  return prisma.product.findMany({
+    where: {
+      ...defaultProductsConfig,
+      ...aditionalFilters,
     },
     ...requestConfig,
   });

@@ -12,7 +12,7 @@ type ProductsProps = {
 const Products = async ({ params, searchParams }: ProductsProps) => {
   console.log(searchParams);
   const type = await getType(params.product);
-  const products = await getProducts(params.product);
+  const products = await getProducts(params.product, searchParams);
   return (
     <main className="my-14">
       <section className="flex gap-5">

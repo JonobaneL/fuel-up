@@ -9,19 +9,15 @@ import { Input } from "./ui/input";
 import CheckboxList from "./ui/CheckboxList";
 import { useQueryParams } from "@/hooks/useQueryParams";
 import { ParamProps } from "@/models/paramsTypes";
+import { useTestContext } from "@/context/testContext";
 
 type FilterProps = {
   data: ParamProps[];
 };
 
 const FlavourFilter = ({ data }: FilterProps) => {
-  const [filter, setFilter] = useQueryParams("flavour");
-  const handler = (value: string) => {
-    setFilter((p) => {
-      if (p.includes(value)) return p.filter((item) => item != value);
-      return [...p, value];
-    });
-  };
+  const { params, updateParam } = useTestContext();
+
   return (
     <AccordionItem value="flavor">
       <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
@@ -31,8 +27,8 @@ const FlavourFilter = ({ data }: FilterProps) => {
         <CheckboxList
           data={data}
           maxLimit={15}
-          checked={filter}
-          callback={handler}
+          checked={params.flavours || []}
+          callback={(value) => updateParam("flavours", value)}
         />
       </AccordionContent>
     </AccordionItem>

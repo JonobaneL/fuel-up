@@ -7,19 +7,15 @@ import {
 } from "./ui/accordion";
 import CheckboxList from "./ui/CheckboxList";
 import { ParamProps } from "@/models/paramsTypes";
+import { useTestContext } from "@/context/testContext";
 
 type FilterProps = {
   data: ParamProps[];
 };
 
 const SpeedTypesFilter = ({ data }: FilterProps) => {
-  const [filter, setFilter] = useQueryParams("speedType");
-  const handler = (value: string) => {
-    setFilter((p) => {
-      if (p.includes(value)) return p.filter((item) => item != value);
-      return [...p, value];
-    });
-  };
+  const { params, updateParam } = useTestContext();
+
   return (
     <AccordionItem value="speedType">
       <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
@@ -29,8 +25,8 @@ const SpeedTypesFilter = ({ data }: FilterProps) => {
         <CheckboxList
           data={data}
           maxLimit={100}
-          checked={filter}
-          callback={handler}
+          checked={params.speedType || []}
+          callback={(value) => updateParam("speedType", value)}
         />
       </AccordionContent>
     </AccordionItem>

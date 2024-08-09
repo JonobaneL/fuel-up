@@ -1,5 +1,4 @@
 import prisma from "@/lib/db";
-import { Prisma } from "@prisma/client";
 
 export const getMainTypes = () => {
   return prisma.type.findMany({

@@ -23,13 +23,6 @@ type FiltersProps = {
   slug: string;
 };
 const Filters = async ({ slug }: FiltersProps) => {
-  // const filters = [
-  //   {
-  //     id: "speed_type",
-  //     title: "",
-  //     content: speedType,
-  //   },
-  // ];
   const speed_types = await getAllSpeedTypes();
   const flavours = await getAllFlavours();
   const countries = await getCountries();
