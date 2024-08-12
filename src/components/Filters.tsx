@@ -1,4 +1,3 @@
-import { brands, speedType, type } from "@/data/filters";
 import CountryFilter from "./CountryFilter";
 import FlavourFilter from "./FlavourFilter";
 import PriceFilter from "./PriceFilter";
@@ -8,14 +7,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-
 import TypeFilters from "./TypeFilters";
-import ActiveFilters from "./ActiveFilters";
 import {
   getAllFlavours,
   getAllSpeedTypes,
   getCountries,
-} from "@/requests/params";
+} from "@/actions/paramsActions";
 import BrandsFilter from "./BrandsFilter";
 import SpeedTypesFilter from "./SpeedTypesFilter";
 
@@ -28,7 +25,6 @@ const Filters = async ({ slug }: FiltersProps) => {
   const countries = await getCountries();
   return (
     <div className="w-[260px] h-full flex-cover">
-      <ActiveFilters />
       <Accordion type="multiple" defaultValue={["price"]}>
         <TypeFilters slug={slug} />
         <SpeedTypesFilter data={speed_types} />

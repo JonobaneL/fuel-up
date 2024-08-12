@@ -1,5 +1,4 @@
 "use client";
-import { useQueryParams } from "@/hooks/useQueryParams";
 import {
   AccordionContent,
   AccordionItem,
@@ -7,14 +6,14 @@ import {
 } from "./ui/accordion";
 import CheckboxList from "./ui/CheckboxList";
 import { ParamProps } from "@/models/paramsTypes";
-import { useTestContext } from "@/context/testContext";
+import { useSearchParamsContext } from "@/context/searchParamsContext";
 
 type FilterProps = {
   data: ParamProps[];
 };
 
 const SpeedTypesFilter = ({ data }: FilterProps) => {
-  const { params, updateParam } = useTestContext();
+  const { params, updateParam } = useSearchParamsContext();
 
   return (
     <AccordionItem value="speedType">

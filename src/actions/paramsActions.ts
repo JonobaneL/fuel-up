@@ -1,3 +1,4 @@
+"use server";
 import prisma from "@/lib/db";
 
 export const getMainTypes = () => {
@@ -23,8 +24,14 @@ export const getType = (type_slug: string) => {
 export const getAllSpeedTypes = () => {
   return prisma.speedType.findMany();
 };
-export const getAllBrands = () => {
-  return prisma.brand.findMany();
+export const getBrands = (name: string = "") => {
+  return prisma.brand.findMany({
+    where: {
+      name: {
+        contains: name,
+      },
+    },
+  });
 };
 export const getAllFlavours = () => {
   return prisma.flavour.findMany();

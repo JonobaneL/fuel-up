@@ -5,7 +5,7 @@ export const generateFiltersConfig = (params: SearchParams) => {
   const keys = Object.keys(params || {});
   if (keys.length == 0) return {};
   const filtersConfig = keys.reduce((prev, key) => {
-    if (key == "flavours")
+    if (key == "flavour")
       return {
         ...prev,
         flavours: {

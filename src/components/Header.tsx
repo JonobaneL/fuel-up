@@ -2,7 +2,7 @@ import Link from "next/link";
 import Search from "./ui/Search";
 import Catalog from "./Catalog";
 import TopHeader from "./TopHeader";
-import { getMainTypes } from "@/requests/params";
+import { getMainTypes } from "@/actions/paramsActions";
 
 const Header = async () => {
   const categories = await getMainTypes();

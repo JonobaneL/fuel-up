@@ -1,5 +1,5 @@
 "use client";
-import { useTestContext } from "@/context/testContext";
+import { useSearchParamsContext } from "@/context/searchParamsContext";
 import {
   AccordionContent,
   AccordionItem,
@@ -13,7 +13,7 @@ type FilterProps = {
 };
 
 const CountryFilter = ({ data }: FilterProps) => {
-  const { params, updateParam } = useTestContext();
+  const { params, updateParam } = useSearchParamsContext();
 
   return (
     <AccordionItem value="country">

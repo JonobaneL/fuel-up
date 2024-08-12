@@ -26,8 +26,10 @@ type CarouselContextProps = {
   api: ReturnType<typeof useEmblaCarousel>[1];
   scrollPrev: () => void;
   scrollNext: () => void;
+  scrollTo: (index: number) => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  slideIndex: number;
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -67,12 +69,14 @@ const Carousel = React.forwardRef<
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
-
+    const [slideIndex, setIndex] = React.useState(
+      api?.selectedScrollSnap() || 0
+    );
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
         return;
       }
-
+      setIndex(api.selectedScrollSnap());
       setCanScrollPrev(api.canScrollPrev());
       setCanScrollNext(api.canScrollNext());
     }, []);
@@ -84,6 +88,15 @@ const Carousel = React.forwardRef<
     const scrollNext = React.useCallback(() => {
       api?.scrollNext();
     }, [api]);
+    const scrollTo = React.useCallback(
+      (index: number) => {
+        api?.scrollTo(index);
+      },
+      [api]
+    );
+    // const slideIndex = React.useMemo(() => {
+    //   return api?.selectedScrollSnap() || 0;
+    // }, [api]);
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -130,8 +143,10 @@ const Carousel = React.forwardRef<
             orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
           scrollPrev,
           scrollNext,
+          scrollTo,
           canScrollPrev,
           canScrollNext,
+          slideIndex,
         }}
       >
         <div
@@ -252,6 +267,44 @@ const CarouselNext = React.forwardRef<
 });
 CarouselNext.displayName = "CarouselNext";
 
+interface CarouselThumbsProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  orientation?: string;
+  children: React.ReactNode[];
+}
+const CarouselThumbs = ({
+  className,
+  children,
+  orientation = "horizontal",
+  ...props
+}: CarouselThumbsProps) => {
+  const { scrollTo, slideIndex } = useCarousel();
+
+  return (
+    <div
+      className={cn(
+        `flex items-center flex-fix gap-1 ${
+          orientation == "horizontal" ? "flex-col" : ""
+        }`,
+        className
+      )}
+    >
+      {children.map((item, index) => (
+        <div
+          key={index}
+          data-active={index == slideIndex}
+          className="group h-fit w-fit cursor-pointer"
+          onClick={() => scrollTo(index)}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+CarouselThumbs.displayName = "CarouselThumbs";
+
 export {
   type CarouselApi,
   Carousel,
@@ -259,4 +312,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselThumbs,
 };

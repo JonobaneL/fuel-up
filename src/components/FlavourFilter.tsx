@@ -1,22 +1,19 @@
 "use client";
-import { flavours } from "@/data/filters";
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import { Input } from "./ui/input";
 import CheckboxList from "./ui/CheckboxList";
-import { useQueryParams } from "@/hooks/useQueryParams";
 import { ParamProps } from "@/models/paramsTypes";
-import { useTestContext } from "@/context/testContext";
+import { useSearchParamsContext } from "@/context/searchParamsContext";
 
 type FilterProps = {
   data: ParamProps[];
 };
 
 const FlavourFilter = ({ data }: FilterProps) => {
-  const { params, updateParam } = useTestContext();
+  const { params, updateParam } = useSearchParamsContext();
 
   return (
     <AccordionItem value="flavor">
@@ -27,8 +24,8 @@ const FlavourFilter = ({ data }: FilterProps) => {
         <CheckboxList
           data={data}
           maxLimit={15}
-          checked={params.flavours || []}
-          callback={(value) => updateParam("flavours", value)}
+          checked={params.flavour || []}
+          callback={(value) => updateParam("flavour", value)}
         />
       </AccordionContent>
     </AccordionItem>

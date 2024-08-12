@@ -1,3 +1,4 @@
+import { Category } from "@/models/paramsTypes";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,7 +8,12 @@ import {
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 
-const ProductBreadcrumb = () => {
+type BreadcrumbsProps = {
+  type: Category | undefined;
+  brand: string | undefined;
+};
+
+const ProductBreadcrumb = ({ type, brand }: BreadcrumbsProps) => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -16,11 +22,11 @@ const ProductBreadcrumb = () => {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/components">Протеїни</BreadcrumbLink>
+          <BreadcrumbLink href={`/${type?.slug}`}>{type?.name}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>Optimum Nutrition</BreadcrumbPage>
+          <BreadcrumbPage>{brand}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

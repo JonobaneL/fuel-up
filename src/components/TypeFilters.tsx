@@ -1,4 +1,4 @@
-import { getType } from "@/requests/params";
+import { getType } from "@/actions/paramsActions";
 import {
   AccordionContent,
   AccordionItem,

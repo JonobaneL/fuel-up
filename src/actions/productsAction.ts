@@ -1,11 +1,13 @@
+"use server";
 import prisma from "@/lib/db";
 import { SearchParams } from "@/models/paramsTypes";
-import { generateFiltersConfig } from "@/utils/convertParams";
+import { generateFiltersConfig } from "@/utils/filtersConfig";
 
 const requestConfig = {
   select: {
     id: true,
     name: true,
+    slug: true,
     brand: {
       select: {
         name: true,
@@ -24,6 +26,7 @@ const requestConfig = {
       select: {
         id: true,
         price: true,
+        discount: true,
       },
     },
     images: {

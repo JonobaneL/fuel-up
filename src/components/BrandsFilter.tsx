@@ -1,5 +1,4 @@
 "use client";
-import { ParamProps } from "@/models/paramsTypes";
 import {
   AccordionContent,
   AccordionItem,
@@ -8,19 +7,22 @@ import {
 import { Input } from "./ui/input";
 import CheckboxList from "./ui/CheckboxList";
 import { useState } from "react";
-import { useAsync } from "@/hooks/useAsync";
-import { useQuery } from "@/hooks/useQuery";
-import { useTestContext } from "@/context/testContext";
+import { useRequest } from "@/hooks/useRequest";
+import { useSearchParamsContext } from "@/context/searchParamsContext";
+import { useQuery } from "@tanstack/react-query";
+import { getBrands } from "@/actions/paramsActions";
 
 const BrandsFilter = () => {
   const [search, setSearch] = useState<string>("");
-  const query = useQuery(search);
-  const { params, updateParam } = useTestContext();
-
-  const [isLoading, _, brands] = useAsync<ParamProps[]>(
-    () => fetch(`/brands?name=${query}`),
-    [query]
-  );
+  const query = useRequest(search);
+  const { params, updateParam } = useSearchParamsContext();
+  const { data: brands } = useQuery({
+    queryKey: ["brands", query],
+    queryFn: async () => {
+      return getBrands(query);
+    },
+    initialData: [],
+  });
   return (
     <AccordionItem value="brands">
       <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
@@ -34,7 +36,7 @@ const BrandsFilter = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <CheckboxList
-          data={brands || []}
+          data={brands}
           maxLimit={15}
           checked={params.brand || []}
           callback={(value) => updateParam("brand", value)}

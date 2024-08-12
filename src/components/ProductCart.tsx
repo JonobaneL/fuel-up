@@ -1,22 +1,12 @@
+import { ProductCartProps } from "@/models/ProductCartProps";
+import { priceDiscount } from "@/utils/priceDiscount";
 import Image from "next/image";
 
-type ProductProps = {
-  product: {
-    name: string;
-    brand: {
-      name: string;
-    };
-    type: {
-      slug: string;
-    };
-    flavours: {
-      price: number;
-    }[];
-    images: { url: string }[];
-  };
-};
-const ProductCart = ({ product }: ProductProps) => {
+const ProductCart = ({ product }: ProductCartProps) => {
   const product_img = product.images[0].url;
+  const product_price = product.flavours[0].price;
+  const product_discount = product.flavours[0].discount;
+  //also check this commponent later
   return (
     <div className="max-w-52 w-full h-fit flex flex-col gap-1 p-2 hover:shadow-product-cart rounded-sm transition-shadow cursor-pointer">
       <Image
@@ -35,13 +25,18 @@ const ProductCart = ({ product }: ProductProps) => {
             <img className="size-4" src="/star-full.svg" alt="star" />
           ))}
       </div>
-      {/* <div className="flex gap-2">
-        <p className="font-title text-light-gray text-lg line-through">
-          1656грн
-        </p>
-        <p className="font-title text-primary text-lg">1439грн</p>
-      </div> */}
-      <p className="font-title text-lg">{product.flavours[0].price}грн</p>
+      {product.flavours[0].discount ? (
+        <div className="flex gap-2">
+          <p className="font-title text-light-gray text-lg line-through">
+            {product_price}грн
+          </p>
+          <p className="font-title text-primary text-lg">
+            {priceDiscount(product_price, product_discount || 0)}грн
+          </p>
+        </div>
+      ) : (
+        <p className="font-title text-lg">{product_price}грн</p>
+      )}
     </div>
   );
 };

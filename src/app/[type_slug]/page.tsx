@@ -1,30 +1,36 @@
+import { getType } from "@/actions/paramsActions";
+import { getProducts } from "@/actions/productsAction";
+import ActiveFilters from "@/components/ActiveFilters";
 import Filters from "@/components/Filters";
 import ProductCart from "@/components/ProductCart";
 import SortSelect from "@/components/SortSelects";
 import { SearchParams } from "@/models/paramsTypes";
-import { getType } from "@/requests/params";
-import { getProducts } from "@/requests/products";
+import Link from "next/link";
 
 type ProductsProps = {
-  params: { product: string };
+  params: { type_slug: string };
   searchParams: SearchParams;
 };
 const Products = async ({ params, searchParams }: ProductsProps) => {
-  console.log(searchParams);
-  const type = await getType(params.product);
-  const products = await getProducts(params.product, searchParams);
+  const type = await getType(params.type_slug);
+  const products = await getProducts(params.type_slug, searchParams);
   return (
     <main className="my-14">
+      <section className="w-full mb-4">
+        <ActiveFilters />
+      </section>
       <section className="flex gap-5">
-        <Filters slug={params.product} />
+        <Filters slug={params.type_slug} />
         <div className="w-full">
-          <div className="mb-10 flex items-center justify-between">
+          <div className="flex items-center justify-between mb-10">
             <h2 className="font-title text-2xl text-third">{type?.name}</h2>
             <SortSelect />
           </div>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,_1fr))] gap-3 justify-items-center">
             {products.map((item) => (
-              <ProductCart key={item.id} product={item} />
+              <Link href={`${params.type_slug}/${item.slug}`}>
+                <ProductCart key={item.id} product={item} />
+              </Link>
             ))}
           </div>
         </div>

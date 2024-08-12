@@ -4,8 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { SearchParamsProvider } from "@/context/SearchParamsContext";
-import { TestProvider } from "@/context/testContext";
+import { SearhcParamsProvider } from "@/context/searchParamsContext";
 import Provider from "./Providers";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,16 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("flex min-h-dvh flex-col bg-back", inter.className)}>
         <Header />
-        {/* test */}
-        <TestProvider>
-          <SearchParamsProvider>
-            <Provider>
-              <div className="px-20 flex-1">
-                <div className="max-w-[1440px] w-full mx-auto">{children}</div>
-              </div>
-            </Provider>
-          </SearchParamsProvider>
-        </TestProvider>
+        <SearhcParamsProvider>
+          <Provider>
+            <div className="px-20 flex-1">
+              <div className="max-w-[1440px] w-full mx-auto">{children}</div>
+            </div>
+          </Provider>
+        </SearhcParamsProvider>
         <Footer />
       </body>
     </html>

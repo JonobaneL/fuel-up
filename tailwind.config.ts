@@ -84,6 +84,7 @@ const config = {
       },
       flex: {
         cover: "1 0 auto",
+        fix: "0 0 auto",
       },
       maxWidth: {
         "screen-width": "1440px",

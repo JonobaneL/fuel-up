@@ -1,75 +1,53 @@
 "use client";
-import { useState } from "react";
-import { Input } from "./ui/input";
+import { useEffect, useState } from "react";
 import { Slider } from "./ui/slider";
-import { useTestContext } from "@/context/testContext";
+import { useSearchParamsContext } from "@/context/searchParamsContext";
+import PriceInput from "./PriceInput";
 
 const PriceFilter = () => {
+  //fetch min and max price
   const minPrice = 50;
   const maxPrice = 4650;
-  const pattern = /^\d+$/;
-  const { params, updateParam } = useTestContext();
+  const { params, updateParam, removeParam } = useSearchParamsContext();
 
-  const [price, setPrice] = useState([minPrice, maxPrice]);
-  const minOnChange = (value: string) => {
-    value.match(pattern)
-      ? setPrice((p) => [parseInt(value), p[1]])
-      : setPrice((p) => [parseInt(value.replace(/\D/g, "")), p[1]]);
-  };
-  const maxOnChange = (value: string) => {
-    value.match(pattern)
-      ? setPrice((p) => [p[0], parseInt(value)])
-      : setPrice((p) => [p[0], parseInt(value.replace(/\D/g, ""))]);
-  };
-  const onBlurHandler = (value: string, type: string) => {
-    const convertedValue =
-      parseInt(value) < minPrice
-        ? minPrice
-        : parseInt(value) > maxPrice
-        ? maxPrice
-        : parseInt(value);
-    if (type == "min") {
-      setPrice((p) => [convertedValue, p[1]]);
-    } else {
-      setPrice((p) => [p[0], convertedValue]);
+  const initialPriceRange =
+    params?.price?.length > 0
+      ? params?.price[0]?.split("-").map(Number)
+      : [minPrice, maxPrice];
+
+  const [price, setPrice] = useState(initialPriceRange);
+  useEffect(() => {
+    setPrice(initialPriceRange);
+  }, [params?.price]);
+
+  const sliderSubmitHandler = (data: number[]) => {
+    if (data[0] == minPrice && data[1] == maxPrice) {
+      if (params?.price) removeParam("price", params?.price[0] || "");
+      return;
     }
+    updateParam(
+      "price",
+      data.map((item) => item.toString())
+    );
   };
   return (
     <>
-      <div className="flex items-center gap-2 mb-4">
-        <Input
-          value={price[0]}
-          onChange={(e) => minOnChange(e.target.value)}
-          onBlur={(e) => onBlurHandler(e.target.value, "min")}
-          className="w-20 rounded-sm focus-visible:ring-0 text-center"
-          placeholder="min"
-        />
-        —
-        <Input
-          value={price[1]}
-          onChange={(e) => maxOnChange(e.target.value)}
-          onBlur={(e) => onBlurHandler(e.target.value, "max")}
-          className="w-20 rounded-sm focus-visible:ring-0 text-center"
-          placeholder="max"
-        />
-        грн
-      </div>
+      <PriceInput
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        price={price}
+        setPrice={setPrice}
+      />
       <Slider
-        defaultValue={[50, 4650]}
+        defaultValue={[minPrice, maxPrice]}
         value={price}
-        max={4650}
+        max={maxPrice}
         step={1}
-        min={50}
+        min={minPrice}
         onValueChange={(data) => {
           setPrice(data);
         }}
-        onValueCommit={(data) => {
-          console.log(data);
-          updateParam(
-            "price",
-            data.map((item) => item.toString())
-          );
-        }}
+        onValueCommit={sliderSubmitHandler}
       />
     </>
   );

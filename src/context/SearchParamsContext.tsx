@@ -1,71 +1,99 @@
 "use client";
-
 import { DynamicParams } from "@/models/paramsTypes";
-import { deserialize } from "@/utils/searchParamsUtils";
+import { deserialize, serialize } from "@/utils/searchParamsUtils";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
-  ReadonlyURLSearchParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
-import { createContext, useContext, useState } from "react";
+  createContext,
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 type SearchParamsProviderParams = {
-  searchParams: ReadonlyURLSearchParams | URLSearchParams;
-  setSearchParams: React.Dispatch<
-    React.SetStateAction<ReadonlyURLSearchParams | URLSearchParams>
-  >;
-  getSearchParams: () => {};
-  updateSearchParams: (key: string | null, value?: string) => void;
+  params: DynamicParams;
+  clearSearchParams: () => void;
+  updateParam: (paramName: string, newValue: string | string[]) => void;
+  removeParam: (paramName: string, newValue: string) => void;
 };
 type ProviderProps = {
   children: React.ReactNode;
 };
 
-const SearchParamsContext = createContext<SearchParamsProviderParams | null>(
+const searchParamsContext = createContext<SearchParamsProviderParams | null>(
   null
 );
+
 export const useSearchParamsContext = () => {
-  return useContext(SearchParamsContext) as SearchParamsProviderParams;
+  return useContext(searchParamsContext) as SearchParamsProviderParams;
 };
 
-export const SearchParamsProvider = ({ children }: ProviderProps) => {
+export const SearhcParamsProvider = ({ children }: ProviderProps) => {
   const initialSearchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [searchParams, setSearchParams] = useState<
-    ReadonlyURLSearchParams | URLSearchParams
-  >(initialSearchParams);
-  const getSearchParams = (): DynamicParams => {
-    let params = {};
-    searchParams.forEach((item, key) => {
-      params = Object.assign({ [key]: deserialize(item) }, params);
-    });
-    return params;
-  };
-  const updateSearchParams = (key: string | null, value?: string) => {
-    const newSearchParams = new URLSearchParams(searchParams);
 
-    if (key == null) {
-      router.replace(pathname);
-      searchParams.forEach((_, key) => {
-        newSearchParams.delete(key);
-      });
-      setSearchParams(newSearchParams);
-      // searchParams.keys();
+  const [params, setParams] = useState<DynamicParams>({});
+  useLayoutEffect(() => {
+    initialSearchParams.forEach((item, key) => {
+      setParams((p) => ({ ...p, [key]: deserialize(key, item) }));
+    });
+  }, []);
+  const updateSearchParams = useCallback(
+    (paramName: string, newValue: string[]) => {
+      setParams((p) => ({ ...p, [paramName]: newValue }));
+      const newParams = new URLSearchParams(initialSearchParams);
+      if (newValue.length == 0) {
+        newParams.delete(paramName);
+      } else {
+        const serializedValue = serialize(paramName, newValue);
+        newParams.set(paramName, serializedValue);
+      }
+      router.replace(
+        `${pathname}?${newParams.toString().replace(/%2C/g, ",")}`,
+        {
+          scroll: false,
+        }
+      );
+    },
+    [pathname, initialSearchParams.keys()]
+  );
+  const updateParam = (paramName: string, value: string | string[]) => {
+    if (Array.isArray(value)) {
+      updateSearchParams(paramName, [value.join("-")]);
+      return;
     }
-    // newSearchParams.delete(key, value);
+    if (params[paramName]?.includes(value)) {
+      updateSearchParams(
+        paramName,
+        params[paramName].filter((item) => item != value)
+      );
+      return;
+    }
+    updateSearchParams(paramName, [...(params[paramName] || []), value]);
+  };
+  const removeParam = (paramName: string, value: string) => {
+    updateSearchParams(
+      paramName,
+      params[paramName].filter((item) => item != value)
+    );
+  };
+
+  ////
+  const clearSearchParams = () => {
+    router.replace(pathname);
+    setParams({});
   };
   return (
-    <SearchParamsContext.Provider
+    <searchParamsContext.Provider
       value={{
-        searchParams,
-        setSearchParams,
-        getSearchParams,
-        updateSearchParams,
+        params,
+        clearSearchParams,
+        updateParam,
+        removeParam,
       }}
     >
       {children}
-    </SearchParamsContext.Provider>
+    </searchParamsContext.Provider>
   );
 };
