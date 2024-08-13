@@ -79,7 +79,6 @@ export const SearhcParamsProvider = ({ children }: ProviderProps) => {
     );
   };
 
-  ////
   const clearSearchParams = () => {
     router.replace(pathname);
     setParams({});

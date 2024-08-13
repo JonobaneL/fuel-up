@@ -10,6 +10,9 @@ export const generateFiltersConfig = (params: SearchParams) => {
         ...prev,
         flavours: {
           some: {
+            amount: {
+              gte: 1,
+            },
             flavour: {
               slug: {
                 in: deserialize(key, params[key as keyof SearchParams]),

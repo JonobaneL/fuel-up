@@ -1,16 +1,18 @@
-export type Category = {
+export type TypeParams = {
   id: string;
   name: string;
   slug: string;
   parentId: string | null;
+  parent?: TypeParams | null;
 };
-export type CategoryWithSub = {
+export type TypeParamsWithSub = {
   id: string;
   name: string;
   slug: string;
   parentId: string | null;
-  subTypes: Category[];
+  subTypes: TypeParams[];
 };
+
 export type ParamProps = {
   id: string;
   name: string;
@@ -24,4 +26,24 @@ export type SearchParams = {
 };
 export type DynamicParams = {
   [key: string]: string[];
+};
+
+export type FlavourParams = {
+  id: string;
+  name: string;
+  slug: string;
+};
+export type ProductFlavorParams = {
+  id: string;
+  flavourId: string;
+  price: number;
+  discount: number | null;
+  amount: number;
+  flavour: FlavourParams;
+};
+
+export type ProductImageParams = {
+  id: string;
+  url: string;
+  main: boolean | null;
 };

@@ -270,7 +270,7 @@ CarouselNext.displayName = "CarouselNext";
 interface CarouselThumbsProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   orientation?: string;
-  children: React.ReactNode[];
+  children: React.ReactNode[] | React.ReactNode;
 }
 const CarouselThumbs = ({
   className,
@@ -289,16 +289,18 @@ const CarouselThumbs = ({
         className
       )}
     >
-      {children.map((item, index) => (
-        <div
-          key={index}
-          data-active={index == slideIndex}
-          className="group h-fit w-fit cursor-pointer"
-          onClick={() => scrollTo(index)}
-        >
-          {item}
-        </div>
-      ))}
+      {Array.isArray(children)
+        ? children.map((item, index) => (
+            <div
+              key={index}
+              data-active={index == slideIndex}
+              className="group h-fit w-fit cursor-pointer"
+              onClick={() => scrollTo(index)}
+            >
+              {item}
+            </div>
+          ))
+        : children}
     </div>
   );
 };

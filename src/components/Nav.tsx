@@ -1,14 +1,14 @@
 "use client";
-import { Category, CategoryWithSub } from "@/models/paramsTypes";
+import { TypeParams, TypeParamsWithSub } from "@/models/paramsTypes";
 import Link from "next/link";
 import { useState } from "react";
 
 type NavProps = {
-  categories: CategoryWithSub[];
+  categories: TypeParamsWithSub[];
   closeHandler: () => void;
 };
 const Nav = ({ categories, closeHandler }: NavProps) => {
-  const [subCategories, setCategories] = useState<Category[] | null>(null);
+  const [subCategories, setCategories] = useState<TypeParams[] | null>(null);
   return (
     <div
       className="max-w-screen-width mx-auto pl-36 flex"

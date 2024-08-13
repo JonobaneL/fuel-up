@@ -8,12 +8,22 @@ export const getProductDetails = (proudct_slug: string) => {
       slug: proudct_slug,
     },
     include: {
-      flavours: true,
+      flavours: {
+        include: {
+          flavour: true,
+        },
+      },
       country: true,
       images: true,
       brand: true,
       speedType: true,
-      type: true,
+      reviews: true,
+      type: {
+        include: {
+          parent: true,
+          subTypes: true,
+        },
+      },
     },
   });
 };

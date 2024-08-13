@@ -5,26 +5,39 @@ import {
   CarouselItem,
   CarouselThumbs,
 } from "./ui/carousel";
+import { ProductImageParams } from "@/models/paramsTypes";
 
-const ProductCarousel = () => {
-  const images = ["/product-img1.jpg", "/product-img2.jpg"];
+type CarouselProps = {
+  images: ProductImageParams[] | undefined;
+};
+
+const ProductCarousel = ({ images }: CarouselProps) => {
   return (
     <div className="flex gap-2 w-full aspect-square">
       <Carousel className="flex gap-2">
         <CarouselThumbs>
-          {images.map((item, index) => (
-            <div
-              key={index}
-              className="p-1 group-data-[active=true]:outline outline-1 outline-primary rounded-sm"
-            >
-              <Image src={item} alt="product image" width={60} height={60} />
-            </div>
-          ))}
+          {images ? (
+            images?.map((item, index) => (
+              <div
+                key={index}
+                className="p-1 group-data-[active=true]:outline outline-1 outline-primary rounded-sm"
+              >
+                <Image
+                  src={item.url}
+                  alt="product image"
+                  width={60}
+                  height={60}
+                />
+              </div>
+            ))
+          ) : (
+            <></>
+          )}
         </CarouselThumbs>
         <CarouselContent>
-          {images.map((item, index) => (
+          {images?.map((item, index) => (
             <CarouselItem key={index} className=" h-full w-full">
-              <img src={item} alt="product-image" />
+              <img src={item.url} alt="product-image" />
             </CarouselItem>
           ))}
         </CarouselContent>

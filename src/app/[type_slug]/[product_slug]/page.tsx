@@ -1,14 +1,16 @@
 import { getProductDetails } from "@/actions/productAction";
+import CommonInfo from "@/components/CommonInfo";
 import ProductBreadcrumb from "@/components/ProductBreadcrumb";
 import ProductCarousel from "@/components/ProductCarousel";
 import ProductInfo from "@/components/ProductInfo";
+import ReviewForm from "@/components/ReviewForm";
 
 type ProductPageProps = {
   params: { product_slug: string };
+  searchParams: { flavour: string };
 };
-const ProductPage = async ({ params }: ProductPageProps) => {
+const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
   const product = await getProductDetails(params.product_slug);
-  console.log(product);
   return (
     <main className="mb-14 mt-10">
       <section>
@@ -16,10 +18,30 @@ const ProductPage = async ({ params }: ProductPageProps) => {
       </section>
       <section className="flex gap-12 mt-10">
         <div className="w-1/2">
-          <ProductCarousel />
+          <ProductCarousel images={product?.images} />
         </div>
         <div className="w-1/2 ">
-          <ProductInfo />
+          <ProductInfo
+            product_slug={params.product_slug}
+            flavour_slug={searchParams.flavour}
+          />
+          <CommonInfo />
+        </div>
+      </section>
+      <section className="flex gap-12">
+        <div className="w-3/5">
+          <h2 className="font-title text-primary text-3xl mb-8">Опис</h2>
+          <div
+            dangerouslySetInnerHTML={{ __html: product?.description || "" }}
+          />
+        </div>
+        <div className="w-2/5">
+          <h2 className="font-title text-primary text-2xl mb-10">
+            Відгуки покупців{" "}
+            <span className="text-third">{product?.reviews.length}</span>
+          </h2>
+
+          <ReviewForm product_slug={product?.slug || ""} />
         </div>
       </section>
     </main>

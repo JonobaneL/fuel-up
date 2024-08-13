@@ -1,24 +1,36 @@
-import { fakeProduct } from "@/data/fakeProduct";
+"use client";
+import { useSearchOptions } from "@/hooks/useSearchOptions";
+import { ProductFlavorParams } from "@/models/paramsTypes";
 
-const FlavoursList = () => {
-  const currentFlavour = fakeProduct.flavours[0];
+type ListProps = {
+  flavours: ProductFlavorParams[] | undefined;
+};
+
+const FlavoursList = ({ flavours }: ListProps) => {
+  const [flavour, setFlavour] = useSearchOptions("flavour");
+  const currentFlavour = flavours
+    ? flavours.find((item) => item.flavour.slug == flavour)
+    : null;
 
   return (
     <div className="mb-10">
       <p className="text-third text-lg font-semibold">Асортимент смаків</p>
       <div className="flex gap-2 mt-3 flex-wrap">
-        {fakeProduct.flavours.map((item) => (
+        {flavours?.map((item) => (
           <div
             key={item.id}
-            className={`px-2.5 rounded-sm border cursor-pointer border-primary flex items-center h-8 ${
-              currentFlavour.id == item.id ? "text-white bg-primary" : ""
+            onClick={() => setFlavour(item.flavour.slug)}
+            className={`px-2.5 rounded-sm border cursor-pointer  flex items-center h-8 ${
+              currentFlavour?.id == item.id ? "text-white bg-primary" : ""
             }
         ${
-          item.amount == 0 ? "border-gray-600 text-gray-600 cursor-default" : ""
+          item.amount == 0
+            ? "border-gray-600 text-gray-600 cursor-default"
+            : "border-primary"
         }
         `}
           >
-            {item.name}
+            {item.flavour.name}
           </div>
         ))}
       </div>

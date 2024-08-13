@@ -8,7 +8,7 @@ const ProductCart = ({ product }: ProductCartProps) => {
   const product_discount = product.flavours[0].discount;
   //also check this commponent later
   return (
-    <div className="max-w-52 w-full h-fit flex flex-col gap-1 p-2 hover:shadow-product-cart rounded-sm transition-shadow cursor-pointer">
+    <div className=" w-full h-fit flex flex-col gap-1 p-2 hover:shadow-product-cart rounded-sm transition-shadow cursor-pointer">
       <Image
         src={product_img}
         alt="product"

@@ -1,4 +1,4 @@
-import { Category } from "@/models/paramsTypes";
+import { TypeParams } from "@/models/paramsTypes";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,7 +9,7 @@ import {
 } from "./ui/breadcrumb";
 
 type BreadcrumbsProps = {
-  type: Category | undefined;
+  type: TypeParams | undefined;
   brand: string | undefined;
 };
 
@@ -21,6 +21,17 @@ const ProductBreadcrumb = ({ type, brand }: BreadcrumbsProps) => {
           <BreadcrumbLink href="/">Головна</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
+        {type?.parent && (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/${type?.parent?.slug}`}>
+                {type?.parent?.name}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+          </>
+        )}
+
         <BreadcrumbItem>
           <BreadcrumbLink href={`/${type?.slug}`}>{type?.name}</BreadcrumbLink>
         </BreadcrumbItem>

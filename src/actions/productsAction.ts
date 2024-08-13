@@ -26,6 +26,7 @@ const requestConfig = {
       select: {
         id: true,
         price: true,
+        flavour: true,
         discount: true,
       },
     },

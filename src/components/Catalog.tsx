@@ -2,11 +2,11 @@
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import Nav from "./Nav";
-import { CategoryWithSub } from "@/models/paramsTypes";
+import { TypeParamsWithSub } from "@/models/paramsTypes";
 import { useState } from "react";
 
 type CatalogProps = {
-  categories: CategoryWithSub[];
+  categories: TypeParamsWithSub[];
 };
 const Catalog = ({ categories }: CatalogProps) => {
   const [open, setIsOpen] = useState(false);
