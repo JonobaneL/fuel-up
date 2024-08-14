@@ -6,35 +6,31 @@ import TextareaField from "./ui/TextareaField";
 import { emailValidation } from "@/utils/formValidations";
 import { useMutation } from "@tanstack/react-query";
 import { addReview } from "@/actions/reviewActions";
-
-type ReviewFormParams = {
-  author: string;
-  email: string;
-  rate: number;
-  advantages: string | null;
-  disadvantages: string | null;
-  content: string;
-};
+import { ReviewFormParams } from "@/models/formParams";
+import RateField from "./RateField";
+import { usePathname } from "next/navigation";
 
 const ReviewForm = ({ product_slug }: { product_slug: string }) => {
+  const pathname = usePathname();
   const {
     register,
+    control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<ReviewFormParams>({
     defaultValues: {
       rate: 5,
-      advantages: null,
-      disadvantages: null,
     },
   });
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["review", "create"],
-    mutationFn: async (data: ReviewFormParams) => addReview(data, product_slug),
+    mutationFn: async (data: ReviewFormParams) =>
+      addReview(data, product_slug, pathname),
   });
   const onSubmit = async (data: ReviewFormParams) => {
-    console.log(data);
     mutate(data);
+    reset();
   };
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -50,23 +46,17 @@ const ReviewForm = ({ product_slug }: { product_slug: string }) => {
         {...register("email", emailValidation)}
         placeholder="E-mail"
       />
+      <RateField control={control} />
       <TextareaField
         error={errors.content?.message}
         {...register("content", { required: "Це поле обов'язкове" })}
         className="rounded-sm min-h-20"
         placeholder="Що Ви думаєте про товар?"
       />
-      <TextareaField
-        {...register("advantages")}
-        className="rounded-sm"
-        placeholder="Переваги"
-      />
-      <TextareaField
-        {...register("disadvantages")}
-        className="rounded-sm"
-        placeholder="Недоліки"
-      />
-      <Button className="text-white block mr-0 ml-auto rounded-none font-semibold h-10 shadow-md">
+      <Button
+        disabled={isPending}
+        className="text-white block mr-0 ml-auto rounded-none font-semibold h-10 shadow-md"
+      >
         Залишити відгук
       </Button>
     </form>

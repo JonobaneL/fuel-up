@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Slider } from "./ui/slider";
-import { useSearchParamsContext } from "@/context/searchParamsContext";
+import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import PriceInput from "./PriceInput";
 
 const PriceFilter = () => {

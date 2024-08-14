@@ -8,7 +8,7 @@ import { Input } from "./ui/input";
 import CheckboxList from "./ui/CheckboxList";
 import { useState } from "react";
 import { useRequest } from "@/hooks/useRequest";
-import { useSearchParamsContext } from "@/context/searchParamsContext";
+import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import { useQuery } from "@tanstack/react-query";
 import { getBrands } from "@/actions/paramsActions";
 

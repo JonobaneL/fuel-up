@@ -28,7 +28,7 @@ export const useSearchParamsContext = () => {
   return useContext(searchParamsContext) as SearchParamsProviderParams;
 };
 
-export const SearhcParamsProvider = ({ children }: ProviderProps) => {
+const SearhcParamsProvider = ({ children }: ProviderProps) => {
   const initialSearchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -96,3 +96,5 @@ export const SearhcParamsProvider = ({ children }: ProviderProps) => {
     </searchParamsContext.Provider>
   );
 };
+
+export default SearhcParamsProvider;

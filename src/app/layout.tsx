@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { SearhcParamsProvider } from "@/context/searchParamsContext";
 import Provider from "./Providers";
+import SearhcParamsProvider from "@/context/SearchParamsContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "cyrillic"] });
+// const roboto_c = Roboto_Condensed({ subsets: ["cyrillic", "latin"] }); choose better second font
 
 export const metadata: Metadata = {
   title: "Fuel Up",

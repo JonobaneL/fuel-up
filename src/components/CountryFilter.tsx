@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParamsContext } from "@/context/searchParamsContext";
+import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import {
   AccordionContent,
   AccordionItem,

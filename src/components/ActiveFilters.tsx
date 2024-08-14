@@ -1,6 +1,6 @@
 "use client";
 import { getFiltersInfo } from "@/actions/filters";
-import { useSearchParamsContext } from "@/context/searchParamsContext";
+import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import { ParamProps } from "@/models/paramsTypes";
 import { useQueries } from "@tanstack/react-query";
 import { Button } from "./ui/button";

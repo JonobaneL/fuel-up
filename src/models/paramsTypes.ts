@@ -47,3 +47,11 @@ export type ProductImageParams = {
   url: string;
   main: boolean | null;
 };
+export type ProductReview = {
+  id: string;
+  author: string;
+  email: string;
+  content: string;
+  rate: number;
+  createdAt: Date;
+};

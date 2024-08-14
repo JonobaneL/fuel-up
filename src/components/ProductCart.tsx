@@ -1,6 +1,7 @@
 import { ProductCartProps } from "@/models/ProductCartProps";
 import { priceDiscount } from "@/utils/priceDiscount";
 import Image from "next/image";
+import Rate from "./ui/Rate";
 
 const ProductCart = ({ product }: ProductCartProps) => {
   const product_img = product.images[0].url;
@@ -18,13 +19,7 @@ const ProductCart = ({ product }: ProductCartProps) => {
       />
       <p className="font-medium text-sm">{product.name}</p>
       <p className="text-light-gray text-xs mb-1">{product.brand.name}</p>
-      <div className="flex gap-0.5">
-        {Array(5)
-          .fill(1)
-          .map((_, index) => (
-            <img className="size-4" src="/star-full.svg" alt="star" />
-          ))}
-      </div>
+      <Rate />
       {product.flavours[0].discount ? (
         <div className="flex gap-2">
           <p className="font-title text-light-gray text-lg line-through">

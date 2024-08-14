@@ -1,4 +1,4 @@
-import { useSearchParamsContext } from "@/context/searchParamsContext";
+import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import { Input } from "./ui/input";
 import { priceConvert } from "@/utils/priceConver";
 

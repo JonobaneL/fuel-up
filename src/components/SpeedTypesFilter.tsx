@@ -6,7 +6,7 @@ import {
 } from "./ui/accordion";
 import CheckboxList from "./ui/CheckboxList";
 import { ParamProps } from "@/models/paramsTypes";
-import { useSearchParamsContext } from "@/context/searchParamsContext";
+import { useSearchParamsContext } from "@/context/SearchParamsContext";
 
 type FilterProps = {
   data: ParamProps[];

@@ -1,17 +1,20 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 type ReviewParams = {
   author: string;
   email: string;
   rate: number;
-  advantages: string | null;
-  disadvantages: string | null;
   content: string;
 };
 
-export const addReview = async (review: ReviewParams, product_slug: string) => {
+export const addReview = async (
+  review: ReviewParams,
+  product_slug: string,
+  pathname: string
+) => {
   await prisma.review.create({
     data: {
       ...review,
@@ -22,4 +25,5 @@ export const addReview = async (review: ReviewParams, product_slug: string) => {
       },
     },
   });
+  revalidatePath(pathname);
 };

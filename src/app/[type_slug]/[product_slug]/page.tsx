@@ -3,7 +3,7 @@ import CommonInfo from "@/components/CommonInfo";
 import ProductBreadcrumb from "@/components/ProductBreadcrumb";
 import ProductCarousel from "@/components/ProductCarousel";
 import ProductInfo from "@/components/ProductInfo";
-import ReviewForm from "@/components/ReviewForm";
+import ProductReviews from "@/components/ProductReviews";
 
 type ProductPageProps = {
   params: { product_slug: string };
@@ -28,7 +28,7 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
           <CommonInfo />
         </div>
       </section>
-      <section className="flex gap-12">
+      <section className="flex gap-12 mt-10">
         <div className="w-3/5">
           <h2 className="font-title text-primary text-3xl mb-8">Опис</h2>
           <div
@@ -36,12 +36,10 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
           />
         </div>
         <div className="w-2/5">
-          <h2 className="font-title text-primary text-2xl mb-10">
-            Відгуки покупців{" "}
-            <span className="text-third">{product?.reviews.length}</span>
-          </h2>
-
-          <ReviewForm product_slug={product?.slug || ""} />
+          <ProductReviews
+            product_slug={product?.slug}
+            reviews={product?.reviews}
+          />
         </div>
       </section>
     </main>
