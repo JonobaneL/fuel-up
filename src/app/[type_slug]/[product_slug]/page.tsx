@@ -20,7 +20,7 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
         <div className="w-1/2">
           <ProductCarousel images={product?.images} />
         </div>
-        <div className="w-1/2 ">
+        <div className="w-1/2">
           <ProductInfo
             product_slug={params.product_slug}
             flavour_slug={searchParams.flavour}

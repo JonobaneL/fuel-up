@@ -13,7 +13,7 @@ const FlavoursList = ({ flavours }: ListProps) => {
     : null;
 
   return (
-    <div className="mb-10">
+    <div>
       <p className="text-third text-lg font-semibold">Асортимент смаків</p>
       <div className="flex gap-2 mt-3 flex-wrap">
         {flavours?.map((item) => (

@@ -6,11 +6,11 @@ import TextareaField from "./ui/TextareaField";
 import { emailValidation } from "@/utils/formValidations";
 import { useMutation } from "@tanstack/react-query";
 import { addReview } from "@/actions/reviewActions";
-import { ReviewFormParams } from "@/models/formParams";
+import { ReviewFormParams, ReviewFormProps } from "@/models/formParams";
 import RateField from "./RateField";
 import { usePathname } from "next/navigation";
 
-const ReviewForm = ({ product_slug }: { product_slug: string }) => {
+const ReviewForm = ({ product_slug, closeCallback }: ReviewFormProps) => {
   const pathname = usePathname();
   const {
     register,
@@ -53,12 +53,24 @@ const ReviewForm = ({ product_slug }: { product_slug: string }) => {
         className="rounded-sm min-h-20"
         placeholder="Що Ви думаєте про товар?"
       />
-      <Button
-        disabled={isPending}
-        className="text-white block mr-0 ml-auto rounded-none font-semibold h-10 shadow-md"
-      >
-        Залишити відгук
-      </Button>
+      <div className="flex items-center justify-end gap-4">
+        {closeCallback && (
+          <Button
+            onClick={closeCallback}
+            variant="outline"
+            className=" rounded-none font-semibold h-10"
+          >
+            Скасувати
+          </Button>
+        )}
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="text-white rounded-none font-semibold h-10 shadow-md"
+        >
+          Залишити відгук
+        </Button>
+      </div>
     </form>
   );
 };

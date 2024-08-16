@@ -9,7 +9,7 @@ const AditionalProductInfo = async ({ product_slug }: InfoProps) => {
   const product = await getProductDetails(product_slug);
 
   return (
-    <div className="space-y-1 mt-7">
+    <div className="space-y-1">
       <div className="flex items-center gap-2">
         <p className="flex-cover">Виробництво:</p>
         <DashedSeparator />

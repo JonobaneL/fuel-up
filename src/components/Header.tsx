@@ -3,6 +3,8 @@ import Search from "./ui/Search";
 import Catalog from "./Catalog";
 import TopHeader from "./TopHeader";
 import { getMainTypes } from "@/actions/paramsActions";
+import Image from "next/image";
+import Favorites from "./Favorites";
 
 const Header = async () => {
   const categories = await getMainTypes();
@@ -21,13 +23,15 @@ const Header = async () => {
           <div className="flex items-center gap-4 w-fit">
             <Search />
             <div className="h-10 flex-cover flex items-center px-4 border-x">
-              <img
-                src="/header/favorites.svg"
-                alt="favorites"
-                className="size-7"
-              />
+              <Favorites />
             </div>
-            <img src="/header/bag.svg" alt="bag" className="size-7" />
+            <Image
+              width={28}
+              height={28}
+              src="/header/bag.svg"
+              alt="bag"
+              className="size-7"
+            />
           </div>
         </div>
       </div>

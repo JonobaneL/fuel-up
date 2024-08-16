@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-type SearchParamsProviderParams = {
+type SearchParamsContextParams = {
   params: DynamicParams;
   clearSearchParams: () => void;
   updateParam: (paramName: string, newValue: string | string[]) => void;
@@ -20,12 +20,12 @@ type ProviderProps = {
   children: React.ReactNode;
 };
 
-const searchParamsContext = createContext<SearchParamsProviderParams | null>(
+const searchParamsContext = createContext<SearchParamsContextParams | null>(
   null
 );
 
 export const useSearchParamsContext = () => {
-  return useContext(searchParamsContext) as SearchParamsProviderParams;
+  return useContext(searchParamsContext) as SearchParamsContextParams;
 };
 
 const SearhcParamsProvider = ({ children }: ProviderProps) => {

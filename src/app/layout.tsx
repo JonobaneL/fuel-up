@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Provider from "./Providers";
-import SearhcParamsProvider from "@/context/SearchParamsContext";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 // const roboto_c = Roboto_Condensed({ subsets: ["cyrillic", "latin"] }); choose better second font
@@ -23,15 +22,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("flex min-h-dvh flex-col bg-back", inter.className)}>
-        <Header />
-        <SearhcParamsProvider>
-          <Provider>
+        <Provider>
+          <>
+            <Header />
             <div className="px-20 flex-1">
               <div className="max-w-[1440px] w-full mx-auto">{children}</div>
             </div>
-          </Provider>
-        </SearhcParamsProvider>
-        <Footer />
+            <Footer />
+          </>
+        </Provider>
       </body>
     </html>
   );

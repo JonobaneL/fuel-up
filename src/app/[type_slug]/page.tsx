@@ -29,10 +29,11 @@ const Products = async ({ params, searchParams }: ProductsProps) => {
           <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,_1fr))] gap-3 justify-items-center">
             {products.map((item) => (
               <Link
+                key={item.id}
                 className="w-full"
                 href={`${params.type_slug}/${item.slug}?flavour=${item.flavours[0].flavour.slug}`}
               >
-                <ProductCart key={item.id} product={item} />
+                <ProductCart product={item} />
               </Link>
             ))}
           </div>

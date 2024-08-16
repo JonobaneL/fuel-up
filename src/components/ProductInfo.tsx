@@ -1,10 +1,10 @@
-import { fakeProduct } from "@/data/fakeProduct";
 import Rate from "./ui/Rate";
-import { Button } from "./ui/button";
 import AditionalProductInfo from "./AditionalProductInfo";
 import FlavoursList from "./FlavoursList";
 import { getProductDetails } from "@/actions/productAction";
 import { priceDiscount } from "@/utils/priceDiscount";
+import ProductControlls from "./ProductControlls";
+import ProductPrice from "./ui/ProductPrice";
 
 type ProductInfoProps = {
   product_slug: string;
@@ -24,40 +24,27 @@ const ProductInfo = async ({
       <h2 className="text-4xl font-semibold mb-1 text-gray-800">
         {product?.name}
       </h2>
-      <h4 className="text-lg font-semibold text-gray-500">
+      <h4 className="text-lg font-semibold text-gray-500 mb-6">
         {product?.brand.name}
       </h4>
-      <div className="flex items-center gap-3 mt-2 mb-6">
-        <Rate />
-        <p className="font-medium text-sm text-gray-500">
-          Відгуки ({fakeProduct.reviews.length})
-        </p>
-      </div>
-      <FlavoursList flavours={product?.flavours} />
-      {currentFlavour?.discount ? (
-        <div className="flex gap-4 mb-6">
-          <h4 className="font-title text-2xl text-light-gray line-through">
-            {currentFlavour?.price} грн
-          </h4>
-          <h4 className="font-title text-2xl text-primary">
-            {priceDiscount(currentFlavour?.price, currentFlavour.discount)} грн
-          </h4>
+      {product?.reviews.length ? (
+        <div className="flex items-center gap-3 mt-2">
+          <Rate />
+          <p className="font-medium text-sm text-gray-500">
+            Відгуки ({product?.reviews.length})
+          </p>
         </div>
-      ) : (
-        <h4 className="font-title text-2xl mb-6">
-          {currentFlavour?.price} грн
-        </h4>
-      )}
-      <div className="flex items-center gap-3.5">
-        <Button className="h-10 px-3.5 flex items-center gap-3.5 font-title text-white bg-primary rounded-none text-base shadow-md">
-          Купити
-          <img className="size-5" src="/shopping-bag.png" alt="bag" />
-        </Button>
-        <button>
-          <img className="size-7" src="/heart.svg" alt="add to favorites" />
-        </button>
+      ) : null}
+      <FlavoursList flavours={product?.flavours} />
+      <div className="space-y-6 mt-10">
+        <ProductPrice
+          discount={currentFlavour?.discount || 0}
+          price={currentFlavour?.price || 0}
+          fontSize="2xl"
+        />
+        <ProductControlls product_slug={product_slug} />
+        <AditionalProductInfo product_slug={product_slug} />
       </div>
-      <AditionalProductInfo product_slug={product_slug} />
     </>
   );
 };
