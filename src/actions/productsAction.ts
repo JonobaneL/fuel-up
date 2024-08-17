@@ -1,45 +1,9 @@
 "use server";
+import { allProductsRequestConfig } from "@/data/productDetailsConfigs";
 import prisma from "@/lib/db";
 import { SearchParams } from "@/models/paramsTypes";
 import { generateFiltersConfig } from "@/utils/filtersConfig";
 
-const requestConfig = {
-  select: {
-    id: true,
-    name: true,
-    slug: true,
-    brand: {
-      select: {
-        name: true,
-      },
-    },
-    type: {
-      select: {
-        slug: true,
-      },
-    },
-    flavours: {
-      take: 1,
-      where: {
-        amount: { gt: 0 },
-      },
-      select: {
-        id: true,
-        price: true,
-        flavour: true,
-        discount: true,
-      },
-    },
-    images: {
-      where: {
-        main: true,
-      },
-      select: {
-        url: true,
-      },
-    },
-  },
-};
 const getDefaultConfig = (type_slug: string) => {
   return {
     OR: [
@@ -60,15 +24,15 @@ const getDefaultConfig = (type_slug: string) => {
 };
 
 export const getProducts = (type_slug: string, filters: SearchParams) => {
-  if (type_slug == "products") return prisma.product.findMany(requestConfig);
+  if (type_slug == "products")
+    return prisma.product.findMany(allProductsRequestConfig);
   const defaultProductsConfig = getDefaultConfig(type_slug);
   const aditionalFilters = generateFiltersConfig(filters);
-  // console.log(aditionalFilters);
   return prisma.product.findMany({
     where: {
       ...defaultProductsConfig,
       ...aditionalFilters,
     },
-    ...requestConfig,
+    ...allProductsRequestConfig,
   });
 };

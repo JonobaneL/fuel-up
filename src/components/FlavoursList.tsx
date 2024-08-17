@@ -25,7 +25,7 @@ const FlavoursList = ({ flavours }: ListProps) => {
             }
         ${
           item.amount == 0
-            ? "border-gray-600 text-gray-600 cursor-default"
+            ? "border-gray-600 text-gray-600 cursor-default pointer-events-none"
             : "border-primary"
         }
         `}

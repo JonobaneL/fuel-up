@@ -2,6 +2,8 @@
 import { useFavoritesContext } from "@/context/FavoritesContext";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { useShoppingCart } from "@/context/ShoppingCartContext";
+import { useSearchParams } from "next/navigation";
 
 type ProductControllsProps = {
   product_slug: string;
@@ -9,10 +11,18 @@ type ProductControllsProps = {
 
 const ProductControlls = ({ product_slug }: ProductControllsProps) => {
   const { checkFavorites, toggleFavorite } = useFavoritesContext();
+  const { addProduct } = useShoppingCart();
+  const searchParams = useSearchParams();
+  const currentFlavour = searchParams.get("flavour");
   const isInFavorites = checkFavorites(product_slug);
   return (
     <div className="flex items-center gap-3.5">
-      <Button className="h-10 px-3.5 flex items-center gap-3.5 font-title text-white bg-primary rounded-none text-base shadow-md">
+      <Button
+        onClick={() =>
+          currentFlavour && addProduct(product_slug, currentFlavour)
+        }
+        className="h-10 px-3.5 flex items-center gap-3.5 font-title text-white bg-primary rounded-none text-base shadow-md"
+      >
         Купити
         <img className="size-5" src="/shopping-bag.png" alt="bag" />
       </Button>

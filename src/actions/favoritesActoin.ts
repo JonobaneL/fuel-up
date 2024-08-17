@@ -2,12 +2,10 @@
 
 import prisma from "@/lib/db";
 
-export const getFavorites = (favorites_slugs: string[]) => {
-  return prisma.product.findMany({
+export const getFavoriteProduct = (favorite_slugs: string) => {
+  return prisma.product.findUnique({
     where: {
-      slug: {
-        in: favorites_slugs,
-      },
+      slug: favorite_slugs,
     },
     select: {
       id: true,

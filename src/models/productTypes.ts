@@ -1,5 +1,3 @@
-import { Prisma } from "@prisma/client";
-
 export type ProductCartParams = {
   name: string;
   brand: {
@@ -15,10 +13,16 @@ export type ProductCartParams = {
   images: { url: string }[];
 };
 
-export type FavoriteProductParams = {
+export type ProductCartProps = {
+  product: ProductCartParams;
+};
+export type BriefProductInfoType = {
   id: string;
-  slug: string;
   name: string;
+  slug: string;
+  brand: {
+    name: string;
+  };
   type: {
     slug: string;
   };
@@ -30,14 +34,6 @@ export type FavoriteProductParams = {
     discount: number | null;
     price: number;
   }[];
-  images: {
-    url: string;
-  }[];
-  brand: {
-    slug: string;
-    name: string;
-  };
-};
-export type ProductCartProps = {
-  product: ProductCartParams;
+  images: { url: string }[];
+  quantity: number;
 };

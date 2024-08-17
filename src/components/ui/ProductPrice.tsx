@@ -18,14 +18,14 @@ const ProductPrice = ({
           <p
             className={`font-title text-light-gray text-${fontSize} line-through`}
           >
-            {price}грн
+            {price} грн
           </p>
           <p className={`font-title text-primary text-${fontSize}`}>
-            {priceDiscount(price, discount || 0)}грн
+            {priceDiscount(price, discount || 0)} грн
           </p>
         </div>
       ) : (
-        <p className={`font-title text-${fontSize}`}>{price}грн</p>
+        <p className={`font-title text-${fontSize}`}>{price} грн</p>
       )}
     </>
   );

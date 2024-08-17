@@ -3,8 +3,8 @@ import Search from "./ui/Search";
 import Catalog from "./Catalog";
 import TopHeader from "./TopHeader";
 import { getMainTypes } from "@/actions/paramsActions";
-import Image from "next/image";
 import Favorites from "./Favorites";
+import ShoppingCartDialog from "./ShoppingCartDialog";
 
 const Header = async () => {
   const categories = await getMainTypes();
@@ -25,13 +25,7 @@ const Header = async () => {
             <div className="h-10 flex-cover flex items-center px-4 border-x">
               <Favorites />
             </div>
-            <Image
-              width={28}
-              height={28}
-              src="/header/bag.svg"
-              alt="bag"
-              className="size-7"
-            />
+            <ShoppingCartDialog />
           </div>
         </div>
       </div>

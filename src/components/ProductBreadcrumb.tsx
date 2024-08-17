@@ -7,6 +7,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
+import Link from "next/link";
 
 type BreadcrumbsProps = {
   type: TypeParams | undefined;
@@ -18,22 +19,19 @@ const ProductBreadcrumb = ({ type, brand }: BreadcrumbsProps) => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">Головна</BreadcrumbLink>
+          <Link href="/">Головна</Link>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         {type?.parent && (
           <>
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/${type?.parent?.slug}`}>
-                {type?.parent?.name}
-              </BreadcrumbLink>
+              <Link href={`/${type?.parent?.slug}`}>{type?.parent?.name}</Link>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
           </>
         )}
-
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/${type?.slug}`}>{type?.name}</BreadcrumbLink>
+          <Link href={`/${type?.slug}`}>{type?.name}</Link>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>

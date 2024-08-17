@@ -7,16 +7,21 @@ import { Button } from "./ui/button";
 
 const ActiveFilters = () => {
   const { params, clearSearchParams, removeParam } = useSearchParamsContext();
+  console.log(params);
   const paramsQueries = useQueries({
     queries: Object.keys(params).map((key) => ({
-      queryKey: ["searchParam", `${key}${params[key].length}`],
-      queryFn: async () => getFiltersInfo(key, params[key]),
+      queryKey: ["searchParam", key, params[key]],
+      queryFn: async () => {
+        console.log("request send");
+        return getFiltersInfo(key, params[key]);
+      },
     })),
     combine: (response) => {
       return {
         data: response
           .map((response) => {
             const paramRes = response.data as ParamProps[];
+            console.log(paramRes);
             if (!paramRes) return [];
             return paramRes.map((item) => {
               const paramName = Object.keys(params).find((key) =>
@@ -31,6 +36,8 @@ const ActiveFilters = () => {
     },
   });
   if (paramsQueries.data.length == 0) return null;
+  // console.log(paramsQueries);
+  //think aabout proper loading also split a component
   return (
     <div className="flex flex-wrap gap-2">
       <Button

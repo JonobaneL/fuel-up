@@ -1,0 +1,66 @@
+import Image from "next/image";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { CartProduct } from "@/models/ShoppingCartContextTypes";
+import { priceDiscount } from "@/utils/priceDiscount";
+import { getBriefProductDetails } from "@/actions/productAction";
+import ProductQuantityControlls from "./ProductQuantityControlls";
+import { useShoppingCart } from "@/context/ShoppingCartContext";
+
+type ProductProps = {
+  product: CartProduct;
+};
+
+const ShoppingCartProduct = ({ product }: ProductProps) => {
+  const { removeProduct } = useShoppingCart();
+  const { data, isPending } = useQuery({
+    queryKey: ["product", product.slug, product.flavour],
+    queryFn: async () => {
+      console.log("send request");
+      return getBriefProductDetails(product.slug, product.flavour);
+    },
+    staleTime: 24 * 60 * 60 * 1000,
+  });
+  const productLink = `/${data?.type.slug}/${data?.slug}?flavour=${data?.flavours[0].flavour.slug}`;
+  const productPrice =
+    priceDiscount(
+      data?.flavours[0].price || 0,
+      data?.flavours[0].discount || 0
+    ) * product.quantity;
+  if (isPending) return <p>Loading...</p>;
+  return (
+    <div className="items-center gap-4 grid grid-cols-[80px_2fr_0.7fr_1fr_15px] pt-3">
+      <Link href={productLink} className="flex gap-4 items-center">
+        <Image
+          src={data?.images[0].url || ""}
+          width={80}
+          height={80}
+          alt={data?.name || ""}
+        />
+      </Link>
+
+      <div className="space-y-0.5">
+        <Link href={productLink} className="font-medium">
+          {data?.name}
+        </Link>
+        <p className="text-third text-sm font-medium">
+          {data?.flavours[0].flavour.name}
+        </p>
+      </div>
+      <ProductQuantityControlls product={product} />
+      <p className="font-title text-xl text-third justify-self-center">
+        {productPrice} грн
+      </p>
+      <Image
+        onClick={() => removeProduct(product.slug, product.flavour)}
+        className="cursor-pointer"
+        src="/close-icon-dark.svg"
+        width={15}
+        height={15}
+        alt="remove"
+      />
+    </div>
+  );
+};
+
+export default ShoppingCartProduct;

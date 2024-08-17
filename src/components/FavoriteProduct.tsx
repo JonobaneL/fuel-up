@@ -1,17 +1,27 @@
+import Image from "next/image";
 import Link from "next/link";
 import ProductPrice from "./ui/ProductPrice";
-import { FavoriteProductParams } from "@/models/productTypes";
-import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { getFavoriteProduct } from "@/actions/favoritesActoin";
 import { useFavoritesContext } from "@/context/FavoritesContext";
+import FavoriteProductSkeleton from "./ui/FavoriteProductSkeleton";
 
 type FavoriteProductProps = {
-  product: FavoriteProductParams;
+  product_slug: string;
   closeCallback: () => void;
 };
 
-const FavoriteProduct = ({ product, closeCallback }: FavoriteProductProps) => {
-  const productLink = `/${product.type.slug}/${product.slug}?flavour=${product.flavours[0].flavour.slug}`;
+const FavoriteProduct = ({
+  product_slug,
+  closeCallback,
+}: FavoriteProductProps) => {
+  const { data, isPending } = useQuery({
+    queryKey: ["favorite", product_slug],
+    queryFn: async () => getFavoriteProduct(product_slug),
+  });
+  const productLink = `/${data?.type.slug}/${data?.slug}?flavour=${data?.flavours[0].flavour.slug}`;
   const { removeFavorite } = useFavoritesContext();
+  if (isPending) return <FavoriteProductSkeleton />;
   return (
     <div className="items-center gap-4 grid grid-cols-[2fr_1fr_20px] pt-3">
       <Link
@@ -20,25 +30,24 @@ const FavoriteProduct = ({ product, closeCallback }: FavoriteProductProps) => {
         className="flex gap-4 items-center"
       >
         <Image
-          src={product.images[0].url}
+          src={data?.images[0].url || ""}
           width={80}
           height={80}
-          alt={product.name}
+          alt={data?.name || ""}
         />
-        <div className="space-y-1">
-          <p className="font-medium">{product.name}</p>
-          <p className="text-third text-sm">{product.brand.name}</p>
+        <div className="space-y-0.5">
+          <p className="font-medium">{data?.name}</p>
+          <p className="text-third text-sm">{data?.brand.name}</p>
         </div>
       </Link>
-
       <ProductPrice
-        discount={product.flavours[0].discount}
-        price={product.flavours[0].price}
+        discount={data?.flavours[0].discount || 0}
+        price={data?.flavours[0].price || 0}
       />
       <Image
         className="cursor-pointer"
         src="/close-icon-dark.svg"
-        onClick={() => removeFavorite(product.slug)}
+        onClick={() => removeFavorite(product_slug)}
         width={15}
         height={15}
         alt="remove"

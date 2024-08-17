@@ -8,21 +8,18 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { useFavoritesContext } from "@/context/FavoritesContext";
-import { useQuery } from "@tanstack/react-query";
-import { getFavorites } from "@/actions/favoritesActoin";
-import FavoriteProduct from "./FavoriteProduct";
 import { useState } from "react";
+import FavoriteProduct from "./FavoriteProduct";
 
 const Favorites = () => {
   const { favorites } = useFavoritesContext();
   const [isOpen, setOpen] = useState(false);
-  const { data, isPending } = useQuery({
-    queryKey: ["favorites", favorites.length],
-    queryFn: async () => getFavorites(favorites),
-  });
-  console.log(data);
+  const dialogChangeHandler = (state: boolean) => {
+    if (state && favorites.length) setOpen(state);
+    if (!state) setOpen(state);
+  };
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => setOpen(open)}>
+    <Dialog open={isOpen} onOpenChange={dialogChangeHandler}>
       <DialogTrigger>
         <div className="w-fit h-fit relative">
           <Image
@@ -41,7 +38,7 @@ const Favorites = () => {
       </DialogTrigger>
       <DialogContent className="w-2/3 max-w-[60rem] py-12 px-12">
         <DialogHeader className="mb-2 flex flex-row justify-between items-center">
-          <DialogTitle className="font-title text-primary text-2xl">
+          <DialogTitle className="font-title font-normal text-primary text-3xl">
             Бажані товари
           </DialogTitle>
           <Image
@@ -53,18 +50,18 @@ const Favorites = () => {
             alt="close"
           />
         </DialogHeader>
-        {isPending ? (
-          <p>Loading...</p>
-        ) : (
+        {favorites.length ? (
           <div className="space-y-3 divide-y">
-            {data?.map((item) => (
+            {favorites?.map((item) => (
               <FavoriteProduct
-                key={item.id}
-                product={item}
+                key={item}
+                product_slug={item}
                 closeCallback={() => setOpen(false)}
               />
             ))}
           </div>
+        ) : (
+          <p>Наразі у вас немає доданих товарів</p>
         )}
       </DialogContent>
     </Dialog>

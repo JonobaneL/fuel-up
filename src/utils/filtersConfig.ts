@@ -31,8 +31,8 @@ export const generateFiltersConfig = (params: SearchParams) => {
         flavours: {
           some: {
             price: {
-              lt: price[1],
-              gt: price[0],
+              lte: price[1],
+              gte: price[0],
             },
           },
         },
