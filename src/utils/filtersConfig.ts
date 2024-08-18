@@ -34,6 +34,9 @@ export const generateFiltersConfig = (params: SearchParams) => {
               lte: price[1],
               gte: price[0],
             },
+            amount: {
+              gt: 0,
+            },
           },
         },
       };

@@ -18,7 +18,7 @@ export type ParamProps = {
   name: string;
   slug: string;
 };
-export type SearchParams = {
+export type SearchParamsType = {
   speed_type: string;
   brand: string;
   flavour: string;

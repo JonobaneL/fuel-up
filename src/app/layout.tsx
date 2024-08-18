@@ -25,7 +25,7 @@ export default function RootLayout({
         <Provider>
           <>
             <Header />
-            <div className="px-20 flex-1">
+            <div className="h-full px-20 flex-1">
               <div className="max-w-[1440px] w-full mx-auto">{children}</div>
             </div>
             <Footer />

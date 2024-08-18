@@ -1,9 +1,9 @@
 "use client";
 import { getFiltersInfo } from "@/actions/filters";
 import { useSearchParamsContext } from "@/context/SearchParamsContext";
-import { ParamProps } from "@/models/paramsTypes";
 import { useQueries } from "@tanstack/react-query";
 import { Button } from "./ui/button";
+import { filtersCombiteCallback } from "@/utils/filtersCombine";
 
 const ActiveFilters = () => {
   const { params, clearSearchParams, removeParam } = useSearchParamsContext();
@@ -12,32 +12,13 @@ const ActiveFilters = () => {
     queries: Object.keys(params).map((key) => ({
       queryKey: ["searchParam", key, params[key]],
       queryFn: async () => {
-        console.log("request send");
         return getFiltersInfo(key, params[key]);
       },
     })),
-    combine: (response) => {
-      return {
-        data: response
-          .map((response) => {
-            const paramRes = response.data as ParamProps[];
-            console.log(paramRes);
-            if (!paramRes) return [];
-            return paramRes.map((item) => {
-              const paramName = Object.keys(params).find((key) =>
-                params[key].includes(item.slug)
-              );
-              return { ...item, paramName };
-            });
-          })
-          .flat(),
-        pending: response.some((response) => response.isPending),
-      };
-    },
+    combine: (response) => filtersCombiteCallback(response, params),
   });
-  if (paramsQueries.data.length == 0) return null;
-  // console.log(paramsQueries);
-  //think aabout proper loading also split a component
+  if (Object.keys(params).length == 0) return null;
+
   return (
     <div className="flex flex-wrap gap-2">
       <Button
