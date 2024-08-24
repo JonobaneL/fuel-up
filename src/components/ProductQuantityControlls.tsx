@@ -1,27 +1,46 @@
 "use client";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { useShoppingCart } from "@/context/ShoppingCartContext";
-import { CartProduct } from "@/models/ShoppingCartContextTypes";
+import { CartProductType } from "@/models/ShoppingCartTypes";
+import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
+import {
+  decreaseProductAmount,
+  increaseProductAmount,
+} from "@/store/reducers/ShoppingCartSlice";
 
 type ControllsProps = {
-  product: CartProduct;
+  product: CartProductType;
 };
 
 const ProductQuantityControlls = ({ product }: ControllsProps) => {
-  const { increaseProductAmount, decreaseProductAmount } = useShoppingCart();
+  const dispatch = useTypeDispatch();
+  const { flavour, slug } = product;
   return (
     <div className="flex items-center justify-between">
       <Button
         className="size-8 rounded-none text-white p-1"
-        onClick={() => decreaseProductAmount(product.slug, product.flavour)}
+        onClick={() =>
+          dispatch(
+            decreaseProductAmount({
+              product_slug: slug,
+              flavour,
+            })
+          )
+        }
       >
         <Image alt="minus" width={10} height={10} src="/minus.svg" />
       </Button>
       <p className="font-title text-third">{product.quantity}</p>
       <Button
         className="size-8 rounded-none text-white p-1"
-        onClick={() => increaseProductAmount(product.slug, product.flavour)}
+        onClick={() =>
+          dispatch(
+            increaseProductAmount({
+              product_slug: slug,
+              flavour,
+            })
+          )
+        }
       >
         <Image alt="plus" width={10} height={10} src="/plus.svg" />
       </Button>

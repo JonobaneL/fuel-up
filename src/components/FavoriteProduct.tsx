@@ -3,8 +3,9 @@ import Link from "next/link";
 import ProductPrice from "./ui/ProductPrice";
 import { useQuery } from "@tanstack/react-query";
 import { getFavoriteProduct } from "@/actions/favoritesActoin";
-import { useFavoritesContext } from "@/context/FavoritesContext";
 import FavoriteProductSkeleton from "./ui/FavoriteProductSkeleton";
+import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
+import { removeFavorite } from "@/store/reducers/FavoritesSlice";
 
 type FavoriteProductProps = {
   product_slug: string;
@@ -20,7 +21,7 @@ const FavoriteProduct = ({
     queryFn: async () => getFavoriteProduct(product_slug),
   });
   const productLink = `/${data?.type.slug}/${data?.slug}?flavour=${data?.flavours[0].flavour.slug}`;
-  const { removeFavorite } = useFavoritesContext();
+  const dispatch = useTypeDispatch();
   if (isPending) return <FavoriteProductSkeleton />;
   return (
     <div className="items-center gap-4 grid grid-cols-[2fr_1fr_20px] pt-3">
@@ -47,7 +48,7 @@ const FavoriteProduct = ({
       <Image
         className="cursor-pointer"
         src="/close-icon-dark.svg"
-        onClick={() => removeFavorite(product_slug)}
+        onClick={() => dispatch(removeFavorite(product_slug))}
         width={15}
         height={15}
         alt="remove"

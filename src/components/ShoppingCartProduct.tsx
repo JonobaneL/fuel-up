@@ -1,18 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { CartProduct } from "@/models/ShoppingCartContextTypes";
+import { CartProductType } from "@/models/ShoppingCartTypes";
 import { priceDiscount } from "@/utils/priceDiscount";
 import { getBriefProductDetails } from "@/actions/productAction";
 import ProductQuantityControlls from "./ProductQuantityControlls";
-import { useShoppingCart } from "@/context/ShoppingCartContext";
+import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
+import { removeProduct } from "@/store/reducers/ShoppingCartSlice";
 
 type ProductProps = {
-  product: CartProduct;
+  product: CartProductType;
 };
 
 const ShoppingCartProduct = ({ product }: ProductProps) => {
-  const { removeProduct } = useShoppingCart();
+  const dispatch = useTypeDispatch();
   const { data, isPending } = useQuery({
     queryKey: ["product", product.slug, product.flavour],
     queryFn: async () => {
@@ -52,7 +53,14 @@ const ShoppingCartProduct = ({ product }: ProductProps) => {
         {productPrice} грн
       </p>
       <Image
-        onClick={() => removeProduct(product.slug, product.flavour)}
+        onClick={() =>
+          dispatch(
+            removeProduct({
+              product_slug: product.slug,
+              flavour: product.flavour,
+            })
+          )
+        }
         className="cursor-pointer"
         src="/close-icon-dark.svg"
         width={15}

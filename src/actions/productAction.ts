@@ -5,7 +5,7 @@ import {
   shoppingCartProductConfig,
 } from "@/data/productDetailsConfigs";
 import prisma from "@/lib/db";
-import { CartProduct } from "@/models/ShoppingCartContextTypes";
+import { CartProductType } from "@/models/ShoppingCartTypes";
 import { priceDiscount } from "@/utils/priceDiscount";
 
 export const getProductDetails = (proudct_slug: string) => {

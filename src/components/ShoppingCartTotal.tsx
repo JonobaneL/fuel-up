@@ -1,11 +1,11 @@
 import { useQueries } from "@tanstack/react-query";
 import { Button } from "./ui/button";
-import { CartProduct } from "@/models/ShoppingCartContextTypes";
+import { CartProductType } from "@/models/ShoppingCartTypes";
 import { getProductPrice } from "@/actions/productAction";
 import { priceDiscount } from "@/utils/priceDiscount";
 
 type TotalProps = {
-  products: CartProduct[];
+  products: CartProductType[];
 };
 
 const ShoppingCartTotal = ({ products }: TotalProps) => {

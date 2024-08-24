@@ -1,10 +1,10 @@
-export type CartProduct = {
+export type CartProductType = {
   slug: string;
   flavour: string;
   quantity: number;
 };
 export type ShoppingCartParams = {
-  products: CartProduct[];
+  products: CartProductType[];
   products_amount: number;
   addProduct: (product_slug: string, flavour: string) => void;
   removeProduct: (product_slug: string, flavour: string) => void;

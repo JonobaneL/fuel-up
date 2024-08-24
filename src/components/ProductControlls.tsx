@@ -1,32 +1,38 @@
 "use client";
-import { useFavoritesContext } from "@/context/FavoritesContext";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { useSearchParams } from "next/navigation";
+import { useTypeDispatch, useTypeSelector } from "@/hooks/useTypedReduxHooks";
+import {
+  checkFavorites,
+  toggleFavorite,
+} from "@/store/reducers/FavoritesSlice";
+import { addProduct } from "@/store/reducers/ShoppingCartSlice";
 
 type ProductControllsProps = {
   product_slug: string;
 };
 
 const ProductControlls = ({ product_slug }: ProductControllsProps) => {
-  const { checkFavorites, toggleFavorite } = useFavoritesContext();
-  const { addProduct } = useShoppingCart();
+  const dispatch = useTypeDispatch();
   const searchParams = useSearchParams();
   const currentFlavour = searchParams.get("flavour");
-  const isInFavorites = checkFavorites(product_slug);
+  const isInFavorites = useTypeSelector((state) =>
+    checkFavorites(state, product_slug)
+  );
   return (
     <div className="flex items-center gap-3.5">
       <Button
         onClick={() =>
-          currentFlavour && addProduct(product_slug, currentFlavour)
+          currentFlavour &&
+          dispatch(addProduct({ product_slug, flavour: currentFlavour }))
         }
         className="h-10 px-3.5 flex items-center gap-3.5 font-title text-white bg-primary rounded-none text-base shadow-md"
       >
         Купити
         <img className="size-5" src="/shopping-bag.png" alt="bag" />
       </Button>
-      <button onClick={() => toggleFavorite(product_slug)}>
+      <button onClick={() => dispatch(toggleFavorite(product_slug))}>
         <Image
           className="size-6"
           width={24}
