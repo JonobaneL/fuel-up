@@ -34,10 +34,14 @@ const ProductCarousel = ({ images }: CarouselProps) => {
             <></>
           )}
         </CarouselThumbs>
-        <CarouselContent>
+        <CarouselContent className="w-full h-full">
           {images?.map((item, index) => (
-            <CarouselItem key={index} className=" h-full w-full">
-              <img src={item.url} alt="product-image" />
+            <CarouselItem key={index} className="w-full h-full p-4">
+              <img
+                src={item.url}
+                alt="product-image"
+                className="object-contain w-full h-full "
+              />
             </CarouselItem>
           ))}
         </CarouselContent>

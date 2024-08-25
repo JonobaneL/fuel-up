@@ -1,7 +1,7 @@
-import { SearchParams } from "@/models/paramsTypes";
+import { SearchParamsType } from "@/models/paramsTypes";
 import { deserialize } from "./searchParamsUtils";
 
-export const generateFiltersConfig = (params: SearchParams) => {
+export const generateFiltersConfig = (params: SearchParamsType) => {
   const keys = Object.keys(params || {});
   if (keys.length == 0) return {};
   const filtersConfig = keys.reduce((prev, key) => {
@@ -15,14 +15,14 @@ export const generateFiltersConfig = (params: SearchParams) => {
             },
             flavour: {
               slug: {
-                in: deserialize(key, params[key as keyof SearchParams]),
+                in: deserialize(key, params[key as keyof SearchParamsType]),
               },
             },
           },
         },
       };
     if (key == "price") {
-      const price = params[key as keyof SearchParams]
+      const price = params[key as keyof SearchParamsType]
         .split("-")
         .map((item) => parseInt(item));
       console.log(price);
@@ -45,7 +45,7 @@ export const generateFiltersConfig = (params: SearchParams) => {
       ...prev,
       [key]: {
         slug: {
-          in: deserialize(key, params[key as keyof SearchParams]),
+          in: deserialize(key, params[key as keyof SearchParamsType]),
         },
       },
     };

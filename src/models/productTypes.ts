@@ -1,4 +1,5 @@
 export type ProductCartParams = {
+  slug: string;
   name: string;
   brand: {
     name: string;

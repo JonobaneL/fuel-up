@@ -1,6 +1,5 @@
 type RateProps = {
-  rate?: number;
-  //temporary
+  rate: number;
 };
 const Rate = ({ rate = 5 }: RateProps) => {
   return (
@@ -11,7 +10,7 @@ const Rate = ({ rate = 5 }: RateProps) => {
           <img
             key={index}
             className="size-4"
-            src={index <= rate ? "/star-full.svg" : "/star.svg"}
+            src={index < Math.round(rate) ? "/star-full.svg" : "/star.svg"}
             alt="star"
           />
         ))}

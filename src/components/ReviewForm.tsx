@@ -31,6 +31,7 @@ const ReviewForm = ({ product_slug, closeCallback }: ReviewFormProps) => {
   const onSubmit = async (data: ReviewFormParams) => {
     mutate(data);
     reset();
+    if (closeCallback) closeCallback();
   };
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>

@@ -5,8 +5,6 @@ import {
   shoppingCartProductConfig,
 } from "@/data/productDetailsConfigs";
 import prisma from "@/lib/db";
-import { CartProductType } from "@/models/ShoppingCartTypes";
-import { priceDiscount } from "@/utils/priceDiscount";
 
 export const getProductDetails = (proudct_slug: string) => {
   return prisma.product.findUnique({
@@ -67,4 +65,18 @@ export const getProductPrice = (product_slug: string, flavour: string) => {
       },
     },
   });
+};
+export const getProductRate = async (product_slug: string) => {
+  const response = await prisma.review.aggregate({
+    _avg: {
+      rate: true,
+    },
+    where: {
+      Product: {
+        slug: product_slug,
+      },
+    },
+  });
+  if (!response._avg.rate) return 0;
+  return response._avg.rate;
 };

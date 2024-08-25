@@ -30,11 +30,12 @@ const PriceInput = ({
       minPrice,
       Math.min(maxPrice, parseInt(value) || 0)
     );
+    setPrice(newPrice);
     if (newPrice[0] == minPrice && newPrice[1] == maxPrice) {
       if (params?.price) removeParam("price", params?.price[0] || "");
       return;
     }
-    if (params?.price[0] !== newPrice.join("-"))
+    if (!params.price || params?.price[0] !== newPrice.join("-"))
       updateParam("price", priceConvert(newPrice).map(String));
   };
   return (

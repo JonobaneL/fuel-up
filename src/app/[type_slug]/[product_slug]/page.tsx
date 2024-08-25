@@ -1,4 +1,4 @@
-import { getProductDetails } from "@/actions/productAction";
+import { getProductDetails, getProductRate } from "@/actions/productAction";
 import CommonInfo from "@/components/CommonInfo";
 import ProductBreadcrumb from "@/components/ProductBreadcrumb";
 import ProductCarousel from "@/components/ProductCarousel";

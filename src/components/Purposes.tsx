@@ -1,6 +1,8 @@
-import { purposes } from "@/data/purposes";
+import { getPurposes } from "@/actions/purposesAction";
+import Link from "next/link";
 
-const Purposes = () => {
+const Purposes = async () => {
+  const purposes = await getPurposes();
   return (
     <section>
       <h2 className="font-title text-primary text-3xl mb-10">
@@ -9,14 +11,16 @@ const Purposes = () => {
       <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,_1fr))] justify-items-center gap-x-3 gap-y-7">
         {purposes.map((item, index) => (
           <div key={index} className="group cursor-pointer">
-            <img
-              src={item.img}
-              alt="purpose"
-              className="rounded-md shadow-sm"
-            />
-            <p className="font-title text-lg text-center mt-3 mx-4 group-hover:text-primary transition-all ">
-              {item.name}
-            </p>
+            <Link href={`/purposes/${item.slug}`}>
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                className="rounded-md shadow-sm object-contain"
+              />
+              <p className="font-title text-lg text-center mt-3 mx-4 group-hover:text-primary transition-all ">
+                {item.title}
+              </p>
+            </Link>
           </div>
         ))}
       </div>

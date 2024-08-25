@@ -41,7 +41,6 @@ const SearhcParamsProvider = ({ children }: ProviderProps) => {
   }, []);
   const updateSearchParams = useCallback(
     (paramName: string, newValue: string[]) => {
-      console.log(paramName, newValue);
       setParams((p) => ({ ...p, [paramName]: newValue }));
       const newParams = new URLSearchParams(initialSearchParams);
       if (newValue.length == 0) {

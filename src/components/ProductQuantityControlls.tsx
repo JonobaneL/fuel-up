@@ -28,7 +28,13 @@ const ProductQuantityControlls = ({ product }: ControllsProps) => {
           )
         }
       >
-        <Image alt="minus" width={10} height={10} src="/minus.svg" />
+        <Image
+          alt="minus"
+          className="size-2.5"
+          width={10}
+          height={10}
+          src="/minus.svg"
+        />
       </Button>
       <p className="font-title text-third">{product.quantity}</p>
       <Button

@@ -7,7 +7,6 @@ import { filtersCombiteCallback } from "@/utils/filtersCombine";
 
 const ActiveFilters = () => {
   const { params, clearSearchParams, removeParam } = useSearchParamsContext();
-  console.log(params);
   const paramsQueries = useQueries({
     queries: Object.keys(params).map((key) => ({
       queryKey: ["searchParam", key, params[key]],

@@ -6,6 +6,71 @@ const speedTypesSeed: Prisma.SpeedTypeCreateInput[] = [
   { name: "Повільний протеїн", slug: "povilnij-proteyin" },
   { name: "Швидкий протеїн", slug: "shvidkij-proteyin" },
 ];
+const flavourSeed: Prisma.FlavourCreateInput[] = [
+  { name: "Шоколад", slug: "shokolad" },
+  { name: "Білий шоколад/Журавлина", slug: "bilij-shokolad-zhuravlina" },
+  { name: "Фундук", slug: "funduk" },
+  { name: "Банан", slug: "banana" },
+  { name: "Полуниця", slug: "strawberry" },
+  { name: "Вишня", slug: "cherry" },
+  { name: "Лісові ягоди", slug: "lisovi-yagodi" },
+  { name: "Чорниця", slug: "blueberry" },
+  { name: "Кава", slug: "coffe" },
+  { name: "Кокос", slug: "coco-nut" },
+  { name: "Молочний шоколад", slug: "milk-chocolate" },
+  { name: "Персик", slug: "peach" },
+  { name: "Печиво з вершками", slug: "cookie-milk" },
+];
+const purposeSeed: Prisma.PurposeCreateInput[] = [
+  {
+    slug: "nabir-masi",
+    description:
+      "Для того, щоб м'язи стали рельєфними, а тіло – струнким і підтягнутим, потрібно правильно набирати м'язову масу. Одних занять фітнесом в даному випадку недостатньо, адже треба строго дотримуватися графіка тренувань і дотримуватися певного режиму харчування. Звичайного раціону занадто мало для того, щоб заповнити потреби організму. Для нормального росту м'язів він потребує додаткової порції поживних речовин. Щоб домогтися бажаного результату, потрібно підібрати спеціальне спортивне харчування для набору м'язової маси . Крім того, спортивні добавки для росту м'язів прискорюють їх відновлення, а також оберігають від руйнування в період регулярних інтенсивних тренувань.",
+    imageUrl:
+      "https://res.cloudinary.com/fuel-up/image/upload/v1724527707/purposes/sygplxeocc5mjr1ogs2m.jpg",
+    title: "Набір маси",
+  },
+  {
+    description:
+      "Боротьба з надмірною вагою вимагає цілого комплексу зусиль, серед яких правильна низькокалорійна дієта, регулярні заняття спортом, а часом навіть спеціальні косметологічні процедури. У більшості випадків такі дії дають відчутний результат. Але існує можливість позбутися від зайвих кілограмів в кілька разів швидше – для цього досить підібрати правильне спортивне харчування для схуднення . Воно має різний склад і, відповідно, спосіб дії. Розрізняють термогеники, ліполітики, блокатори калорій, засоби для поліпшення обміну речовин. Купувати все підряд в надії скоріше побачити на вагах заповітні цифри – неправильно, адже безконтрольне вживання добавок може нашкодити вашому здоров'ю. Спортивне харчування для спалювання жиру   треба приймати строго дотримуючись інструкції. Здійснити правильний вибір вам допоможуть рекомендації, наведені нижче.",
+    imageUrl:
+      "https://res.cloudinary.com/fuel-up/image/upload/v1724527707/purposes/ppyqinhhulh7yb0xwrva.jpg",
+    title: "Схуднення",
+    slug: "shudnennya",
+  },
+  {
+    description:
+      "Без сили і витривалості неможливо провести жодне ефективне тренування. Не має значення, чи працюєте ви з залізом або маєте значні аеробні навантаження – енергія неодмінно знадобиться вашому організму. Однак заповнити її за допомогою одного харчового раціону не вийде. Щоб поліпшити показники, знадобляться спеціальні добавки. Спортивне харчування для збільшення сили допоможе підвищити працездатність і досягти бажаних показників. Крім того, СпортХарч для сили притуплює відчуття втоми, скорочує відновний період між інтервальними тренінгами і прискорює процес відновлення м'язової тканини.",
+    imageUrl:
+      "https://res.cloudinary.com/fuel-up/image/upload/v1724527707/purposes/djgm24tei0gk2ujwyqkd.jpg",
+    title: "Збільшення сили",
+    slug: "zbilshennya-sili",
+  },
+  {
+    description:
+      "Витривалість, або здатність людини ефективно виконувати будь-яку роботу на протязі певного часу, не відчуваючи втоми, є важливою здатністю спортсмена. Вона служить показником того, що системи та органи функціонують чітко і злагоджено. Чим більше ваш запас стійкості, тим ефективніше будуть заняття спортом – адже витривалий атлет або бігун здатний досягти великих результатів. Розвивати стійкість треба поступово – для цього потрібно дотримуватися тренувального режиму, правильно харчуватися і вести здоровий спосіб життя. За допомогою звичайного раціону домогтися результату практично неможливо – щоб досягти ефекту, рекомендується вживати спортивне харчування для підвищення витривалості",
+    imageUrl:
+      "https://res.cloudinary.com/fuel-up/image/upload/v1724527707/purposes/pdelsjmnaskrqofaq815.jpg",
+    title: "Витривалість",
+    slug: "vitrivalist",
+  },
+  {
+    description:
+      "Правильне харчування і регулярні заняття спортом – запорука привабливої, жіночної фігури. Щоб наблизитися до ідеальних параметрів, представниці чарівного статі готові харчуватися однією капустою і не виходити зі спортзалу. Але часом навіть таких радикальних заходів недостатньо. Особливість жіночого організму в тому, що він досить швидко накопичує жирову тканину, і неохоче від неї позбувається. Недолік сну і щільний робочий графік в поєднанні з жорсткими дієтами призводить до негативних наслідків для здоров'я. Щоб цього не допустити, потрібні спеціальні препарати. Схуднути, набрати м'язову масу або сформувати гарний рельєф допоможе спортивне харчування для дівчат",
+    imageUrl:
+      "https://res.cloudinary.com/fuel-up/image/upload/v1724527708/purposes/hqfejhpjn917zqzopzjv.jpg",
+    title: "Спортивне харучування для жінок",
+    slug: "sportivne-haruchuvannya-dlya-zhinok",
+  },
+  {
+    description:
+      "Представники сильної статі, які ведуть активний спосіб життя і регулярно займаються спортом, мають потребу в додатковому харчуванні. Для того, щоб організм ефективно відновлювався після тренувань, м'язи збільшувалися в обсязі, а тіло отримало красивий рельєф, однієї дієти недостатньо – з її допомогою просто неможливо отримати потрібну дозу вітамінів, мінералів та інших корисних речовин. У таких випадках рекомендується приймати спортивне харчування для чоловіків . Комплекс спортхапча спрямований на досягнення кожної конкретної мети – спалювання жиру, формування рельєфу, набір м'язової маси і підтримання організму перед важливими змаганнями або виступом. Вживати добавки треба регулярно, не перевищуючи рекомендовану дозу – в такому випадку ви досягнете потрібного ефекту без будь-якої шкоди для свого здоров'я.",
+    imageUrl:
+      "https://res.cloudinary.com/fuel-up/image/upload/v1724527708/purposes/rfnjjdcr7eectwgvmf86.jpg",
+    title: "Спортивне харучування для чоловіків",
+    slug: "sportivne-haruchuvannya-dlya-cholovikiv",
+  },
+];
 
 const typesSeed: Prisma.TypeCreateInput[] = [
   {
@@ -498,14 +563,92 @@ const countriesSeed: Prisma.CountryCreateInput[] = [
 ];
 
 const productsSeed: Prisma.ProductCreateInput[] = [
+  // {
+  //   slug: "100-elite-whey-dymatize-nutrition",
+  //   name: "100% Elite Whey Dymatize Nutrition",
+  //   description:
+  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
+  //   brand: {
+  //     connect: {
+  //       name: "Dymatize Nutrition",
+  //     },
+  //   },
+  //   type: {
+  //     connect: {
+  //       slug: "protein",
+  //     },
+  //   },
+  //   speedType: {
+  //     connect: { name: "Комплексний протеїн" },
+  //   },
+  //   country: {
+  //     connect: { name: "США" },
+  //   },
+  //   flavours: {
+  //     create: {
+  //       amount: 10,
+  //       price: 2469,
+  //       flavour: {
+  //         connectOrCreate: {
+  //           create: {
+  //             name: "Ваніль",
+  //             slug: "vanilla",
+  //           },
+  //           where: {
+  //             name: "Ваніль",
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
+  // {
+  //   slug: "shadowhey-2000-gram",
+  //   name: "Shadowhey 2000 грам",
+  //   description:
+  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
+  //   brand: {
+  //     connect: {
+  //       name: "Dorian Yates Nutrition",
+  //     },
+  //   },
+  //   type: {
+  //     connect: {
+  //       slug: "sirovatkovij-proteyin",
+  //     },
+  //   },
+  //   speedType: {
+  //     connect: { name: "Швидкий протеїн" },
+  //   },
+  //   country: {
+  //     connect: { name: "Угорщина" },
+  //   },
+  //   flavours: {
+  //     create: {
+  //       amount: 10,
+  //       price: 1999,
+  //       flavour: {
+  //         connectOrCreate: {
+  //           create: {
+  //             name: "Фісташка",
+  //             slug: "pistachio",
+  //           },
+  //           where: {
+  //             name: "Фісташка",
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
   {
-    slug: "100-elite-whey-dymatize-nutrition",
-    name: "100% Elite Whey Dymatize Nutrition",
+    slug: "syntha-6-4500-g",
+    name: "Syntha-6, 4500 g",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
     brand: {
       connect: {
-        name: "Dymatize Nutrition",
+        name: "BSN",
       },
     },
     type: {
@@ -514,7 +657,7 @@ const productsSeed: Prisma.ProductCreateInput[] = [
       },
     },
     speedType: {
-      connect: { name: "Комплексний протеїн" },
+      connect: { name: "Повільний протеїн" },
     },
     country: {
       connect: { name: "США" },
@@ -522,15 +665,15 @@ const productsSeed: Prisma.ProductCreateInput[] = [
     flavours: {
       create: {
         amount: 10,
-        price: 2469,
+        price: 4770,
         flavour: {
           connectOrCreate: {
             create: {
-              name: "Ваніль",
-              slug: "vanilla",
+              name: "Фісташка",
+              slug: "pistachio",
             },
             where: {
-              name: "Ваніль",
+              name: "Фісташка",
             },
           },
         },
@@ -538,25 +681,64 @@ const productsSeed: Prisma.ProductCreateInput[] = [
     },
   },
   {
-    slug: "shadowhey-2000-gram",
-    name: "Shadowhey 2000 грам",
+    slug: "rule1-r1-casein-924-g",
+    name: "Rule1, R1 Casein, 924 g",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
     brand: {
       connect: {
-        name: "Dorian Yates Nutrition",
+        name: "Rule One Proteins",
       },
     },
     type: {
       connect: {
-        slug: "sirovatkovij-proteyin",
+        slug: "kazeyin",
+      },
+    },
+    speedType: {
+      connect: { name: "Повільний протеїн" },
+    },
+    country: {
+      connect: { name: "США" },
+    },
+    flavours: {
+      create: {
+        amount: 10,
+        price: 1259,
+        flavour: {
+          connectOrCreate: {
+            create: {
+              name: "Фісташка",
+              slug: "pistachio",
+            },
+            where: {
+              name: "Фісташка",
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    slug: "impact-whey-protein-2500g",
+    name: "Impact Whey Protein, 2500g",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
+    brand: {
+      connect: {
+        name: "Multipower",
+      },
+    },
+    type: {
+      connect: {
+        slug: "protein",
       },
     },
     speedType: {
       connect: { name: "Швидкий протеїн" },
     },
     country: {
-      connect: { name: "Угорщина" },
+      connect: { name: "Англія" },
     },
     flavours: {
       create: {
@@ -590,16 +772,26 @@ async function main() {
   //     data: item,
   //   });
   // }
-  // for (let item of brandsSeed) {
-  //   await prisma.brand.create({
+  // for (let item of countriesSeed) {
+  //   await prisma.country.create({
   //     data: item,
   //   });
   // }
-  for (let item of productsSeed) {
-    await prisma.product.create({
-      data: item,
-    });
-  }
+  // for (let item of flavourSeed) {
+  //   await prisma.flavour.create({
+  //     data: item,
+  //   });
+  // }
+  // for (let item of purposeSeed) {
+  //   await prisma.purpose.create({
+  //     data: item,
+  //   });
+  // }
+  // for (let item of productsSeed) {
+  //   await prisma.product.create({
+  //     data: item,
+  //   });
+  // }
 
   console.log("Seeding finished");
 }

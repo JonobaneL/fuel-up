@@ -1,7 +1,7 @@
 "use server";
 import { allProductsRequestConfig } from "@/data/productDetailsConfigs";
 import prisma from "@/lib/db";
-import { SearchParams } from "@/models/paramsTypes";
+import { SearchParamsType } from "@/models/paramsTypes";
 import { generateFiltersConfig } from "@/utils/filtersConfig";
 
 const getDefaultConfig = (type_slug: string) => {
@@ -23,7 +23,7 @@ const getDefaultConfig = (type_slug: string) => {
   };
 };
 
-export const getProducts = (type_slug: string, filters: SearchParams) => {
+export const getProducts = (type_slug: string, filters: SearchParamsType) => {
   if (type_slug == "products")
     return prisma.product.findMany(allProductsRequestConfig);
   const defaultProductsConfig = getDefaultConfig(type_slug);

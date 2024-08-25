@@ -96,4 +96,14 @@ model Product {
   reviews     Review[]
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+  purposes    Purpose[]
+}
+
+model Purpose {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  description String
+  imageUrl    String
+  products    Product[]
 }
