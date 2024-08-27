@@ -22,7 +22,9 @@ const ShoppingCartProduct = ({ product }: ProductProps) => {
     },
     staleTime: 24 * 60 * 60 * 1000,
   });
-  const productLink = `/${data?.type.slug}/${data?.slug}?flavour=${data?.flavours[0].flavour.slug}`;
+  const productLink = data?.flavours[0].flavour
+    ? `/${data?.type.slug}/${data?.slug}?flavour=${data?.flavours[0].flavour?.slug}`
+    : `/${data?.type.slug}/${data?.slug}`;
   const productPrice =
     priceDiscount(
       data?.flavours[0].price || 0,
@@ -45,7 +47,7 @@ const ShoppingCartProduct = ({ product }: ProductProps) => {
           {data?.name}
         </Link>
         <p className="text-third text-sm font-medium">
-          {data?.flavours[0].flavour.name}
+          {data?.flavours[0]?.flavour?.name}
         </p>
       </div>
       <ProductQuantityControlls product={product} />

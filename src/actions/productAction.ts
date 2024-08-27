@@ -20,7 +20,7 @@ export const getProductDetails = (proudct_slug: string) => {
       country: true,
       images: true,
       brand: true,
-      speedType: true,
+      // speedType: true,
       reviews: true,
       type: {
         include: {
@@ -34,7 +34,7 @@ export const getProductDetails = (proudct_slug: string) => {
 
 export const getBriefProductDetails = (
   product_slug: string,
-  flavour?: string
+  flavour?: string | null
 ) => {
   const selectConfig = flavour
     ? shoppingCartProductConfig(flavour)

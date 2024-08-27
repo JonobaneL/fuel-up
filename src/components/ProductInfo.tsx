@@ -7,7 +7,7 @@ import ProductPrice from "./ui/ProductPrice";
 
 type ProductInfoProps = {
   product_slug: string;
-  flavour_slug: string;
+  flavour_slug: string | null;
 };
 const ProductInfo = async ({
   product_slug,
@@ -15,9 +15,10 @@ const ProductInfo = async ({
 }: ProductInfoProps) => {
   const product = await getProductDetails(product_slug);
   const avarageRate = await getProductRate(product_slug);
-  const currentFlavour = product?.flavours.find(
-    (item) => item.flavour.slug === flavour_slug
-  );
+  const currentFlavour =
+    flavour_slug !== null
+      ? product?.flavours.find((item) => item.flavour?.slug === flavour_slug)
+      : product?.flavours[0];
 
   return (
     <>
@@ -35,7 +36,9 @@ const ProductInfo = async ({
           </p>
         </div>
       ) : null}
-      <FlavoursList flavours={product?.flavours} />
+      {flavour_slug != null ? (
+        <FlavoursList flavours={product?.flavours} />
+      ) : null}
       <div className="space-y-6 mt-10">
         <ProductPrice
           discount={currentFlavour?.discount || 0}

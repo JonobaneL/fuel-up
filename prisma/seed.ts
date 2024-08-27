@@ -563,84 +563,84 @@ const countriesSeed: Prisma.CountryCreateInput[] = [
 ];
 
 const productsSeed: Prisma.ProductCreateInput[] = [
-  // {
-  //   slug: "100-elite-whey-dymatize-nutrition",
-  //   name: "100% Elite Whey Dymatize Nutrition",
-  //   description:
-  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
-  //   brand: {
-  //     connect: {
-  //       name: "Dymatize Nutrition",
-  //     },
-  //   },
-  //   type: {
-  //     connect: {
-  //       slug: "protein",
-  //     },
-  //   },
-  //   speedType: {
-  //     connect: { name: "Комплексний протеїн" },
-  //   },
-  //   country: {
-  //     connect: { name: "США" },
-  //   },
-  //   flavours: {
-  //     create: {
-  //       amount: 10,
-  //       price: 2469,
-  //       flavour: {
-  //         connectOrCreate: {
-  //           create: {
-  //             name: "Ваніль",
-  //             slug: "vanilla",
-  //           },
-  //           where: {
-  //             name: "Ваніль",
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // },
-  // {
-  //   slug: "shadowhey-2000-gram",
-  //   name: "Shadowhey 2000 грам",
-  //   description:
-  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
-  //   brand: {
-  //     connect: {
-  //       name: "Dorian Yates Nutrition",
-  //     },
-  //   },
-  //   type: {
-  //     connect: {
-  //       slug: "sirovatkovij-proteyin",
-  //     },
-  //   },
-  //   speedType: {
-  //     connect: { name: "Швидкий протеїн" },
-  //   },
-  //   country: {
-  //     connect: { name: "Угорщина" },
-  //   },
-  //   flavours: {
-  //     create: {
-  //       amount: 10,
-  //       price: 1999,
-  //       flavour: {
-  //         connectOrCreate: {
-  //           create: {
-  //             name: "Фісташка",
-  //             slug: "pistachio",
-  //           },
-  //           where: {
-  //             name: "Фісташка",
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // },
+  {
+    slug: "100-elite-whey-dymatize-nutrition",
+    name: "100% Elite Whey Dymatize Nutrition",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
+    brand: {
+      connect: {
+        name: "Dymatize Nutrition",
+      },
+    },
+    type: {
+      connect: {
+        slug: "protein",
+      },
+    },
+    speedType: {
+      connect: { name: "Комплексний протеїн" },
+    },
+    country: {
+      connect: { name: "США" },
+    },
+    flavours: {
+      create: {
+        amount: 10,
+        price: 2469,
+        flavour: {
+          connectOrCreate: {
+            create: {
+              name: "Ваніль",
+              slug: "vanilla",
+            },
+            where: {
+              name: "Ваніль",
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    slug: "shadowhey-2000-gram",
+    name: "Shadowhey 2000 грам",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, similique laborum dolorem repellat omnis quaerat.",
+    brand: {
+      connect: {
+        name: "Dorian Yates Nutrition",
+      },
+    },
+    type: {
+      connect: {
+        slug: "sirovatkovij-proteyin",
+      },
+    },
+    speedType: {
+      connect: { name: "Швидкий протеїн" },
+    },
+    country: {
+      connect: { name: "Угорщина" },
+    },
+    flavours: {
+      create: {
+        amount: 10,
+        price: 1999,
+        flavour: {
+          connectOrCreate: {
+            create: {
+              name: "Фісташка",
+              slug: "pistachio",
+            },
+            where: {
+              name: "Фісташка",
+            },
+          },
+        },
+      },
+    },
+  },
   {
     slug: "syntha-6-4500-g",
     name: "Syntha-6, 4500 g",
@@ -787,12 +787,11 @@ async function main() {
   //     data: item,
   //   });
   // }
-  // for (let item of productsSeed) {
-  //   await prisma.product.create({
-  //     data: item,
-  //   });
-  // }
-
+  for (let item of productsSeed) {
+    await prisma.product.create({
+      data: item,
+    });
+  }
   console.log("Seeding finished");
 }
 main()

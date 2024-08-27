@@ -6,7 +6,7 @@ import { CartProductType } from "@/models/ShoppingCartTypes";
 type initialStateProps = CartProductType[];
 type ActionProps = {
   product_slug: string;
-  flavour: string;
+  flavour: string | null;
 };
 const initialState: initialStateProps = [];
 
@@ -16,6 +16,7 @@ const shoppingCartSlice = createSlice({
   reducers: {
     addProduct(state, action: PayloadAction<ActionProps>) {
       const { product_slug, flavour } = action.payload;
+      console.log(product_slug, flavour);
       const productCheck = state.find(
         (item) => item.slug === product_slug && item.flavour === flavour
       );

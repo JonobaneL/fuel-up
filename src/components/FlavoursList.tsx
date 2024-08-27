@@ -9,7 +9,7 @@ type ListProps = {
 const FlavoursList = ({ flavours }: ListProps) => {
   const [flavour, setFlavour] = useSearchOptions("flavour");
   const currentFlavour = flavours
-    ? flavours.find((item) => item.flavour.slug == flavour)
+    ? flavours.find((item) => item.flavour?.slug == flavour)
     : null;
 
   return (
@@ -19,7 +19,7 @@ const FlavoursList = ({ flavours }: ListProps) => {
         {flavours?.map((item) => (
           <div
             key={item.id}
-            onClick={() => setFlavour(item.flavour.slug)}
+            onClick={() => setFlavour(item.flavour?.slug || "")}
             className={`px-2.5 rounded-sm border cursor-pointer  flex items-center h-8 ${
               currentFlavour?.id == item.id ? "text-white bg-primary" : ""
             }
@@ -30,7 +30,7 @@ const FlavoursList = ({ flavours }: ListProps) => {
         }
         `}
           >
-            {item.flavour.name}
+            {item.flavour?.name}
           </div>
         ))}
       </div>

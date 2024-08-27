@@ -41,6 +41,13 @@ model Flavour {
   ProductFlavour ProductFlavour[]
 }
 
+model FormType {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  slug    String    @unique
+  Product Product[]
+}
+
 model Country {
   id      String    @id @default(cuid())
   name    String    @unique
@@ -50,8 +57,8 @@ model Country {
 
 model ProductFlavour {
   id        String   @id @default(cuid())
-  flavour   Flavour  @relation(fields: [flavourId], references: [id])
-  flavourId String
+  flavour   Flavour? @relation(fields: [flavourId], references: [id])
+  flavourId String?
   price     Float
   discount  Int?
   amount    Int
@@ -87,7 +94,9 @@ model Product {
   type        Type             @relation(fields: [typeId], references: [id])
   typeId      String
   speedType   SpeedType?       @relation(fields: [speedTypeId], references: [id])
-  speedTypeId String
+  speedTypeId String?
+  formType    FormType?        @relation(fields: [formTypeId], references: [id])
+  formTypeId  String?
   country     Country          @relation(fields: [countryId], references: [id])
   countryId   String
   description String

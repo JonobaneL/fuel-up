@@ -35,11 +35,11 @@ export type FlavourParams = {
 };
 export type ProductFlavorParams = {
   id: string;
-  flavourId: string;
+  flavourId: string | null;
   price: number;
   discount: number | null;
   amount: number;
-  flavour: FlavourParams;
+  flavour: FlavourParams | null;
 };
 
 export type ProductImageParams = {

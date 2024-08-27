@@ -1,5 +1,5 @@
 import { getPurpose } from "@/actions/purposesAction";
-import ProductCart from "@/components/ProductCart";
+import ProductCart from "@/components/ProductCard";
 import Image from "next/image";
 import Link from "next/link";
 

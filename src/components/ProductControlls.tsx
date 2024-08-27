@@ -16,7 +16,7 @@ type ProductControllsProps = {
 const ProductControlls = ({ product_slug }: ProductControllsProps) => {
   const dispatch = useTypeDispatch();
   const searchParams = useSearchParams();
-  const currentFlavour = searchParams.get("flavour");
+  const currentFlavour = searchParams.get("flavour") || null;
   const isInFavorites = useTypeSelector((state) =>
     checkFavorites(state, product_slug)
   );
@@ -24,7 +24,6 @@ const ProductControlls = ({ product_slug }: ProductControllsProps) => {
     <div className="flex items-center gap-3.5">
       <Button
         onClick={() =>
-          currentFlavour &&
           dispatch(addProduct({ product_slug, flavour: currentFlavour }))
         }
         className="h-10 px-3.5 flex items-center gap-3.5 font-title text-white bg-primary rounded-none text-base shadow-md"
