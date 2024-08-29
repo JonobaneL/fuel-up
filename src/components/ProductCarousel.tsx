@@ -15,7 +15,7 @@ const ProductCarousel = ({ images }: CarouselProps) => {
   return (
     <div className="flex gap-2 w-full aspect-square">
       <Carousel className="flex gap-2">
-        <CarouselThumbs>
+        <CarouselThumbs orientation="vertical">
           {images ? (
             images?.map((item, index) => (
               <div

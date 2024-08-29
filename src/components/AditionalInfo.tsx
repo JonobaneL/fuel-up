@@ -1,11 +1,11 @@
 const AditionalInfo = () => {
   return (
     <section>
-      <h2 className="font-title text-primary text-3xl mb-10">
+      <h2 className="font-title text-primary text-2xl sm:text-3xl mb-5 sm:mb-10">
         Спортивне харчування від Fuel Up
       </h2>
-      <div className="flex gap-4">
-        <div className="w-1/2">
+      <div className="flex gap-4 flex-col-reverse md:flex-row">
+        <div className="w-full md:w-1/2">
           <p className=" mb-6">
             <b>Що таке спортивне харчування?</b> Спортивне харчування –
             правильно підібраний і збалансований комплекс біологічних добавок
@@ -24,7 +24,7 @@ const AditionalInfo = () => {
             тільки добавками, може призвести до поганих наслідків.
           </p>
         </div>
-        <div className="w-1/2 flex justify-center">
+        <div className="w-full md:w-1/2 flex justify-center">
           <img
             className="shadow-sm max-w-3/4 h-fit"
             src="/aditional-info.jpg"

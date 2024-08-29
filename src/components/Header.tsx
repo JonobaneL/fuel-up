@@ -12,16 +12,18 @@ const Header = async () => {
   return (
     <header>
       <TopHeader />
-      <div className="px-20 shadow-header-shadow">
+      <div className=" px-6 sm:px-8 md:px-12 lg:px-20 shadow-header-shadow">
         <div className="max-w-[1440px] mx-auto flex items-center justify-between h-20">
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-5 lg:gap-10">
             <Link href="/">
               <img src="/logo.svg" alt="logo" className="h-7" />
             </Link>
             <Catalog categories={categories} />
           </div>
           <div className="flex items-center gap-4 w-fit">
-            <Search />
+            <div className="hidden md:block">
+              <Search />
+            </div>
             <div className="h-10 flex-cover flex items-center px-4 border-x">
               <Favorites />
             </div>

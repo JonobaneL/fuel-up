@@ -1,6 +1,6 @@
 const TopHeader = () => {
   return (
-    <div className="bg-secondary px-20">
+    <div className="bg-secondary  px-6 sm:px-8 md:px-12 lg:px-20 hidden md:block">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between h-12 text-sm">
         <ul className="flex gap-6 text-sm">
           <li>Оплата і доставка</li>

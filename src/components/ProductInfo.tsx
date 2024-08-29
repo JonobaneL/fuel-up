@@ -36,7 +36,7 @@ const ProductInfo = async ({
           </p>
         </div>
       ) : null}
-      {flavour_slug != null ? (
+      {product?.flavours[0].flavour != null ? (
         <FlavoursList flavours={product?.flavours} />
       ) : null}
       <div className="space-y-6 mt-10">

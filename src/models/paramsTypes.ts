@@ -14,9 +14,9 @@ export type TypeParamsWithSub = {
 };
 
 export type ParamProps = {
-  id: string;
-  name: string;
-  slug: string;
+  id?: string;
+  name?: string;
+  slug?: string;
 };
 export type SearchParamsType = {
   speed_type: string;
@@ -28,18 +28,13 @@ export type DynamicParams = {
   [key: string]: string[];
 };
 
-export type FlavourParams = {
-  id: string;
-  name: string;
-  slug: string;
-};
 export type ProductFlavorParams = {
   id: string;
   flavourId: string | null;
   price: number;
   discount: number | null;
   amount: number;
-  flavour: FlavourParams | null;
+  flavour: ParamProps | null;
 };
 
 export type ProductImageParams = {

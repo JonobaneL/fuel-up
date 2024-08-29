@@ -13,7 +13,7 @@ const Catalog = ({ categories }: CatalogProps) => {
   return (
     <Popover open={open} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button className="rounded-sm border bg-back hover:bg-inherit h-11 text-text font-medium flex items-center gap-2">
+        <Button className="hidden md:flex rounded-sm border bg-back hover:bg-inherit h-11 text-text font-medium items-center gap-2">
           <img src="/header/catalog.svg" className="size-5" alt="catalog" />
           <p className="text-sm">Каталог</p>
         </Button>

@@ -10,8 +10,6 @@ type ProductPageProps = {
   searchParams: { flavour: string };
 };
 const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
-  console.log(params);
-  console.log(searchParams);
   const product = await getProductDetails(params.product_slug);
   return (
     <main className="mb-14 mt-10">

@@ -7,8 +7,6 @@ import {
 import CheckboxList from "./ui/CheckboxList";
 import { ParamProps } from "@/models/paramsTypes";
 import { useSearchParamsContext } from "@/context/SearchParamsContext";
-import { useTypeDispatch, useTypeSelector } from "@/hooks/useTypedReduxHooks";
-import { updateFilters } from "@/store/reducers/FiltersSlice";
 
 type FilterProps = {
   data: ParamProps[];
@@ -16,8 +14,6 @@ type FilterProps = {
 
 const SpeedTypesFilter = ({ data }: FilterProps) => {
   const { params, updateParam } = useSearchParamsContext();
-  // const { filters } = useTypeSelector((state) => state.filters);
-  // const dispatch = useTypeDispatch();
 
   return (
     <AccordionItem value="speedType">
@@ -30,10 +26,6 @@ const SpeedTypesFilter = ({ data }: FilterProps) => {
           maxLimit={100}
           checked={params.speedType || []}
           callback={(value) => updateParam("speedType", value)}
-          // callback={(value) => {
-          //   console.log(value);
-          //   dispatch(updateFilters({ paramName: "speedType", value }));
-          // }}
         />
       </AccordionContent>
     </AccordionItem>

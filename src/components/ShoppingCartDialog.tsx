@@ -39,6 +39,7 @@ const ShoppingCartDialog = () => {
               <ShoppingCartProduct
                 key={`${item.slug}_${item.flavour}`}
                 product={item}
+                closeCallback={() => setOpen(false)}
               />
             ))}
           </div>

@@ -269,7 +269,7 @@ CarouselNext.displayName = "CarouselNext";
 
 interface CarouselThumbsProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
-  orientation?: string;
+  orientation?: "horizontal" | "vertical";
   children: React.ReactNode[] | React.ReactNode;
 }
 const CarouselThumbs = ({
@@ -284,7 +284,7 @@ const CarouselThumbs = ({
     <div
       className={cn(
         `flex items-center flex-fix gap-1 ${
-          orientation == "horizontal" ? "flex-col" : ""
+          orientation == "vertical" ? "flex-col" : "flex-row "
         }`,
         className
       )}

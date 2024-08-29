@@ -7,24 +7,24 @@ import { getBriefProductDetails } from "@/actions/productAction";
 import ProductQuantityControlls from "./ProductQuantityControlls";
 import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
 import { removeProduct } from "@/store/reducers/ShoppingCartSlice";
+import { generateProductLink } from "@/utils/generateProductLink";
 
 type ProductProps = {
   product: CartProductType;
+  closeCallback: () => void;
 };
 
-const ShoppingCartProduct = ({ product }: ProductProps) => {
+const ShoppingCartProduct = ({ product, closeCallback }: ProductProps) => {
   const dispatch = useTypeDispatch();
   const { data, isPending } = useQuery({
     queryKey: ["product", product.slug, product.flavour],
     queryFn: async () => {
-      console.log("send request");
       return getBriefProductDetails(product.slug, product.flavour);
     },
     staleTime: 24 * 60 * 60 * 1000,
   });
-  const productLink = data?.flavours[0].flavour
-    ? `/${data?.type.slug}/${data?.slug}?flavour=${data?.flavours[0].flavour?.slug}`
-    : `/${data?.type.slug}/${data?.slug}`;
+
+  const productLink = generateProductLink(data || null);
   const productPrice =
     priceDiscount(
       data?.flavours[0].price || 0,
@@ -33,7 +33,11 @@ const ShoppingCartProduct = ({ product }: ProductProps) => {
   if (isPending) return <p>Loading...</p>;
   return (
     <div className="items-center gap-4 grid grid-cols-[80px_2fr_0.7fr_1fr_15px] pt-3">
-      <Link href={productLink} className="flex gap-4 items-center">
+      <Link
+        href={productLink}
+        className="flex gap-4 items-center"
+        onClick={closeCallback}
+      >
         <Image
           src={data?.images[0].url || ""}
           width={80}
@@ -43,7 +47,11 @@ const ShoppingCartProduct = ({ product }: ProductProps) => {
       </Link>
 
       <div className="space-y-0.5">
-        <Link href={productLink} className="font-medium">
+        <Link
+          href={productLink}
+          className="font-medium"
+          onClick={closeCallback}
+        >
           {data?.name}
         </Link>
         <p className="text-third text-sm font-medium">

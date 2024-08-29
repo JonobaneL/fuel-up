@@ -6,6 +6,7 @@ import { getFavoriteProduct } from "@/actions/favoritesActoin";
 import FavoriteProductSkeleton from "./ui/FavoriteProductSkeleton";
 import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
 import { removeFavorite } from "@/store/reducers/FavoritesSlice";
+import { generateProductLink } from "@/utils/generateProductLink";
 
 type FavoriteProductProps = {
   product_slug: string;
@@ -20,7 +21,7 @@ const FavoriteProduct = ({
     queryKey: ["favorite", product_slug],
     queryFn: async () => getFavoriteProduct(product_slug),
   });
-  const productLink = `/${data?.type.slug}/${data?.slug}?flavour=${data?.flavours[0].flavour.slug}`;
+  const productLink = generateProductLink(data || null);
   const dispatch = useTypeDispatch();
   if (isPending) return <FavoriteProductSkeleton />;
   return (

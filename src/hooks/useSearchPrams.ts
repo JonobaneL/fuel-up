@@ -1,9 +1,8 @@
-"use client";
 import { serialize } from "@/utils/searchParamsUtils";
 import {
   usePathname,
-  useRouter,
   useSearchParams as useNextSearchParams,
+  useRouter,
 } from "next/navigation";
 import { useCallback } from "react";
 
@@ -11,7 +10,6 @@ export const useSearchParams = () => {
   const initialSearchParams = useNextSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
   const updateSearchParams = useCallback(
     (paramName: string, newValue: string[]) => {
       const newParams = new URLSearchParams(initialSearchParams);
