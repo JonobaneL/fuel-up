@@ -1,32 +1,18 @@
 "use client";
-import { deserialize } from "@/utils/searchParamsUtils";
-import {
-  usePathname,
-  useRouter,
-  useSearchParams as useNextSearhcParams,
-} from "next/navigation";
-import { useLayoutEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useTypeDispatch, useTypeSelector } from "./useTypedReduxHooks";
 import {
   updateFilterAction,
-  updateFiltersAction,
+  updateAllFiltersAction,
 } from "@/store/reducers/FiltersSlice";
 import { useSearchParams } from "./useSearchPrams";
 import { FiltersKeys } from "@/models/filtersTypes";
 
 export const useFilters = () => {
-  const initialSearchParams = useNextSearhcParams();
   const filters = useTypeSelector((state) => state.filters);
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useTypeDispatch();
-  //move this useEffect to StoreProvider
-  useLayoutEffect(() => {
-    initialSearchParams.forEach((item, key) => {
-      const filter = { [key]: deserialize(key, item) };
-      dispatch(updateFilterAction(filter));
-    });
-  }, []);
   const updateSearchParams = useSearchParams();
 
   const updateFilter = (paramName: FiltersKeys, value: string | string[]) => {
@@ -52,11 +38,11 @@ export const useFilters = () => {
       return;
     }
     const { [paramName]: _, ...rest } = filters;
-    dispatch(updateFiltersAction(rest));
+    dispatch(updateAllFiltersAction(rest));
   };
   const clearFilters = () => {
     router.replace(pathname);
-    dispatch(updateFiltersAction({}));
+    dispatch(updateAllFiltersAction({}));
   };
   return { updateFilter, removeFilter, clearFilters };
 };

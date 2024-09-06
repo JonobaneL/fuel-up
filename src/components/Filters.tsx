@@ -15,6 +15,7 @@ import {
 } from "@/actions/paramsActions";
 import BrandsFilter from "./BrandsFilter";
 import SpeedTypesFilter from "./SpeedTypesFilter";
+import Filter from "./Filter";
 
 type FiltersProps = {
   slug: string;
@@ -27,9 +28,15 @@ const Filters = async ({ slug }: FiltersProps) => {
     <div className="w-[260px] h-full flex-cover">
       <Accordion type="multiple" defaultValue={["price"]}>
         <TypeFilters slug={slug} />
-        <SpeedTypesFilter data={speed_types} />
+        <Filter
+          data={speed_types}
+          title="Тип по швидкодії"
+          paramName="speedType"
+        />
+        {/* <SpeedTypesFilter data={speed_types} /> */}
         <BrandsFilter />
-        <FlavourFilter data={flavours} />
+        {/* <FlavourFilter data={flavours} /> */}
+        <Filter data={flavours} title="Смак" paramName="flavour" />
         <AccordionItem value="price">
           <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
             Ціна
@@ -38,7 +45,8 @@ const Filters = async ({ slug }: FiltersProps) => {
             <PriceFilter />
           </AccordionContent>
         </AccordionItem>
-        <CountryFilter data={countries} />
+        {/* <CountryFilter data={countries} /> */}
+        <Filter data={countries} title="Країна виробник" paramName="country" />
       </Accordion>
     </div>
   );

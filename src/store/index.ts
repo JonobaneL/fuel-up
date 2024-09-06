@@ -14,8 +14,8 @@ import {
 } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
-
-export function createPersistStore() {
+//check if we this piece of code later
+function createPersistStore() {
   const isServer = typeof window === "undefined";
   if (isServer) {
     return {
@@ -43,16 +43,30 @@ const persistConfig = {
   storage,
   blacklist: ["filters"],
 };
-
+//end
 const rootReducer = combineReducers({
   favorites: favoritesReducer,
   shoppingCart: shoppingCartReducer,
   filters: filtersReducer,
 });
-
+//strat
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export const store = configureStore({
+//end
+export const createStore = () => {
+  const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
+  });
+  const persistedStore = persistStore(store);
+  return { store, persistedStore };
+};
+export type AppStore = ReturnType<typeof createStore>;
+const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -61,7 +75,6 @@ export const store = configureStore({
       },
     }),
 });
-export const persistedStore = persistStore(store);
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<AppStore["store"]["getState"]>;
+export type AppDispatch = AppStore["store"]["dispatch"];
+export type AppDispatch1 = typeof store.dispatch;

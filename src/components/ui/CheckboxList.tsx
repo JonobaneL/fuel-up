@@ -5,7 +5,7 @@ import { Label } from "./label";
 import { ParamProps } from "@/models/paramsTypes";
 
 type ListProps = {
-  data: Required<ParamProps>[];
+  data: ParamProps[];
   maxLimit?: number;
   checked?: string[];
   callback?: (value: any) => void;

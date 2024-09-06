@@ -14,9 +14,9 @@ export type TypeParamsWithSub = {
 };
 
 export type ParamProps = {
-  id?: string;
-  name?: string;
-  slug?: string;
+  id: string;
+  name: string;
+  slug: string;
 };
 export type SearchParamsType = {
   speed_type: string;

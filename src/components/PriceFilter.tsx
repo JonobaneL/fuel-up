@@ -1,31 +1,32 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Slider } from "./ui/slider";
-import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import PriceInput from "./PriceInput";
+import { useFilters } from "@/hooks/useFilters";
+import { useTypeSelector } from "@/hooks/useTypedReduxHooks";
 
 const PriceFilter = () => {
   //fetch min and max price
   const minPrice = 50;
   const maxPrice = 4650;
-  const { params, updateParam, removeParam } = useSearchParamsContext();
+  const { updateFilter, removeFilter } = useFilters();
+  const filters = useTypeSelector((state) => state.filters);
 
-  const initialPriceRange =
-    params?.price?.length > 0
-      ? params?.price[0]?.split("-").map(Number)
-      : [minPrice, maxPrice];
+  const initialPriceRange = filters?.price
+    ? filters?.price[0]?.split("-").map(Number)
+    : [minPrice, maxPrice];
 
   const [price, setPrice] = useState(initialPriceRange);
   useEffect(() => {
     setPrice(initialPriceRange);
-  }, [params?.price]);
+  }, [filters?.price]);
 
   const sliderSubmitHandler = (data: number[]) => {
     if (data[0] == minPrice && data[1] == maxPrice) {
-      if (params?.price) removeParam("price", params?.price[0] || "");
+      if (filters?.price) removeFilter("price", filters?.price[0] || "");
       return;
     }
-    updateParam(
+    updateFilter(
       "price",
       data.map((item) => item.toString())
     );
