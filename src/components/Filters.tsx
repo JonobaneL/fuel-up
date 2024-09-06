@@ -1,5 +1,3 @@
-import CountryFilter from "./CountryFilter";
-import FlavourFilter from "./FlavourFilter";
 import PriceFilter from "./PriceFilter";
 import {
   Accordion,
@@ -14,7 +12,6 @@ import {
   getCountries,
 } from "@/actions/paramsActions";
 import BrandsFilter from "./BrandsFilter";
-import SpeedTypesFilter from "./SpeedTypesFilter";
 import Filter from "./Filter";
 
 type FiltersProps = {
@@ -33,9 +30,7 @@ const Filters = async ({ slug }: FiltersProps) => {
           title="Тип по швидкодії"
           paramName="speedType"
         />
-        {/* <SpeedTypesFilter data={speed_types} /> */}
         <BrandsFilter />
-        {/* <FlavourFilter data={flavours} /> */}
         <Filter data={flavours} title="Смак" paramName="flavour" />
         <AccordionItem value="price">
           <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
@@ -45,7 +40,6 @@ const Filters = async ({ slug }: FiltersProps) => {
             <PriceFilter />
           </AccordionContent>
         </AccordionItem>
-        {/* <CountryFilter data={countries} /> */}
         <Filter data={countries} title="Країна виробник" paramName="country" />
       </Accordion>
     </div>

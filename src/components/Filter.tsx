@@ -1,3 +1,4 @@
+"use client";
 import { useFilters } from "@/hooks/useFilters";
 import { useTypeSelector } from "@/hooks/useTypedReduxHooks";
 import { FiltersKeys } from "@/models/filtersTypes";

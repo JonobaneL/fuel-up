@@ -1,6 +1,7 @@
-import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import { Input } from "./ui/input";
 import { priceConvert } from "@/utils/priceConver";
+import { useFilters } from "@/hooks/useFilters";
+import { useTypeSelector } from "@/hooks/useTypedReduxHooks";
 
 type PriceInputProps = {
   minPrice: number;
@@ -15,7 +16,8 @@ const PriceInput = ({
   minPrice,
   maxPrice,
 }: PriceInputProps) => {
-  const { params, updateParam, removeParam } = useSearchParamsContext();
+  const { updateFilter, removeFilter } = useFilters();
+  const filters = useTypeSelector((state) => state.filters);
   const handlePriceChange = (value: string, index: number) => {
     const numericValue = value.replace(/\D/g, "");
     const newPrice = [...price];
@@ -32,11 +34,11 @@ const PriceInput = ({
     );
     setPrice(newPrice);
     if (newPrice[0] == minPrice && newPrice[1] == maxPrice) {
-      if (params?.price) removeParam("price", params?.price[0] || "");
+      if (filters?.price) removeFilter("price", filters?.price[0] || "");
       return;
     }
-    if (!params.price || params?.price[0] !== newPrice.join("-"))
-      updateParam("price", priceConvert(newPrice).map(String));
+    if (!filters.price || filters?.price[0] !== newPrice.join("-"))
+      updateFilter("price", priceConvert(newPrice).map(String));
   };
   return (
     <div className="flex items-center gap-2 mb-4">

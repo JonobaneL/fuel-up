@@ -66,15 +66,5 @@ export const createStore = () => {
   return { store, persistedStore };
 };
 export type AppStore = ReturnType<typeof createStore>;
-const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-});
 export type RootState = ReturnType<AppStore["store"]["getState"]>;
 export type AppDispatch = AppStore["store"]["dispatch"];
-export type AppDispatch1 = typeof store.dispatch;

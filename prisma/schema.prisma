@@ -116,3 +116,9 @@ model Purpose {
   imageUrl    String
   products    Product[]
 }
+
+model ProductDetailParam {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
+}

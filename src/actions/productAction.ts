@@ -20,7 +20,7 @@ export const getProductDetails = (proudct_slug: string) => {
       country: true,
       images: true,
       brand: true,
-      // speedType: true,
+      speedType: true,
       reviews: true,
       type: {
         include: {
@@ -31,6 +31,10 @@ export const getProductDetails = (proudct_slug: string) => {
     },
   });
 };
+
+export type ProductDetailsResponse = Awaited<
+  ReturnType<typeof getProductDetails>
+>;
 
 export const getBriefProductDetails = (
   product_slug: string,
@@ -46,7 +50,10 @@ export const getBriefProductDetails = (
     select: selectConfig,
   });
 };
-export const getProductPrice = (product_slug: string, flavour: string) => {
+export const getProductPrice = (
+  product_slug: string,
+  flavour: string | null
+) => {
   return prisma.product.findUnique({
     where: {
       slug: product_slug,
@@ -55,7 +62,7 @@ export const getProductPrice = (product_slug: string, flavour: string) => {
       flavours: {
         where: {
           flavour: {
-            slug: flavour,
+            slug: flavour || "",
           },
         },
         select: {
@@ -79,4 +86,13 @@ export const getProductRate = async (product_slug: string) => {
   });
   if (!response._avg.rate) return 0;
   return response._avg.rate;
+};
+export const getProductDetailsParams = async (params: string[]) => {
+  return prisma.productDetailParam.findMany({
+    where: {
+      slug: {
+        in: params,
+      },
+    },
+  });
 };

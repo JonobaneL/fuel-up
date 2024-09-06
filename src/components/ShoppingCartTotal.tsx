@@ -13,7 +13,7 @@ const ShoppingCartTotal = ({ products }: TotalProps) => {
     queries: products.map((product) => ({
       queryKey: ["product", product.slug, product.flavour],
       queryFn: async () => {
-        return getProductPrice(product.slug, product.flavour);
+        return getProductPrice(product.slug, product?.flavour);
       },
       staleTime: 24 * 60 * 60 * 1000,
     })),

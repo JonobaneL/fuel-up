@@ -8,7 +8,6 @@ import { Input } from "./ui/input";
 import CheckboxList from "./ui/CheckboxList";
 import { useState } from "react";
 import { useRequest } from "@/hooks/useRequest";
-import { useSearchParamsContext } from "@/context/SearchParamsContext";
 import { useQuery } from "@tanstack/react-query";
 import { getBrands } from "@/actions/paramsActions";
 import { useFilters } from "@/hooks/useFilters";
@@ -17,7 +16,6 @@ import { useTypeSelector } from "@/hooks/useTypedReduxHooks";
 const BrandsFilter = () => {
   const [search, setSearch] = useState<string>("");
   const query = useRequest(search);
-  // const { params, updateParam } = useSearchParamsContext();
   const { updateFilter } = useFilters();
   const filters = useTypeSelector((state) => state.filters);
 

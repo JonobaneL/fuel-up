@@ -8,10 +8,10 @@ export type ProductParams = {
   id: string;
   slug: string;
   name: string;
-  brand: Omit<ParamProps, "id">;
-  type: ParamProps;
-  speedType?: ParamProps;
-  formType?: ParamProps;
+  brand: Partial<ParamProps>;
+  type: Partial<ParamProps>;
+  speedType?: Partial<ParamProps>;
+  formType?: Partial<ParamProps>;
   flavours: ProductFlavorParams[];
   images: ProductImageParams[];
 };

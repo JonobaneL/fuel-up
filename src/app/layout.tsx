@@ -4,7 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Providers from "./Providers";
+import QueryProvider from "./QueryProvider";
 import StoreProvider from "./StoreProvider";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("flex min-h-dvh flex-col bg-back", inter.className)}>
         <StoreProvider>
-          <Providers>
+          <QueryProvider>
             <>
               <Header />
               <div className="h-full px-6 sm:px-8 md:px-12 lg:px-20 flex-1">
@@ -32,7 +32,7 @@ export default function RootLayout({
               </div>
               <Footer />
             </>
-          </Providers>
+          </QueryProvider>
         </StoreProvider>
       </body>
     </html>
