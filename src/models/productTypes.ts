@@ -12,8 +12,8 @@ export type ProductParams = {
   type: Partial<ParamProps>;
   speedType?: Partial<ParamProps>;
   formType?: Partial<ParamProps>;
-  flavours: ProductFlavorParams[];
-  images: ProductImageParams[];
+  flavours: Omit<ProductFlavorParams, "flavourId" | "amount">[];
+  images: Omit<ProductImageParams, "id" | "main">[];
 };
 
 export type ProductCardProps = {

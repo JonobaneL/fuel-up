@@ -15,7 +15,7 @@ const SortSelect = () => {
   ];
   return (
     <Select defaultValue="popular">
-      <SelectTrigger className="w-60 rounded-sm flex-fix">
+      <SelectTrigger className="w-56 rounded-sm flex-fix">
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent className="rounded-sm">

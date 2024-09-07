@@ -1,18 +1,4 @@
-import {
-  getProductDetailsParams,
-  ProductDetailsResponse,
-} from "@/actions/productAction";
-
-type CommonInfoProps = {
-  product: ProductDetailsResponse;
-};
-
-const CommonInfo = async ({ product }: CommonInfoProps) => {
-  const productDetailsParams = await getProductDetailsParams(
-    Object.keys(product || {})
-  );
-  // use all keys that not null
-  console.log(product);
+const CommonInfo = async () => {
   return (
     <section className="border rounded-sm flex p-5 mt-6">
       <div className="w-1/2 pr-5 border-r">

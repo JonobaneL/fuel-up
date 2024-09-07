@@ -1,6 +1,7 @@
 import { getType } from "@/actions/paramsActions";
 import ActiveFilters from "@/components/ActiveFilters";
 import Filters from "@/components/Filters";
+import FiltersButton from "@/components/FiltersButton";
 import ProductsList from "@/components/ProductsList";
 import SortSelect from "@/components/SortSelects";
 import ProductsListSkeleton from "@/components/ui/ProductsListSkeleton";
@@ -14,16 +15,21 @@ type ProductsProps = {
 const Products = async ({ params, searchParams }: ProductsProps) => {
   const type = await getType(params.type_slug);
   return (
-    <main className="my-14">
+    <main className="my-10 md:my-14">
       <section className="w-full mb-4">
         <ActiveFilters />
       </section>
       <section className="flex gap-5">
-        <Filters slug={params.type_slug} />
+        <div className="hidden xl:block">
+          <Filters slug={params.type_slug} />
+        </div>
         <div className="w-full">
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex xl:items-center justify-between mb-10 flex-col xl:flex-row gap-2">
             <h2 className="font-title text-2xl text-third">{type?.name}</h2>
-            <SortSelect />
+            <div className="flex justify-between">
+              <FiltersButton type_slug={params.type_slug} />
+              <SortSelect />
+            </div>
           </div>
           <Suspense fallback={<ProductsListSkeleton />}>
             <ProductsList

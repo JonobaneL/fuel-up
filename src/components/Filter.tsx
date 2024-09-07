@@ -20,14 +20,14 @@ const Filter = ({ paramName, title, data }: FilterProps) => {
   const { updateFilter } = useFilters();
   const filters = useTypeSelector((state) => state.filters);
   return (
-    <AccordionItem value="speedType">
+    <AccordionItem value={paramName}>
       <AccordionTrigger className="px-2 hover:no-underline font-title text-base no-underline">
         {title}
       </AccordionTrigger>
-      <AccordionContent className="px-2">
+      <AccordionContent className="px-2 max-h-[25rem] overflow-y-auto">
         <CheckboxList
           data={data}
-          maxLimit={100}
+          maxLimit={15}
           checked={filters[paramName] || []}
           callback={(value) => updateFilter(paramName, value)}
         />

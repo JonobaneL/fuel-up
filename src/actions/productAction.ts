@@ -21,6 +21,7 @@ export const getProductDetails = (proudct_slug: string) => {
       images: true,
       brand: true,
       speedType: true,
+      formType: true,
       reviews: true,
       type: {
         include: {
@@ -88,11 +89,5 @@ export const getProductRate = async (product_slug: string) => {
   return response._avg.rate;
 };
 export const getProductDetailsParams = async (params: string[]) => {
-  return prisma.productDetailParam.findMany({
-    where: {
-      slug: {
-        in: params,
-      },
-    },
-  });
+  return prisma.productDetailParam.findMany();
 };

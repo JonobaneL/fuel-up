@@ -22,7 +22,7 @@ const Filters = async ({ slug }: FiltersProps) => {
   const flavours = await getAllFlavours();
   const countries = await getCountries();
   return (
-    <div className="w-[260px] h-full flex-cover">
+    <div className="w-full xl:w-[260px] h-full flex-cover">
       <Accordion type="multiple" defaultValue={["price"]}>
         <TypeFilters slug={slug} />
         <Filter

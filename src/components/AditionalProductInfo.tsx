@@ -1,35 +1,31 @@
 import DashedSeparator from "./ui/DashedSeparator";
-import { getProductDetails } from "@/actions/productAction";
+import {
+  getProductDetailsParams,
+  ProductDetailsResponse,
+} from "@/actions/productAction";
 
 type InfoProps = {
-  product_slug: string;
+  product: ProductDetailsResponse;
 };
 
-const AditionalProductInfo = async ({ product_slug }: InfoProps) => {
-  const product = await getProductDetails(product_slug);
+const AditionalProductInfo = async ({ product }: InfoProps) => {
+  if (!product) return null;
+  const productParams = await getProductDetailsParams(Object.keys(product));
+  console.log(product);
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center gap-2">
-        <p className="flex-cover">Виробництво:</p>
-        <DashedSeparator />
-        <p className="flex-cover">{product?.country.name}</p>
-      </div>
-      <div className="flex items-center gap-2 ">
-        <p className="flex-cover">Тип:</p>
-        <DashedSeparator />
-        <p className="flex-cover">{product?.type.name}</p>
-      </div>
-      <div className="flex items-center gap-2 h-fit">
-        <p className="flex-cover">Тип по швидкодії:</p>
-        <DashedSeparator />
-        <p className="flex-cover">{product?.speedType?.name}</p>
-      </div>
-      {/* <div className="flex items-center gap-2">
-        <p className="flex-cover">Кількість порцій:</p>
-        <DashedSeparator />
-        <p className="flex-cover">{fakeProduct.portionAmount}</p>
-      </div> */}
+      {productParams &&
+        productParams.map((item) => {
+          const param = product[item.slug as keyof ProductDetailsResponse];
+          return param ? (
+            <div key={item.id} className="flex items-center gap-2">
+              <p className="flex-cover">{item.name}:</p>
+              <DashedSeparator />
+              <p className="flex-cover">{param?.name}</p>
+            </div>
+          ) : null;
+        })}
     </div>
   );
 };

@@ -46,7 +46,7 @@ const ProductInfo = async ({
           fontSize="2xl"
         />
         <ProductControlls product_slug={product_slug} />
-        <AditionalProductInfo product_slug={product_slug} />
+        <AditionalProductInfo product={product} />
       </div>
     </>
   );

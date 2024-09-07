@@ -25,7 +25,7 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
             product_slug={params.product_slug}
             flavour_slug={searchParams?.flavour || null}
           />
-          <CommonInfo product={product} />
+          <CommonInfo />
         </div>
       </section>
       <section className="flex gap-12 mt-10">
