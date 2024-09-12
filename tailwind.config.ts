@@ -10,12 +10,15 @@ const config = {
   ],
   prefix: "",
   theme: {
+    screens: {
+      sm: "641px",
+      md: "769px",
+      lg: "1025px",
+      xl: "1280px",
+    },
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
     fontFamily: {
       title: ["Russo One", "sans-serif"],

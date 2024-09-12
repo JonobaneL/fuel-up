@@ -27,9 +27,7 @@ export default function RootLayout({
           <QueryProvider>
             <>
               <Header />
-              <div className="h-full px-6 sm:px-8 md:px-12 lg:px-20 flex-1">
-                <div className="max-w-[1440px] w-full mx-auto">{children}</div>
-              </div>
+              <div className="h-full">{children}</div>
               <Footer />
             </>
           </QueryProvider>

@@ -20,7 +20,7 @@ const BurgerMenu = ({ categories }: BurgerMenuProps) => {
   return (
     <Sheet open={isOpen} onOpenChange={(open) => setOpen(open)}>
       <SheetTrigger className="md:hidden block">
-        <img className="size-10" src="header/burger-icon.svg" alt="burger" />
+        <img className="size-10" src="/header/burger-icon.svg" alt="burger" />
       </SheetTrigger>
       <SheetContent side="left" className="flex flex-col">
         <SheetHeader className="mb-5">

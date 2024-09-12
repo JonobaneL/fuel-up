@@ -6,34 +6,33 @@ import {
   CarouselThumbs,
 } from "./ui/carousel";
 import { ProductImageParams } from "@/models/paramsTypes";
+import CarouselDots from "./ui/CarouselDots";
 
 type CarouselProps = {
   images: ProductImageParams[] | undefined;
 };
 
 const ProductCarousel = ({ images }: CarouselProps) => {
+  if (!images) return null;
   return (
-    <div className="flex gap-2 w-full aspect-square">
-      <Carousel className="flex gap-2">
-        <CarouselThumbs orientation="vertical">
-          {images ? (
-            images?.map((item, index) => (
-              <div
-                key={index}
-                className="p-1 group-data-[active=true]:outline outline-1 outline-primary rounded-sm"
-              >
-                <Image
-                  src={item.url}
-                  alt="product image"
-                  width={60}
-                  height={60}
-                />
-              </div>
-            ))
-          ) : (
-            <></>
-          )}
+    <div className="w-full aspect-square">
+      <Carousel className="flex md:gap-2">
+        <CarouselThumbs className="hidden sm:flex" orientation="vertical">
+          {images?.map((item, index) => (
+            <div
+              key={index}
+              className="p-1 group-data-[active=true]:outline outline-1 outline-primary rounded-sm"
+            >
+              <Image
+                src={item.url}
+                alt="product image"
+                width={60}
+                height={60}
+              />
+            </div>
+          ))}
         </CarouselThumbs>
+
         <CarouselContent className="w-full h-full">
           {images?.map((item, index) => (
             <CarouselItem key={index} className="w-full h-full p-4">
@@ -45,6 +44,11 @@ const ProductCarousel = ({ images }: CarouselProps) => {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselDots
+          theme="primary"
+          length={images.length}
+          className="sm:hidden -bottom-2"
+        />
       </Carousel>
     </div>
   );

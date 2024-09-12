@@ -22,7 +22,7 @@ const ProductInfo = async ({
 
   return (
     <>
-      <h2 className="text-4xl font-semibold mb-1 text-gray-800">
+      <h2 className="text-3xl lg:text-4xl font-semibold mb-1 text-gray-800">
         {product?.name}
       </h2>
       <h4 className="text-lg font-semibold text-gray-500 mb-6">

@@ -1,12 +1,13 @@
+import PageWrapper from "@/components/PageWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ProductLoader = () => {
   return (
-    <div className="pt-12">
+    <PageWrapper className="pt-12">
       <Skeleton className="w-1/3 h-5 rounded-sm bg-gray-200" />
-      <div className="flex gap-12 mt-10">
-        <Skeleton className="w-1/2 aspect-square rounded-sm bg-gray-200" />
-        <div className="w-1/2 ">
+      <div className="flex gap-12 mt-10 flex-col md:flex-row">
+        <Skeleton className="w-full md:w-1/2 aspect-square rounded-sm bg-gray-200" />
+        <div className="w-full md:w-1/2 ">
           <Skeleton className="w-full h-12 rounded-sm bg-gray-200 mb-2" />
           <Skeleton className="w-2/3 h-6 rounded-sm bg-gray-200 mb-6" />
           <Skeleton className="w-1/4 h-5 rounded-sm bg-gray-200 mb-2" />
@@ -27,7 +28,7 @@ const ProductLoader = () => {
         <Skeleton className="w-3/5 h-[15rem] rounded-sm bg-gray-200" />
         <Skeleton className="w-2/5 h-[15rem] rounded-sm bg-gray-200" />
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

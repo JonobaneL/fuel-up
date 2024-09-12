@@ -1,4 +1,5 @@
 import { getPurpose } from "@/actions/purposesAction";
+import PageWrapper from "@/components/PageWrapper";
 import ProductCart from "@/components/ProductCard";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,9 +12,9 @@ type PurposePageProps = {
 const PurposePage = async ({ params }: PurposePageProps) => {
   const purpose = await getPurpose(params.purpose_slug);
   return (
-    <div className="py-10">
+    <PageWrapper className="py-10">
       <div className="flex gap-4 items-start mb-10">
-        <div className="relative w-full max-w-[300px] aspect-video">
+        <div className="relative w-full max-w-[300px] aspect-video flex-cover">
           <Image
             src={purpose?.imageUrl || ""}
             alt={purpose?.title || ""}
@@ -33,13 +34,13 @@ const PurposePage = async ({ params }: PurposePageProps) => {
           <Link
             key={item.id}
             className="w-full"
-            href={`/${item.type.slug}/${item.slug}?flavour=${item.flavours[0].flavour.slug}`}
+            href={`/${item.type.slug}/${item.slug}?flavour=${item?.flavours[0]?.flavour?.slug}`}
           >
             <ProductCart product={item} />
           </Link>
         ))}
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

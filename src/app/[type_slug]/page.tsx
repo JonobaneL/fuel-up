@@ -2,6 +2,7 @@ import { getType } from "@/actions/paramsActions";
 import ActiveFilters from "@/components/ActiveFilters";
 import Filters from "@/components/Filters";
 import FiltersButton from "@/components/FiltersButton";
+import PageWrapper from "@/components/PageWrapper";
 import ProductsList from "@/components/ProductsList";
 import SortSelect from "@/components/SortSelects";
 import ProductsListSkeleton from "@/components/ui/ProductsListSkeleton";
@@ -15,7 +16,7 @@ type ProductsProps = {
 const Products = async ({ params, searchParams }: ProductsProps) => {
   const type = await getType(params.type_slug);
   return (
-    <main className="my-10 md:my-14">
+    <PageWrapper className="py-10 md:py-12">
       <section className="w-full mb-4">
         <ActiveFilters />
       </section>
@@ -39,7 +40,7 @@ const Products = async ({ params, searchParams }: ProductsProps) => {
           </Suspense>
         </div>
       </section>
-    </main>
+    </PageWrapper>
   );
 };
 

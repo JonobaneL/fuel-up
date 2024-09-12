@@ -88,6 +88,6 @@ export const getProductRate = async (product_slug: string) => {
   if (!response._avg.rate) return 0;
   return response._avg.rate;
 };
-export const getProductDetailsParams = async (params: string[]) => {
+export const getProductDetailsParams = async () => {
   return prisma.productDetailParam.findMany();
 };
