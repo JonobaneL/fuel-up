@@ -32,22 +32,21 @@ const ShoppingCartDialog = () => {
           </div>
         ) : null}
       </div>
-      <>
-        {products.length ? (
-          <div className="space-y-3 divide-y">
-            {products?.map((item) => (
-              <ShoppingCartProduct
-                key={`${item.slug}_${item.flavour}`}
-                product={item}
-                closeCallback={() => setOpen(false)}
-              />
-            ))}
-          </div>
-        ) : (
-          <p>Наразі у вас немає доданих товарів</p>
-        )}
-        <ShoppingCartTotal products={products} />
-      </>
+
+      {products.length ? (
+        <div className="space-y-3 divide-y">
+          {products?.map((item) => (
+            <ShoppingCartProduct
+              key={`${item.slug}_${item.flavour}`}
+              product={item}
+              closeCallback={() => setOpen(false)}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>Наразі у вас немає доданих товарів</p>
+      )}
+      <ShoppingCartTotal products={products} />
     </Modal>
   );
 };

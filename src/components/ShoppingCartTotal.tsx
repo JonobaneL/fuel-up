@@ -30,14 +30,12 @@ const ShoppingCartTotal = ({ products }: TotalProps) => {
     }),
   });
   return (
-    <div className="ml-auto mr-0 mt-4 w-1/3 max-w-60">
-      <div className="flex justify-between">
-        <p className="font-title text-lg text-third mb-2">Разом</p>
-        <p className="font-title text-lg text-third mb-2">
-          {results.total} грн
-        </p>
+    <div className="md:ml-auto md:mr-0 md:mt-4 md:w-1/3 md:max-w-60 flex flex-col gap-2 sm:flex-row md:flex-col sm:gap-10 md:gap-0 items-center">
+      <div className="flex justify-between flex-1 md:mb-2 w-full">
+        <p className="font-title text-lg text-third">Разом</p>
+        <p className="font-title text-lg text-third">{results.total} грн</p>
       </div>
-      <Button className=" text-white rounded-none w-full">
+      <Button className="w-full sm:w-fit md:w-full text-white rounded-none flex-fix">
         Оформити замовлення
       </Button>
     </div>

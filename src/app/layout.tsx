@@ -27,7 +27,7 @@ export default function RootLayout({
           <QueryProvider>
             <>
               <Header />
-              <div className="h-full">{children}</div>
+              <div className="h-full flex-1 ">{children}</div>
               <Footer />
             </>
           </QueryProvider>

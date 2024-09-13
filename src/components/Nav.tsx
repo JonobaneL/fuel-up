@@ -1,50 +1,46 @@
-"use client";
-import { TypeParams, TypeParamsWithSub } from "@/models/paramsTypes";
+import { TypeParamsWithSub } from "@/models/paramsTypes";
 import Link from "next/link";
-import { useState } from "react";
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from "./ui/dropdown-menu";
 
 type NavProps = {
   categories: TypeParamsWithSub[];
   closeHandler: () => void;
 };
 const Nav = ({ categories, closeHandler }: NavProps) => {
-  const [subCategories, setCategories] = useState<TypeParams[] | null>(null);
   return (
-    <div
-      className="max-w-screen-width mx-auto pl-36 flex"
-      onMouseLeave={() => setCategories([])}
-    >
-      <ul className="w-full max-w-72 flex-cover py-4">
-        {categories.map((item) => (
-          <li
-            key={item.id}
-            className="h-9 flex justify-between items-center cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm"
-            onMouseOver={() => setCategories(item.subTypes)}
-          >
-            <Link href={`/${item.slug}`} onClick={closeHandler}>
-              {item.name}
-            </Link>
-            {item.subTypes.length > 0 && (
-              <img className="size-3" src="/arrow.svg" alt="arrow" />
-            )}
-          </li>
-        ))}
-      </ul>
-      {subCategories?.length ? (
-        <ul className="w-full shadow-nav-shadow py-4">
-          {subCategories?.map((item) => (
-            <li
-              key={item.id}
-              className="h-9 w-1/2 flex justify-between items-center cursor-pointer hover:bg-gray-100 px-6 py-1 rounded-sm"
-            >
+    <DropdownMenuContent align="start" sideOffset={20} className="w-[16rem]">
+      {categories.map((item) =>
+        item.subTypes.length ? (
+          <DropdownMenuSub key={item.id}>
+            <DropdownMenuSubTrigger>
               <Link href={`/${item.slug}`} onClick={closeHandler}>
                 {item.name}
               </Link>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-    </div>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-[16rem]">
+                {item.subTypes.map((subType) => (
+                  <DropdownMenuItem asChild key={subType.id}>
+                    <Link href={`/${subType.slug}`}>{subType.name}</Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+        ) : (
+          <DropdownMenuItem asChild key={item.id}>
+            <Link href={`/${item.slug}`}>{item.name}</Link>
+          </DropdownMenuItem>
+        )
+      )}
+    </DropdownMenuContent>
   );
 };
 

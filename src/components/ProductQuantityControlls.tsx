@@ -16,7 +16,7 @@ const ProductQuantityControlls = ({ product }: ControllsProps) => {
   const dispatch = useTypeDispatch();
   const { flavour, slug } = product;
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between max-w-40">
       <Button
         className="size-8 rounded-none text-white p-1"
         onClick={() =>

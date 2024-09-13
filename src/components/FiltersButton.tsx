@@ -3,7 +3,6 @@ import { Button } from "./ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -23,7 +22,9 @@ const FiltersButton = ({ type_slug }: FiltersButtonProps) => {
       </SheetTrigger>
       <SheetContent side="left" className="overflow-y-auto w-full">
         <SheetHeader>
-          <SheetTitle>Фільтри</SheetTitle>
+          <SheetTitle className="font-title text-primary text-xl">
+            Фільтри
+          </SheetTitle>
         </SheetHeader>
         <Filters slug={type_slug} />
       </SheetContent>

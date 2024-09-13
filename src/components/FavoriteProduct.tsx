@@ -1,4 +1,3 @@
-import Image from "next/image";
 import ProductPrice from "./ui/ProductPrice";
 import { useQuery } from "@tanstack/react-query";
 import { getFavoriteProduct } from "@/actions/favoritesActoin";
@@ -6,7 +5,9 @@ import FavoriteProductSkeleton from "./ui/FavoriteProductSkeleton";
 import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
 import { removeFavorite } from "@/store/reducers/FavoritesSlice";
 import { generateProductLink } from "@/utils/generateProductLink";
-import { useRouter } from "next/navigation";
+import RemoveProductButton from "./ui/RemoveProductButton";
+import ProductImageLink from "./ui/ProductImageLink";
+import Link from "next/link";
 
 type FavoriteProductProps = {
   product_slug: string;
@@ -23,47 +24,34 @@ const FavoriteProduct = ({
   });
   const productLink = generateProductLink(data || null);
   const dispatch = useTypeDispatch();
-  const router = useRouter();
-  const linkHandler = () => {
-    router.push(productLink);
-    closeCallback();
-  };
+
   if (isPending) return <FavoriteProductSkeleton />;
   return (
-    <div className="items-center gap-4 grid grid-cols-[auto_2fr_1fr_15px] pt-3">
-      <Image
-        onClick={linkHandler}
-        src={data?.images[0].url || ""}
-        width={80}
-        height={80}
-        alt={data?.name || ""}
-        className="cursor-pointer"
+    <div className="@container items-center gap-4 flex pt-3">
+      <ProductImageLink
+        link={productLink}
+        src={data?.images[0].url}
+        closeCallback={closeCallback}
+        alt={data?.name}
       />
-      <div className="space-y-0.5 col-span-2 sm:col-span-1">
-        <p onClick={linkHandler} className="font-medium cursor-pointer">
-          {data?.name}
-        </p>
-        <p className="text-third text-sm">{data?.brand.name}</p>
-        <div className="sm:hidden">
-          <ProductPrice
-            discount={data?.flavours[0].discount || 0}
-            price={data?.flavours[0].price || 0}
-          />
+      <div className="w-full grid grid-rows-[auto_auto] grid-cols-1 gap-1 @[600px]:grid-rows-1 @[600px]:grid-cols-[2fr_1fr] items-center @[600px]:gap-2">
+        <div className="space-y-0.5 ">
+          <Link
+            href={productLink}
+            onClick={closeCallback}
+            className="font-medium cursor-pointer"
+          >
+            {data?.name}
+          </Link>
+          <p className="text-third text-sm">{data?.brand.name}</p>
         </div>
-      </div>
-      <div className="hidden sm:block">
         <ProductPrice
           discount={data?.flavours[0].discount || 0}
           price={data?.flavours[0].price || 0}
         />
       </div>
-      <Image
-        className="cursor-pointer row"
-        src="/close-icon-dark.svg"
-        onClick={() => dispatch(removeFavorite(product_slug))}
-        width={15}
-        height={15}
-        alt="remove"
+      <RemoveProductButton
+        removeCallback={() => dispatch(removeFavorite(product_slug))}
       />
     </div>
   );

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { CartProductType } from "@/models/ShoppingCartTypes";
@@ -8,6 +7,9 @@ import ProductQuantityControlls from "./ProductQuantityControlls";
 import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
 import { removeProduct } from "@/store/reducers/ShoppingCartSlice";
 import { generateProductLink } from "@/utils/generateProductLink";
+import CartProductSkeleton from "./ui/CartProductSkeleton";
+import RemoveProductButton from "./ui/RemoveProductButton";
+import ProductImageLink from "./ui/ProductImageLink";
 
 type ProductProps = {
   product: CartProductType;
@@ -30,40 +32,37 @@ const ShoppingCartProduct = ({ product, closeCallback }: ProductProps) => {
       data?.flavours[0].price || 0,
       data?.flavours[0].discount || 0
     ) * product.quantity;
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <CartProductSkeleton />;
   return (
-    <div className="items-center gap-4 grid grid-cols-[80px_2fr_0.7fr_1fr_15px] pt-3">
-      <Link
-        href={productLink}
-        className="flex gap-4 items-center"
-        onClick={closeCallback}
-      >
-        <Image
-          src={data?.images[0].url || ""}
-          width={80}
-          height={80}
-          alt={data?.name || ""}
-        />
-      </Link>
-
-      <div className="space-y-0.5">
-        <Link
-          href={productLink}
-          className="font-medium"
-          onClick={closeCallback}
-        >
-          {data?.name}
-        </Link>
-        <p className="text-third text-sm font-medium">
-          {data?.flavours[0]?.flavour?.name}
-        </p>
+    <div className="@container flex gap-4 items-center pt-3">
+      <ProductImageLink
+        link={productLink}
+        src={data?.images[0].url}
+        closeCallback={closeCallback}
+        alt={data?.name}
+      />
+      <div className="w-full grid items-center gap-1 grid-cols-1 grid-rows-2 @[600px]:grid-cols-[2fr_2fr] @[600px]:grid-rows-1">
+        <div className="space-y-0.5">
+          <Link
+            href={productLink}
+            className="font-medium "
+            onClick={closeCallback}
+          >
+            {data?.name}
+          </Link>
+          <p className="text-third text-sm font-medium">
+            {data?.flavours[0]?.flavour?.name}
+          </p>
+        </div>
+        <div className="grid gap-2 grid-cols-1 grid-rows-2 @[400px]:grid-cols-2 @[400px]:grid-rows-1">
+          <ProductQuantityControlls product={product} />
+          <p className="font-title text-xl text-third @[600px]:justify-self-center">
+            {productPrice} грн
+          </p>
+        </div>
       </div>
-      <ProductQuantityControlls product={product} />
-      <p className="font-title text-xl text-third justify-self-center">
-        {productPrice} грн
-      </p>
-      <Image
-        onClick={() =>
+      <RemoveProductButton
+        removeCallback={() =>
           dispatch(
             removeProduct({
               product_slug: product.slug,
@@ -71,11 +70,6 @@ const ShoppingCartProduct = ({ product, closeCallback }: ProductProps) => {
             })
           )
         }
-        className="cursor-pointer"
-        src="/close-icon-dark.svg"
-        width={15}
-        height={15}
-        alt="remove"
       />
     </div>
   );
