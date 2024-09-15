@@ -1,14 +1,17 @@
 import { useQueries } from "@tanstack/react-query";
 import { Button } from "./ui/button";
-import { CartProductType } from "@/models/ShoppingCartTypes";
 import { getProductPrice } from "@/actions/productAction";
 import { priceDiscount } from "@/utils/priceDiscount";
+import { useTypeSelector } from "@/hooks/useTypedReduxHooks";
+import { cn } from "@/lib/utils";
 
-type TotalProps = {
-  products: CartProductType[];
+type ProductsTotalProps = {
+  controlls?: boolean;
+  className?: string;
 };
 
-const ShoppingCartTotal = ({ products }: TotalProps) => {
+const ProductsTotal = ({ controlls = true, className }: ProductsTotalProps) => {
+  const products = useTypeSelector((state) => state.shoppingCart);
   const results = useQueries({
     queries: products.map((product) => ({
       queryKey: ["product", product.slug, product.flavour],
@@ -30,16 +33,23 @@ const ShoppingCartTotal = ({ products }: TotalProps) => {
     }),
   });
   return (
-    <div className="md:ml-auto md:mr-0 md:mt-4 md:w-1/3 md:max-w-60 flex flex-col gap-2 sm:flex-row md:flex-col sm:gap-10 md:gap-0 items-center">
+    <div
+      className={cn(
+        "md:ml-auto md:mr-0 md:mt-4 md:w-1/3 md:max-w-60 flex flex-col gap-2 sm:flex-row md:flex-col sm:gap-10 md:gap-0 items-center",
+        className
+      )}
+    >
       <div className="flex justify-between flex-1 md:mb-2 w-full">
         <p className="font-title text-lg text-third">Разом</p>
         <p className="font-title text-lg text-third">{results.total} грн</p>
       </div>
-      <Button className="w-full sm:w-fit md:w-full text-white rounded-none flex-fix">
-        Оформити замовлення
-      </Button>
+      {controlls && (
+        <Button className="w-full sm:w-fit md:w-full text-white rounded-none flex-fix">
+          Оформити замовлення
+        </Button>
+      )}
     </div>
   );
 };
 
-export default ShoppingCartTotal;
+export default ProductsTotal;

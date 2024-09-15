@@ -3,7 +3,7 @@ import Link from "next/link";
 
 type ProductImageLinkProps = {
   link: string;
-  closeCallback: () => void;
+  closeCallback?: () => void;
   src: string | undefined;
   alt: string | undefined;
 };
@@ -12,7 +12,7 @@ const ProductImageLink = ({
   link,
   src,
   alt,
-  closeCallback,
+  closeCallback = () => {},
 }: ProductImageLinkProps) => {
   return (
     <Link href={link} className="w-fit flex-cover" onClick={closeCallback}>

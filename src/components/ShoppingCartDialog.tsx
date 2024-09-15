@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import ShoppingCartProduct from "./ShoppingCartProduct";
-import ShoppingCartTotal from "./ShoppingCartTotal";
+import ProductsTotal from "./ProductsTotal";
 import { useTypeSelector } from "@/hooks/useTypedReduxHooks";
 import { getCartAmount } from "@/store/reducers/ShoppingCartSlice";
 import Modal from "./ui/Modal";
@@ -46,7 +46,7 @@ const ShoppingCartDialog = () => {
       ) : (
         <p>Наразі у вас немає доданих товарів</p>
       )}
-      <ShoppingCartTotal products={products} />
+      <ProductsTotal />
     </Modal>
   );
 };

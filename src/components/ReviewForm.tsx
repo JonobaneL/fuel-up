@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import Field from "./ui/Field";
 import { useForm } from "react-hook-form";
 import TextareaField from "./ui/TextareaField";
-import { emailValidation } from "@/utils/formValidations";
+import { emailValidation, requiredValidation } from "@/utils/formValidations";
 import { useMutation } from "@tanstack/react-query";
 import { addReview } from "@/actions/reviewActions";
 import { ReviewFormParams, ReviewFormProps } from "@/models/formParams";
@@ -38,7 +38,7 @@ const ReviewForm = ({ product_slug, closeCallback }: ReviewFormProps) => {
       <Field
         className="rounded-sm"
         error={errors.author?.message}
-        {...register("author", { required: "Це поле обов'язкове" })}
+        {...register("author", requiredValidation)}
         placeholder="Ваше ім'я"
       />
       <Field
@@ -50,7 +50,7 @@ const ReviewForm = ({ product_slug, closeCallback }: ReviewFormProps) => {
       <RateField control={control} />
       <TextareaField
         error={errors.content?.message}
-        {...register("content", { required: "Це поле обов'язкове" })}
+        {...register("content", requiredValidation)}
         className="rounded-sm min-h-20"
         placeholder="Що Ви думаєте про товар?"
       />
