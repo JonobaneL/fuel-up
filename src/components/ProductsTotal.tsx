@@ -15,9 +15,9 @@ const ProductsTotal = ({ controlls = true, className }: ProductsTotalProps) => {
   const products = useTypeSelector((state) => state.shoppingCart);
   const results = useQueries({
     queries: products.map((product) => ({
-      queryKey: ["product", product.slug, product.flavour],
+      queryKey: ["product", product.productId, product.flavourId],
       queryFn: async () => {
-        return getProductPrice(product.slug, product?.flavour);
+        return getProductPrice(product.productId, product.flavourId);
       },
       staleTime: 24 * 60 * 60 * 1000,
     })),

@@ -1,7 +1,7 @@
 "use server";
 
 import {
-  favoriteProductConfig,
+  productByIdConfig,
   shoppingCartProductConfig,
 } from "@/data/productDetailsConfigs";
 import prisma from "@/lib/db";
@@ -38,33 +38,26 @@ export type ProductDetailsResponse = Awaited<
 >;
 
 export const getBriefProductDetails = (
-  product_slug: string,
-  flavour?: string | null
+  productId: string,
+  flavourId: string
 ) => {
-  const selectConfig = flavour
-    ? shoppingCartProductConfig(flavour)
-    : favoriteProductConfig;
+  const selectConfig = shoppingCartProductConfig(flavourId);
   return prisma.product.findUnique({
     where: {
-      slug: product_slug,
+      id: productId,
     },
     select: selectConfig,
   });
 };
-export const getProductPrice = (
-  product_slug: string,
-  flavour: string | null
-) => {
+export const getProductPrice = (productId: string, flavourId: string) => {
   return prisma.product.findUnique({
     where: {
-      slug: product_slug,
+      id: productId,
     },
     select: {
       flavours: {
         where: {
-          flavour: {
-            slug: flavour || "",
-          },
+          id: flavourId,
         },
         select: {
           price: true,
@@ -90,4 +83,13 @@ export const getProductRate = async (product_slug: string) => {
 };
 export const getProductDetailsParams = async () => {
   return prisma.productDetailParam.findMany();
+};
+
+export const getProductById = (productId: string) => {
+  return prisma.product.findUnique({
+    where: {
+      id: productId,
+    },
+    select: productByIdConfig,
+  });
 };

@@ -11,9 +11,9 @@ type OrderProductProps = {
 
 const OrderProduct = ({ product }: OrderProductProps) => {
   const { data, isPending } = useQuery({
-    queryKey: ["product", product.slug, product.flavour],
+    queryKey: ["product", product.productId, product.flavourId],
     queryFn: async () => {
-      return getBriefProductDetails(product.slug, product.flavour);
+      return getBriefProductDetails(product.productId, product.flavourId);
     },
     staleTime: 24 * 60 * 60 * 1000,
   });

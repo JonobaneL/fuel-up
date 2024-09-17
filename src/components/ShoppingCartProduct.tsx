@@ -18,10 +18,11 @@ type ProductProps = {
 
 const ShoppingCartProduct = ({ product, closeCallback }: ProductProps) => {
   const dispatch = useTypeDispatch();
+  const { productId, flavourId } = product;
   const { data, isPending } = useQuery({
-    queryKey: ["product", product.slug, product.flavour],
+    queryKey: ["product", productId, flavourId],
     queryFn: async () => {
-      return getBriefProductDetails(product.slug, product.flavour);
+      return getBriefProductDetails(productId, flavourId);
     },
     staleTime: 24 * 60 * 60 * 1000,
   });
@@ -65,8 +66,8 @@ const ShoppingCartProduct = ({ product, closeCallback }: ProductProps) => {
         removeCallback={() =>
           dispatch(
             removeProduct({
-              product_slug: product.slug,
-              flavour: product.flavour,
+              productId,
+              flavourId,
             })
           )
         }

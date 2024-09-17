@@ -7,7 +7,6 @@ import CheckoutFormDelivery from "./CheckoutFormDelivery";
 import Link from "next/link";
 import { useMemo } from "react";
 import { Textarea } from "./ui/textarea";
-import { decreaseProductsAmount } from "@/actions/productsAction";
 
 const CheckoutForm = () => {
   const {

@@ -5,8 +5,8 @@ import { CartProductType } from "@/models/ShoppingCartTypes";
 
 type initialStateProps = CartProductType[];
 type ActionProps = {
-  product_slug: string;
-  flavour: string | null;
+  productId: string;
+  flavourId: string;
 };
 const initialState: initialStateProps = [];
 
@@ -15,39 +15,38 @@ const shoppingCartSlice = createSlice({
   initialState,
   reducers: {
     addProduct(state, action: PayloadAction<ActionProps>) {
-      const { product_slug, flavour } = action.payload;
-      console.log(product_slug, flavour);
+      const { productId, flavourId } = action.payload;
       const productCheck = state.find(
-        (item) => item.slug === product_slug && item.flavour === flavour
+        (item) => item.productId === productId && item.flavourId === flavourId
       );
       if (productCheck) {
         return state.map((item) => {
-          if (item.slug === product_slug && item.flavour === flavour)
+          if (item.productId === productId && item.flavourId === flavourId)
             return { ...item, quantity: item.quantity + 1 };
           return item;
         });
       }
-      state.push({ slug: product_slug, flavour, quantity: 1 });
+      state.push({ productId: productId, flavourId, quantity: 1 });
     },
     removeProduct(state, action: PayloadAction<ActionProps>) {
-      const { product_slug, flavour } = action.payload;
+      const { productId, flavourId } = action.payload;
       return state.filter(
-        (item) => item.slug !== product_slug && item.flavour !== flavour
+        (item) => item.productId !== productId && item.flavourId !== flavourId
       );
     },
     increaseProductAmount(state, action: PayloadAction<ActionProps>) {
-      const { product_slug, flavour } = action.payload;
+      const { productId, flavourId } = action.payload;
       return state.map((item) => {
-        if (item.slug === product_slug && item.flavour === flavour)
+        if (item.productId === productId && item.flavourId === flavourId)
           return { ...item, quantity: item.quantity + 1 };
         return item;
       });
     },
     decreaseProductAmount(state, action: PayloadAction<ActionProps>) {
-      const { product_slug, flavour } = action.payload;
+      const { productId, flavourId } = action.payload;
       return state
         .map((item) => {
-          if (item.slug === product_slug && item.flavour === flavour)
+          if (item.productId === productId && item.flavourId === flavourId)
             return { ...item, quantity: item.quantity - 1 };
           return item;
         })

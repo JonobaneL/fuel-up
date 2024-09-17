@@ -42,8 +42,8 @@ export const decreaseProductsAmount = async (products: CartProductType[]) => {
   const requests = products.map((item) =>
     prisma.productFlavour.update({
       where: {
-        id: item.flavour || "",
-        productId: item.slug,
+        id: item.flavourId,
+        productId: item.productId,
       },
       data: {
         amount: {

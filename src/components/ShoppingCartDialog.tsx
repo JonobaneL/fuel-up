@@ -22,7 +22,7 @@ const ShoppingCartDialog = ({ children }: { children: React.ReactNode }) => {
         <div className="space-y-3 divide-y">
           {products?.map((item) => (
             <ShoppingCartProduct
-              key={`${item.slug}_${item.flavour}`}
+              key={`${item.productId}_${item.flavourId}`}
               product={item}
               closeCallback={() => setOpen(false)}
             />

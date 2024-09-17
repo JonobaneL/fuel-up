@@ -44,7 +44,11 @@ const ProductInfo = async ({
           price={currentFlavour?.price || 0}
           fontSize="2xl"
         />
-        <ProductControlls product_slug={product_slug} />
+        <ProductControlls
+          product_slug={product_slug}
+          productId={product?.id || ""}
+          flavourId={currentFlavour?.id || ""}
+        />
         <AditionalProductInfo product={product} />
       </div>
     </>

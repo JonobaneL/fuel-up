@@ -9,7 +9,7 @@ const Order = () => {
     <div>
       <div className="space-y-3 divide-y mt-4 ">
         {products.map((item) => (
-          <OrderProduct key={item.slug} product={item} />
+          <OrderProduct key={item.productId} product={item} />
         ))}
       </div>
       <ProductsTotal

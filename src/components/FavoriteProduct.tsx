@@ -1,6 +1,5 @@
 import ProductPrice from "./ui/ProductPrice";
 import { useQuery } from "@tanstack/react-query";
-import { getFavoriteProduct } from "@/actions/favoritesActoin";
 import FavoriteProductSkeleton from "./ui/FavoriteProductSkeleton";
 import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
 import { removeFavorite } from "@/store/reducers/FavoritesSlice";
@@ -8,19 +7,20 @@ import { generateProductLink } from "@/utils/generateProductLink";
 import RemoveProductButton from "./ui/RemoveProductButton";
 import ProductImageLink from "./ui/ProductImageLink";
 import Link from "next/link";
+import { getProductById } from "@/actions/productAction";
 
 type FavoriteProductProps = {
-  product_slug: string;
+  productId: string;
   closeCallback: () => void;
 };
 
 const FavoriteProduct = ({
-  product_slug,
+  productId,
   closeCallback,
 }: FavoriteProductProps) => {
   const { data, isPending } = useQuery({
-    queryKey: ["favorite", product_slug],
-    queryFn: async () => getFavoriteProduct(product_slug),
+    queryKey: ["favorite", productId],
+    queryFn: async () => getProductById(productId),
   });
   const productLink = generateProductLink(data || null);
   const dispatch = useTypeDispatch();
@@ -51,7 +51,7 @@ const FavoriteProduct = ({
         />
       </div>
       <RemoveProductButton
-        removeCallback={() => dispatch(removeFavorite(product_slug))}
+        removeCallback={() => dispatch(removeFavorite(productId))}
       />
     </div>
   );

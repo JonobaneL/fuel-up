@@ -14,7 +14,7 @@ type ControllsProps = {
 
 const ProductQuantityControlls = ({ product }: ControllsProps) => {
   const dispatch = useTypeDispatch();
-  const { flavour, slug } = product;
+  const { flavourId, productId } = product;
   return (
     <div className="flex items-center justify-between max-w-40">
       <Button
@@ -22,8 +22,8 @@ const ProductQuantityControlls = ({ product }: ControllsProps) => {
         onClick={() =>
           dispatch(
             decreaseProductAmount({
-              product_slug: slug,
-              flavour,
+              flavourId,
+              productId,
             })
           )
         }
@@ -42,8 +42,8 @@ const ProductQuantityControlls = ({ product }: ControllsProps) => {
         onClick={() =>
           dispatch(
             increaseProductAmount({
-              product_slug: slug,
-              flavour,
+              flavourId,
+              productId,
             })
           )
         }

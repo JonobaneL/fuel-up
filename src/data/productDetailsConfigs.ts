@@ -1,4 +1,4 @@
-export const favoriteProductConfig = {
+export const productByIdConfig = {
   id: true,
   name: true,
   slug: true,
@@ -25,7 +25,7 @@ export const favoriteProductConfig = {
     },
   },
 };
-export const shoppingCartProductConfig = (flavour: string) => ({
+export const shoppingCartProductConfig = (flavourId: string) => ({
   id: true,
   name: true,
   slug: true,
@@ -37,9 +37,7 @@ export const shoppingCartProductConfig = (flavour: string) => ({
   },
   flavours: {
     where: {
-      flavour: {
-        slug: flavour,
-      },
+      id: flavourId,
     },
     include: {
       flavour: true,

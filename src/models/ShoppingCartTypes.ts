@@ -1,6 +1,6 @@
 export type CartProductType = {
-  slug: string;
-  flavour: string | null;
+  productId: string;
+  flavourId: string;
   quantity: number;
 };
 export type ShoppingCartParams = {

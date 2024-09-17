@@ -35,7 +35,7 @@ const Favorites = () => {
             {favorites?.map((item) => (
               <FavoriteProduct
                 key={item}
-                product_slug={item}
+                productId={item}
                 closeCallback={() => setOpen(false)}
               />
             ))}
