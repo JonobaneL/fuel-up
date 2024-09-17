@@ -17,7 +17,8 @@ const PhoneField = ({ value, onChange, onBlur, error }: PhoneFieldProps) => {
   };
   const onBlurHandler = () => {
     onBlur();
-    if (value.length == 0) setCodeVisibility(false);
+    console.log(value);
+    if (!value || value?.length == 0) setCodeVisibility(false);
   };
   return (
     <div>

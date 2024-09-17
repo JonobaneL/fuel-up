@@ -12,6 +12,7 @@ type CatalogProps = {
 
 const Catalog = ({ categories }: CatalogProps) => {
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <DropdownMenu open={open} onOpenChange={(open) => setOpen(open)}>

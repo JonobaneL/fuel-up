@@ -5,7 +5,6 @@ import ProductsTotal from "./ProductsTotal";
 
 const Order = () => {
   const products = useTypeSelector((state) => state.shoppingCart);
-  console.log(products);
   return (
     <div>
       <div className="space-y-3 divide-y mt-4 ">

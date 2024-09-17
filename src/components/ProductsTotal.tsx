@@ -1,3 +1,4 @@
+"use client";
 import { useQueries } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import { getProductPrice } from "@/actions/productAction";

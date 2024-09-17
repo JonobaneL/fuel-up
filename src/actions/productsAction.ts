@@ -2,6 +2,7 @@
 import { allProductsRequestConfig } from "@/data/productDetailsConfigs";
 import prisma from "@/lib/db";
 import { SearchParamsType } from "@/models/paramsTypes";
+import { CartProductType } from "@/models/ShoppingCartTypes";
 import { generateFiltersConfig } from "@/utils/filtersConfig";
 
 const getDefaultConfig = (type_slug: string) => {
@@ -35,4 +36,25 @@ export const getProducts = (type_slug: string, filters: SearchParamsType) => {
     },
     ...allProductsRequestConfig,
   });
+};
+
+export const decreaseProductsAmount = async (products: CartProductType[]) => {
+  const requests = products.map((item) =>
+    prisma.productFlavour.update({
+      where: {
+        id: item.flavour || "",
+        productId: item.slug,
+      },
+      data: {
+        amount: {
+          decrement: item.quantity,
+        },
+      },
+    })
+  );
+  try {
+    await Promise.all(requests);
+  } catch (error) {
+    console.error("Error updating products amount:", error);
+  }
 };

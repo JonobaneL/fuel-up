@@ -33,7 +33,7 @@ const SelectField = <T extends FieldValues>({
         </SelectTrigger>
         <SelectContent className="max-h-56">
           {options.map((item, index) => (
-            <SelectItem key={index} value={item}>
+            <SelectItem key={index} value={item} className="w-full">
               {item}
             </SelectItem>
           ))}

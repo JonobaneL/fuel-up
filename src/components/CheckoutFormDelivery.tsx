@@ -1,21 +1,19 @@
 import { CheckoutFormParams } from "@/models/formParams";
-import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
-import Field from "./ui/Field";
+import { Control } from "react-hook-form";
 import { requiredValidation } from "@/utils/formValidations";
 
-import { cities, deliveryMethods } from "@/data/deliveryData";
+import { cities, deliveryMethods, npPostPoints } from "@/data/deliveryData";
 import SelectField from "./ui/SelectField";
+import AddressField from "./AddressField";
 
 type CheckoutFormDeliveryProps = {
-  register: UseFormRegister<CheckoutFormParams>;
-  errors: FieldErrors<CheckoutFormParams>;
   control: Control<CheckoutFormParams, any>;
+  addressType: string | null;
 };
 
 const CheckoutFormDelivery = ({
-  register,
   control,
-  errors,
+  addressType,
 }: CheckoutFormDeliveryProps) => {
   return (
     <div className="space-y-3">
@@ -36,11 +34,12 @@ const CheckoutFormDelivery = ({
         placeholder="Оберіть спосіб доставки"
         options={deliveryMethods}
       />
-      <Field
-        className="rounded-sm"
-        error={errors.address?.message}
-        {...register("address", requiredValidation)}
-        placeholder="Куди доставити?"
+      <AddressField
+        name="address"
+        control={control}
+        rules={requiredValidation}
+        addressType={addressType}
+        options={npPostPoints}
       />
     </div>
   );

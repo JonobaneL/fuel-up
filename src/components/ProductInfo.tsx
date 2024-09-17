@@ -19,7 +19,6 @@ const ProductInfo = async ({
     flavour_slug !== null
       ? product?.flavours.find((item) => item.flavour?.slug === flavour_slug)
       : product?.flavours[0];
-
   return (
     <>
       <h2 className="text-3xl lg:text-4xl font-semibold mb-1 text-gray-800">

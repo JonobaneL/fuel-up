@@ -6,6 +6,7 @@ import { getMainTypes } from "@/actions/paramsActions";
 import Favorites from "./Favorites";
 import ShoppingCartDialog from "./ShoppingCartDialog";
 import BurgerMenu from "./BurgerMenu";
+import ShoppingCartButton from "./ShoppingCartButton";
 
 const Header = async () => {
   const categories = await getMainTypes();
@@ -29,7 +30,9 @@ const Header = async () => {
             <div className="h-10 flex-cover flex items-center px-4 border-x">
               <Favorites />
             </div>
-            <ShoppingCartDialog />
+            <ShoppingCartDialog>
+              <ShoppingCartButton />
+            </ShoppingCartDialog>
           </div>
         </div>
       </div>
