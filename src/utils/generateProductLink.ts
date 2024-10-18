@@ -1,4 +1,4 @@
-import { ProductParams } from "@/models/productTypes";
+import { ProductParams } from "@/types/productTypes";
 
 export const generateProductLink = (product: ProductParams | null) => {
   if (!product) return "";

@@ -1,10 +1,12 @@
+import CommonInfo from "./_components/CommonInfo";
+import ProductBreadcrumb from "./_components/ProductBreadcrumb";
+import ProductCarousel from "./_components/ProductCarousel";
+import ProductInfo from "./_components/ProductInfo";
+import ProductReviews from "./_components/ProductReviews";
+
 import { getProductDetails } from "@/actions/productAction";
-import CommonInfo from "@/components/CommonInfo";
+
 import PageWrapper from "@/components/PageWrapper";
-import ProductBreadcrumb from "@/components/ProductBreadcrumb";
-import ProductCarousel from "@/components/ProductCarousel";
-import ProductInfo from "@/components/ProductInfo";
-import ProductReviews from "@/components/ProductReviews";
 
 type ProductPageProps = {
   params: { product_slug: string };
@@ -12,6 +14,7 @@ type ProductPageProps = {
 };
 const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
   const product = await getProductDetails(params.product_slug);
+
   return (
     <PageWrapper className="mb-14 mt-10">
       <section>
@@ -26,6 +29,7 @@ const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
             product_slug={params.product_slug}
             flavour_slug={searchParams?.flavour || null}
           />
+
           <CommonInfo />
         </div>
       </section>

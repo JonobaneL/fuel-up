@@ -1,23 +1,29 @@
 "use client";
+
 import { usePathname, useRouter } from "next/navigation";
+
+import { useSearchParams } from "./useSearchPrams";
 import { useTypeDispatch, useTypeSelector } from "./useTypedReduxHooks";
+
+import { FiltersKeys } from "@/types/filtersTypes";
+
 import {
   updateFilterAction,
   updateAllFiltersAction,
 } from "@/store/reducers/FiltersSlice";
-import { useSearchParams } from "./useSearchPrams";
-import { FiltersKeys } from "@/models/filtersTypes";
 
 export const useFilters = () => {
-  const filters = useTypeSelector((state) => state.filters);
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useTypeDispatch();
   const updateSearchParams = useSearchParams();
 
+  const filters = useTypeSelector((state) => state.filters);
+
   const updateFilter = (paramName: FiltersKeys, value: string | string[]) => {
     let updatedFilter = [];
     const currentFilter = filters[paramName] || [];
+
     if (Array.isArray(value)) {
       updatedFilter = paramName == "price" ? [value.join("-")] : value;
     } else {
@@ -40,9 +46,11 @@ export const useFilters = () => {
     const { [paramName]: _, ...rest } = filters;
     dispatch(updateAllFiltersAction(rest));
   };
+
   const clearFilters = () => {
     router.replace(pathname);
     dispatch(updateAllFiltersAction({}));
   };
+
   return { updateFilter, removeFilter, clearFilters };
 };

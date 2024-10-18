@@ -1,5 +1,6 @@
-import { DynamicParams, ParamProps } from "@/models/paramsTypes";
 import { UseQueryResult } from "@tanstack/react-query";
+
+import { DynamicParams, ParamProps } from "@/types/paramsTypes";
 
 export const filtersCombiteCallback = (
   response: UseQueryResult<any, Error>[],

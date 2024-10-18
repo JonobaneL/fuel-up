@@ -1,7 +1,10 @@
+import containerQueries from "@tailwindcss/container-queries";
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 const config = {
   darkMode: ["class"],
+  mode: "jit",
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -90,10 +93,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/container-queries"),
-  ],
+  plugins: [animate, containerQueries],
 } satisfies Config;
 
 export default config;

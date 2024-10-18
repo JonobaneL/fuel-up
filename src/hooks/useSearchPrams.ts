@@ -1,15 +1,18 @@
-import { serialize } from "@/utils/searchParamsUtils";
+import { useCallback } from "react";
+
 import {
   usePathname,
   useSearchParams as useNextSearchParams,
   useRouter,
 } from "next/navigation";
-import { useCallback } from "react";
+
+import { serialize } from "@/utils/searchParamsUtils";
 
 export const useSearchParams = () => {
   const initialSearchParams = useNextSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+
   const updateSearchParams = useCallback(
     (paramName: string, newValue: string[]) => {
       const newParams = new URLSearchParams(initialSearchParams);
@@ -26,7 +29,8 @@ export const useSearchParams = () => {
         }
       );
     },
-    [pathname, initialSearchParams.keys()]
+    [pathname, initialSearchParams, router]
   );
+
   return updateSearchParams;
 };

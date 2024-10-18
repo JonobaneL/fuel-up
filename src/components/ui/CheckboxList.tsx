@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Checkbox } from "./checkbox";
 import { Label } from "./label";
-import { ParamProps } from "@/models/paramsTypes";
+import { ParamProps } from "@/types/paramsTypes";
 
 type ListProps = {
   data: ParamProps[];

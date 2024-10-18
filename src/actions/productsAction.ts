@@ -1,8 +1,8 @@
 "use server";
 import { allProductsRequestConfig } from "@/data/productDetailsConfigs";
 import prisma from "@/lib/db";
-import { SearchParamsType } from "@/models/paramsTypes";
-import { CartProductType } from "@/models/ShoppingCartTypes";
+import { SearchParamsType } from "@/types/paramsTypes";
+import { CartProductType } from "@/types/ShoppingCartTypes";
 import { generateFiltersConfig } from "@/utils/filtersConfig";
 
 const getDefaultConfig = (type_slug: string) => {

@@ -1,5 +1,6 @@
-import CheckoutForm from "@/components/CheckoutForm";
-import MyOrder from "@/components/MyOrder";
+import CheckoutForm from "./_components/CheckoutForm";
+import MyOrder from "./_components/MyOrder";
+
 import PageWrapper from "@/components/PageWrapper";
 
 const Checkout = () => {

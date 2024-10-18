@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
-import { useMediaQuery } from "@/models/useMediaQuery";
+import { useMediaQuery } from "@/types/useMediaQuery";
 import {
   Drawer,
   DrawerClose,

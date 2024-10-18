@@ -1,9 +1,6 @@
 "use client";
+
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import favoritesReducer from "./reducers/FavoritesSlice";
-import shoppingCartReducer from "./reducers/ShoppingCartSlice";
-import filtersReducer from "./reducers/FiltersSlice";
-import { persistReducer } from "redux-persist";
 import {
   FLUSH,
   REHYDRATE,
@@ -11,12 +8,19 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  persistReducer,
 } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
+
+import favoritesReducer from "./reducers/FavoritesSlice";
+import filtersReducer from "./reducers/FiltersSlice";
+import shoppingCartReducer from "./reducers/ShoppingCartSlice";
+
 //check if we this piece of code later
 function createPersistStore() {
   const isServer = typeof window === "undefined";
+
   if (isServer) {
     return {
       getItem() {

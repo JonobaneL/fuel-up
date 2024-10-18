@@ -1,7 +1,8 @@
-import AditionalInfo from "@/components/AditionalInfo";
-import HomeCarousel from "@/components/HomeCarousel";
+import AditionalInfo from "./_components/AditionalInfo";
+import HomeCarousel from "./_components/HomeCarousel";
+import Purposes from "./_components/Purposes";
+
 import PageWrapper from "@/components/PageWrapper";
-import Purposes from "@/components/Purposes";
 
 export default function Home() {
   return (

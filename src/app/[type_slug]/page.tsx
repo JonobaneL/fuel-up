@@ -1,13 +1,17 @@
-import { getType } from "@/actions/paramsActions";
-import ActiveFilters from "@/components/ActiveFilters";
-import Filters from "@/components/Filters";
-import FiltersButton from "@/components/FiltersButton";
-import PageWrapper from "@/components/PageWrapper";
-import ProductsList from "@/components/ProductsList";
-import SortSelect from "@/components/SortSelects";
-import ProductsListSkeleton from "@/components/ui/ProductsListSkeleton";
-import { SearchParamsType } from "@/models/paramsTypes";
 import { Suspense } from "react";
+
+import ActiveFilters from "./_components/ActiveFilters";
+import Filters from "./_components/Filters";
+import FiltersButton from "./_components/FiltersButton";
+import ProductsList from "./_components/ProductsList";
+import ProductsListSkeleton from "./_components/ProductsListSkeleton";
+import SortSelect from "./_components/SortSelects";
+
+import { getType } from "@/actions/paramsActions";
+
+import { SearchParamsType } from "@/types/paramsTypes";
+
+import PageWrapper from "@/components/PageWrapper";
 
 type ProductsProps = {
   params: { type_slug: string };
@@ -15,6 +19,7 @@ type ProductsProps = {
 };
 const Products = async ({ params, searchParams }: ProductsProps) => {
   const type = await getType(params.type_slug);
+
   return (
     <PageWrapper className="py-10 md:py-12">
       <section className="w-full mb-4">
@@ -29,6 +34,7 @@ const Products = async ({ params, searchParams }: ProductsProps) => {
             <h2 className="font-title text-2xl text-third">{type?.name}</h2>
             <div className="flex justify-between">
               <FiltersButton type_slug={params.type_slug} />
+
               <SortSelect />
             </div>
           </div>

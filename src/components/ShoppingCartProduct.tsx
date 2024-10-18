@@ -1,15 +1,20 @@
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { CartProductType } from "@/models/ShoppingCartTypes";
-import { priceDiscount } from "@/utils/priceDiscount";
-import { getBriefProductDetails } from "@/actions/productAction";
-import ProductQuantityControlls from "./ProductQuantityControlls";
+import Link from "next/link";
+
 import { useTypeDispatch } from "@/hooks/useTypedReduxHooks";
+
+import { getBriefProductDetails } from "@/actions/productAction";
+
+import { CartProductType } from "@/types/ShoppingCartTypes";
+
 import { removeProduct } from "@/store/reducers/ShoppingCartSlice";
+
+import ProductQuantityControlls from "@/app/_components/ProductQuantityControlls";
+import CartProductSkeleton from "@/components/ui/CartProductSkeleton";
+import ProductImageLink from "@/components/ui/ProductImageLink";
+import RemoveProductButton from "@/components/ui/RemoveProductButton";
 import { generateProductLink } from "@/utils/generateProductLink";
-import CartProductSkeleton from "./ui/CartProductSkeleton";
-import RemoveProductButton from "./ui/RemoveProductButton";
-import ProductImageLink from "./ui/ProductImageLink";
+import { priceDiscount } from "@/utils/priceDiscount";
 
 type ProductProps = {
   product: CartProductType;
@@ -19,6 +24,7 @@ type ProductProps = {
 const ShoppingCartProduct = ({ product, closeCallback }: ProductProps) => {
   const dispatch = useTypeDispatch();
   const { productId, flavourId } = product;
+
   const { data, isPending } = useQuery({
     queryKey: ["product", productId, flavourId],
     queryFn: async () => {
@@ -28,12 +34,15 @@ const ShoppingCartProduct = ({ product, closeCallback }: ProductProps) => {
   });
 
   const productLink = generateProductLink(data || null);
+
   const productPrice =
     priceDiscount(
       data?.flavours[0].price || 0,
       data?.flavours[0].discount || 0
     ) * product.quantity;
+
   if (isPending) return <CartProductSkeleton />;
+
   return (
     <div className="@container flex gap-4 items-center pt-3">
       <ProductImageLink

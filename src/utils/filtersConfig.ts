@@ -1,9 +1,12 @@
-import { SearchParamsType } from "@/models/paramsTypes";
 import { deserialize } from "./searchParamsUtils";
+
+import { SearchParamsType } from "@/types/paramsTypes";
 
 export const generateFiltersConfig = (params: SearchParamsType) => {
   const keys = Object.keys(params || {});
+
   if (keys.length == 0) return {};
+
   const filtersConfig = keys.reduce((prev, key) => {
     if (key == "flavour")
       return {
@@ -21,6 +24,7 @@ export const generateFiltersConfig = (params: SearchParamsType) => {
           },
         },
       };
+
     if (key == "price") {
       const price = params[key as keyof SearchParamsType]
         .split("-")
@@ -41,6 +45,7 @@ export const generateFiltersConfig = (params: SearchParamsType) => {
         },
       };
     }
+
     return {
       ...prev,
       [key]: {
@@ -50,5 +55,6 @@ export const generateFiltersConfig = (params: SearchParamsType) => {
       },
     };
   }, {});
+
   return filtersConfig;
 };

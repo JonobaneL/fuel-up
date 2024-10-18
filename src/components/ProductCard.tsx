@@ -1,17 +1,23 @@
-import { ProductCardProps } from "@/models/productTypes";
 import Image from "next/image";
-import Rate from "./ui/Rate";
-import ProductPrice from "./ui/ProductPrice";
-import { getProductRate } from "@/actions/productAction";
 import Link from "next/link";
+
+import ProductPrice from "./ui/ProductPrice";
+import Rate from "./ui/Rate";
+
+import { getProductRate } from "@/actions/productAction";
+
+import { ProductCardProps } from "@/types/productTypes";
+
 import { generateProductLink } from "@/utils/generateProductLink";
 
 const ProductCard = async ({ product }: ProductCardProps) => {
   const product_img = product.images[0].url;
   const product_price = product.flavours[0].price;
   const product_discount = product.flavours[0].discount;
+
   const avarageRate = await getProductRate(product.slug);
   const productLink = generateProductLink(product);
+
   return (
     <Link href={productLink} className="w-full">
       <div className=" w-full h-fit flex flex-col gap-1 p-2 hover:shadow-product-cart rounded-sm transition-shadow cursor-pointer">

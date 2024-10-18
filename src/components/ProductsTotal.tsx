@@ -1,10 +1,15 @@
 "use client";
+
 import { useQueries } from "@tanstack/react-query";
+
 import { Button } from "./ui/button";
-import { getProductPrice } from "@/actions/productAction";
-import { priceDiscount } from "@/utils/priceDiscount";
+
 import { useTypeSelector } from "@/hooks/useTypedReduxHooks";
+
+import { getProductPrice } from "@/actions/productAction";
+
 import { cn } from "@/lib/utils";
+import { priceDiscount } from "@/utils/priceDiscount";
 
 type ProductsTotalProps = {
   controlls?: boolean;
@@ -13,6 +18,7 @@ type ProductsTotalProps = {
 
 const ProductsTotal = ({ controlls = true, className }: ProductsTotalProps) => {
   const products = useTypeSelector((state) => state.shoppingCart);
+
   const results = useQueries({
     queries: products.map((product) => ({
       queryKey: ["product", product.productId, product.flavourId],
@@ -33,6 +39,7 @@ const ProductsTotal = ({ controlls = true, className }: ProductsTotalProps) => {
       pending: response.some((response) => response.isPending),
     }),
   });
+
   return (
     <div
       className={cn(
